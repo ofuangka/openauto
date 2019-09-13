@@ -136,51 +136,6 @@ int main(int argc, char* argv[])
         qApplication.setOverrideCursor(Qt::ArrowCursor);
     }
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraHide, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py Background &");
-        OPENAUTO_LOG(info) << "[Camera] Background.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraShow, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py Foreground &");
-        OPENAUTO_LOG(info) << "[Camera] Foreground.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraPosYUp, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py PosYUp &");
-        OPENAUTO_LOG(info) << "[Camera] PosY up.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraPosYDown, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py PosYDown &");
-        OPENAUTO_LOG(info) << "[Camera] PosY down.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraZoomPlus, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py ZoomPlus &");
-        OPENAUTO_LOG(info) << "[Camera] Zoom plus.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraZoomMinus, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py ZoomMinus &");
-        OPENAUTO_LOG(info) << "[Camera] Zoom minus.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraRecord, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py Record &");
-        OPENAUTO_LOG(info) << "[Camera] Record.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraStop, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py Stop &");
-        OPENAUTO_LOG(info) << "[Camera] Stop.";
-    });
-
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::cameraSave, [&qApplication]() {
-        system("/opt/crankshaft/cameracontrol.py Save &");
-        OPENAUTO_LOG(info) << "[Camera] Save.";
-    });
-
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::TriggerScriptNight, [&qApplication]() {
         system("/opt/crankshaft/service_daynight.sh app night");
         OPENAUTO_LOG(info) << "[MainWindow] Night.";
