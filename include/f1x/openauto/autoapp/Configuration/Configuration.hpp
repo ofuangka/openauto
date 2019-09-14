@@ -66,8 +66,8 @@ public:
     bool showCursor() const override;
     void hideBrightnessControl(bool value) override;
     bool hideBrightnessControl() const override;
-    void showNetworkinfo(bool value) override;
-    bool showNetworkinfo() const override;
+    void showNetworkInfo(bool value) override;
+    bool showNetworkInfo() const override;
     void hideWarning(bool value) override;
     bool hideWarning() const override;
 

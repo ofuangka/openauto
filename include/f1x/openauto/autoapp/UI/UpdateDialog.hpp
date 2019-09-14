@@ -33,12 +33,12 @@ public:
     void updateProgress();
 
 private slots:
-    void on_pushButtonUpdateCsmt_clicked();
-    void on_pushButtonUpdateUdev_clicked();
-    void on_pushButtonUpdateOpenauto_clicked();
-    void on_pushButtonUpdateSystem_clicked();
-    void on_pushButtonUpdateCheck_clicked();
-    void on_pushButtonUpdateCancel_clicked();
+    void on_ButtonUpdateCsmt_clicked();
+    void on_ButtonUpdateUdev_clicked();
+    void on_ButtonUpdateOpenauto_clicked();
+    void on_ButtonUpdateSystem_clicked();
+    void on_ButtonUpdateCheck_clicked();
+    void on_ButtonUpdateCancel_clicked();
 
 private:
     Ui::UpdateDialog *ui_;

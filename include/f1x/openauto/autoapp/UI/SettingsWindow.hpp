@@ -63,7 +63,7 @@ private slots:
     void onStartHotspot();
     void onStopHotspot();
     void syncNTPTime();
-    void on_pushButtonAudioTest_clicked();
+    void on_ButtonAudioTest_clicked();
     void updateNetworkInfo();
     void onUpdateLux1(int value);
     void onUpdateLux2(int value);
@@ -75,8 +75,8 @@ private slots:
     void onUpdateBrightness3(int value);
     void onUpdateBrightness4(int value);
     void onUpdateBrightness5(int value);
-    void on_pushButtonNetwork0_clicked();
-    void on_pushButtonNetwork1_clicked();
+    void on_ButtonNetwork0_clicked();
+    void on_ButtonNetwork1_clicked();
     void updateSystemInfo();
     void updateInfo();
 

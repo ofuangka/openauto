@@ -73,68 +73,66 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   this->wallpaperNightFileExists = check_file_exist("wallpaper-night.png");
 
   ui_->setupUi(this);
-  connect(ui_->pushButtonSettings, &QPushButton::clicked, this,
+  connect(ui_->ButtonSettings, &QPushButton::clicked, this,
           &MainWindow::openSettings);
-  connect(ui_->pushButtonUpdate, &QPushButton::clicked, this,
+  connect(ui_->UpdateButton, &QPushButton::clicked, this,
           &MainWindow::openUpdateDialog);
-  connect(ui_->pushButtonExit, &QPushButton::clicked, this,
+  connect(ui_->ButtonExit, &QPushButton::clicked, this,
           &MainWindow::toggleExit);
-  connect(ui_->pushButtonShutdown, &QPushButton::clicked, this,
+  connect(ui_->ButtonShutdown, &QPushButton::clicked, this,
           &MainWindow::exit);
-  connect(ui_->pushButtonReboot, &QPushButton::clicked, this,
+  connect(ui_->ButtonReboot, &QPushButton::clicked, this,
           &MainWindow::reboot);
-  connect(ui_->pushButtonCancel, &QPushButton::clicked, this,
+  connect(ui_->ButtonCancel, &QPushButton::clicked, this,
           &MainWindow::toggleExit);
-  connect(ui_->pushButtonDay, &QPushButton::clicked, this,
+  connect(ui_->ButtonDay, &QPushButton::clicked, this,
           &MainWindow::TriggerScriptDay);
-  connect(ui_->pushButtonDay, &QPushButton::clicked, this,
+  connect(ui_->ButtonDay, &QPushButton::clicked, this,
           &MainWindow::switchGuiToDay);
-  connect(ui_->pushButtonNight, &QPushButton::clicked, this,
+  connect(ui_->ButtonNight, &QPushButton::clicked, this,
           &MainWindow::TriggerScriptNight);
-  connect(ui_->pushButtonNight, &QPushButton::clicked, this,
+  connect(ui_->ButtonNight, &QPushButton::clicked, this,
           &MainWindow::switchGuiToNight);
-  connect(ui_->pushButtonBrightness, &QPushButton::clicked, this,
-          &MainWindow::showBrightnessSlider);
-  connect(ui_->pushButtonVolume, &QPushButton::clicked, this,
+  connect(ui_->ButtonBrightness, &QPushButton::clicked, this,
+          &MainWindow::showSliderBrightness);
+  connect(ui_->ButtonVolume, &QPushButton::clicked, this,
           &MainWindow::showVolumeSlider);
-  connect(ui_->pushButtonDebug, &QPushButton::clicked, this,
+  connect(ui_->ButtonDebug, &QPushButton::clicked, this,
           &MainWindow::createDebuglog);
-  connect(ui_->pushButtonBluetooth, &QPushButton::clicked, this,
+  connect(ui_->ButtonBluetooth, &QPushButton::clicked, this,
           &MainWindow::setPairable);
-  connect(ui_->pushButtonMute, &QPushButton::clicked, this,
+  connect(ui_->ButtonMute, &QPushButton::clicked, this,
           &MainWindow::toggleMuteButton);
-  connect(ui_->pushButtonMute, &QPushButton::clicked, this,
+  connect(ui_->ButtonMute, &QPushButton::clicked, this,
           &MainWindow::setMute);
-  connect(ui_->pushButtonUnMute, &QPushButton::clicked, this,
+  connect(ui_->ButtonUnmute, &QPushButton::clicked, this,
           &MainWindow::toggleMuteButton);
-  connect(ui_->pushButtonUnMute, &QPushButton::clicked, this,
+  connect(ui_->ButtonUnmute, &QPushButton::clicked, this,
           &MainWindow::setUnMute);
-  connect(ui_->pushButtonWifi, &QPushButton::clicked, this,
+  connect(ui_->ButtonWifi, &QPushButton::clicked, this,
           &MainWindow::openConnectDialog);
-  connect(ui_->pushButtonAndroidAuto, &QPushButton::clicked, this,
+  connect(ui_->ButtonAndroidAuto, &QPushButton::clicked, this,
           &MainWindow::TriggerAppStart);
-  connect(ui_->pushButtonAndroidAuto, &QPushButton::clicked, this,
+  connect(ui_->ButtonAndroidAuto, &QPushButton::clicked, this,
           &MainWindow::setRetryUSBConnect);
 
-  ui_->pushButtonBluetooth->hide();
-  ui_->labelBluetoothPairable->hide();
+  ui_->ButtonBluetooth->hide();
+  ui_->Pairable->hide();
 
   ui_->SysinfoTopLeft->hide();
 
-  ui_->ButtonAndroidAuto->hide();
+  ui_->ButtonAndroidAutoWidget->hide();
 
   ui_->SysinfoTopLeft2->hide();
 
-  ui_->pushButtonUpdate->hide();
-  ui_->label_dummy_right->hide();
+  ui_->UpdateButton->hide();
 
-  if (!configuration->showNetworkinfo()) {
-    ui_->networkInfo->hide();
+  if (!configuration->showNetworkInfo()) {
+    ui_->NetworkInfo->hide();
   }
 
   if (!this->devModeEnabled) {
-    ui_->labelLock->hide();
-    ui_->labelLockDummy->hide();
+    ui_->Lock->hide();
   }
 
   if (std::ifstream("/etc/crankshaft.branch")) {
@@ -152,41 +150,41 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
 
   // show debug button if enabled
   if (!this->systemDebugmode) {
-    ui_->pushButtonDebug->hide();
+    ui_->ButtonDebug->hide();
   }
 
-  ui_->pushButtonLock->hide();
+  ui_->ButtonLock->hide();
 
-  ui_->btDevice->hide();
+  ui_->BluetoothDevice->hide();
 
   // check if a device is connected via bluetooth
   if (std::ifstream("/tmp/btdevice")) {
-    if (ui_->btDevice->isVisible() == false ||
-        ui_->btDevice->text().simplified() == "") {
+    if (ui_->BluetoothDevice->isVisible() == false ||
+        ui_->BluetoothDevice->text().simplified() == "") {
       QString btdevicename = configuration_->readFileContent("/tmp/btdevice");
-      ui_->btDevice->setText(btdevicename);
-      ui_->btDevice->show();
+      ui_->BluetoothDevice->setText(btdevicename);
+      ui_->BluetoothDevice->show();
     }
   } else {
-    if (ui_->btDevice->isVisible() == true) {
-      ui_->btDevice->hide();
+    if (ui_->BluetoothDevice->isVisible() == true) {
+      ui_->BluetoothDevice->hide();
     }
   }
 
   // hide brightness slider of control file is not existing
   QFileInfo brightnessFile(brightnessFilename);
   if (!brightnessFile.exists() && !this->brightnessButtonForce) {
-    ui_->pushButtonBrightness->hide();
+    ui_->ButtonBrightness->hide();
   }
 
   // as default hide brightness slider
-  ui_->BrightnessSliderControl->hide();
+  ui_->BrightnessWidget->hide();
 
   // as default hide power buttons
-  ui_->horizontalWidgetPower->hide();
+  ui_->TilesBack->hide();
 
   // as default hide muted button
-  ui_->pushButtonUnMute->hide();
+  ui_->ButtonUnmute->hide();
 
   // hide wifi if not forced
   if (!this->wifiButtonForce &&
@@ -198,33 +196,33 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
 
   if (std::ifstream("/tmp/temp_recent_list") ||
       std::ifstream("/tmp/mobile_hotspot_detected")) {
-    ui_->pushButtonWifi->show();
-    ui_->pushButtonNoWiFiDevice->hide();
+    ui_->ButtonWifi->show();
+    ui_->ButtonNoWiFiDevice->hide();
   } else {
-    ui_->pushButtonWifi->hide();
-    ui_->pushButtonNoWiFiDevice->show();
+    ui_->ButtonWifi->hide();
+    ui_->ButtonNoWiFiDevice->show();
   }
 
   // show dev labels if dev mode activated
   if (!this->devModeEnabled) {
-    ui_->devlabel_left->hide();
-    ui_->devlabel_right->hide();
+    ui_->DevModeEnabled->hide();
+    ui_->DevModeEnabledLeft->hide();
   }
 
   // set brightness slider attribs from cs config
-  ui_->horizontalSliderBrightness->setMinimum(
+  ui_->SliderBrightness->setMinimum(
       configuration->getCSValue("BR_MIN").toInt());
-  ui_->horizontalSliderBrightness->setMaximum(
+  ui_->SliderBrightness->setMaximum(
       configuration->getCSValue("BR_MAX").toInt());
-  ui_->horizontalSliderBrightness->setSingleStep(
+  ui_->SliderBrightness->setSingleStep(
       configuration->getCSValue("BR_STEP").toInt());
-  ui_->horizontalSliderBrightness->setTickInterval(
+  ui_->SliderBrightness->setTickInterval(
       configuration->getCSValue("BR_STEP").toInt());
 
   // run monitor for custom brightness command if enabled in crankshaft_env.sh
   if (std::ifstream("/tmp/custombrightness")) {
     if (!configuration->hideBrightnessControl()) {
-      ui_->pushButtonBrightness->show();
+      ui_->ButtonBrightness->show();
     }
     this->customBrightnessControl = true;
   }
@@ -234,35 +232,35 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
     // init volume
     QString vol = QString::number(
         configuration_->readFileContent("/boot/crankshaft/volume").toInt());
-    ui_->volumeValueLabel->setText(vol + "%");
-    ui_->horizontalSliderVolume->setValue(vol.toInt());
+    ui_->ValueVolume->setText(vol + "%");
+    ui_->SliderVolume->setValue(vol.toInt());
   }
 
   // set bg's on startup
   MainWindow::updateBG();
   if (!this->nightModeEnabled) {
-    ui_->pushButtonDay->hide();
-    ui_->pushButtonNight->show();
+    ui_->ButtonDay->hide();
+    ui_->ButtonNight->show();
   } else {
-    ui_->pushButtonNight->hide();
-    ui_->pushButtonDay->show();
+    ui_->ButtonNight->hide();
+    ui_->ButtonDay->show();
   }
 
   // clock viibility by settings
   if (!configuration->showClock()) {
-    ui_->Digital_clock->hide();
+    ui_->Clock->hide();
     this->NoClock = true;
   } else {
     this->NoClock = false;
-    ui_->Digital_clock->show();
+    ui_->Clock->show();
   }
 
   // hide brightness button if eanbled in settings
   if (configuration->hideBrightnessControl()) {
-    ui_->pushButtonBrightness->hide();
-    ui_->BrightnessSliderControl->hide();
+    ui_->ButtonBrightness->hide();
+    ui_->BrightnessWidget->hide();
     // also hide volume button cause not needed if brightness not visible
-    ui_->pushButtonVolume->hide();
+    ui_->ButtonVolume->hide();
   }
 
   // init alpha values
@@ -300,17 +298,17 @@ void f1x::openauto::autoapp::ui::MainWindow::hostModeStateChanged(
     QBluetoothLocalDevice::HostMode mode) {
   if (mode != QBluetoothLocalDevice::HostPoweredOff) {
     this->bluetoothEnabled = true;
-    ui_->pushButtonBluetooth->show();
+    ui_->ButtonBluetooth->show();
     if (std::ifstream("/tmp/bluetooth_pairable")) {
-      ui_->labelBluetoothPairable->show();
-      ui_->pushButtonBluetooth->hide();
+      ui_->Pairable->show();
+      ui_->ButtonBluetooth->hide();
     } else {
-      ui_->labelBluetoothPairable->hide();
+      ui_->Pairable->hide();
     }
   } else {
     this->bluetoothEnabled = false;
-    ui_->pushButtonBluetooth->hide();
-    ui_->labelBluetoothPairable->hide();
+    ui_->ButtonBluetooth->hide();
+    ui_->Pairable->hide();
   }
 }
 
@@ -321,28 +319,28 @@ void f1x::openauto::autoapp::ui::MainWindow::updateNetworkInfo() {
     if (!entrieswlan0.isEmpty()) {
       QNetworkAddressEntry wlan0 = entrieswlan0.first();
       // qDebug() << "wlan0: " << wlan0.ip();
-      ui_->value_ip->setText(wlan0.ip().toString().simplified());
-      ui_->value_mask->setText(wlan0.netmask().toString().simplified());
+      ui_->ValueIp->setText(wlan0.ip().toString().simplified());
+      ui_->ValueMask->setText(wlan0.netmask().toString().simplified());
       if (std::ifstream("/tmp/hotspot_active")) {
-        ui_->value_ssid->setText(configuration_->getParamFromFile(
+        ui_->ValueSsid->setText(configuration_->getParamFromFile(
             "/etc/hostapd/hostapd.conf", "ssid"));
       } else {
-        ui_->value_ssid->setText(
+        ui_->ValueSsid->setText(
             configuration_->readFileContent("/tmp/wifi_ssid"));
       }
-      ui_->value_gw->setText(
+      ui_->ValueGw->setText(
           configuration_->readFileContent("/tmp/gateway_wlan0"));
     }
   } else {
     // qDebug() << "wlan0: down";
-    ui_->value_ip->setText("");
-    ui_->value_mask->setText("");
-    ui_->value_gw->setText("");
-    ui_->value_ssid->setText("wlan0: down");
+    ui_->ValueIp->setText("");
+    ui_->ValueMask->setText("");
+    ui_->ValueGw->setText("");
+    ui_->ValueSsid->setText("wlan0: down");
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::on_pushButtonBrightness_clicked() {
+void f1x::openauto::autoapp::ui::MainWindow::onClickButtonBrightness() {
   this->brightnessFile = new QFile(this->brightnessFilename);
   this->brightnessFileAlt = new QFile(this->brightnessFilenameAlt);
 
@@ -352,9 +350,9 @@ void f1x::openauto::autoapp::ui::MainWindow::on_pushButtonBrightness_clicked() {
       QByteArray data = this->brightnessFile->readAll();
       std::string::size_type sz;
       int brightness_val = std::stoi(data.toStdString(), &sz);
-      ui_->horizontalSliderBrightness->setValue(brightness_val);
+      ui_->SliderBrightness->setValue(brightness_val);
       QString bri = QString::number(brightness_val);
-      ui_->brightnessValueLabel->setText(bri);
+      ui_->ValueBrightness->setText(bri);
       this->brightnessFile->close();
     }
   } else {
@@ -362,30 +360,30 @@ void f1x::openauto::autoapp::ui::MainWindow::on_pushButtonBrightness_clicked() {
       QByteArray data = this->brightnessFileAlt->readAll();
       std::string::size_type sz;
       int brightness_val = std::stoi(data.toStdString(), &sz);
-      ui_->horizontalSliderBrightness->setValue(brightness_val);
+      ui_->SliderBrightness->setValue(brightness_val);
       QString bri = QString::number(brightness_val);
-      ui_->brightnessValueLabel->setText(bri);
+      ui_->ValueBrightness->setText(bri);
       this->brightnessFileAlt->close();
     }
   }
-  ui_->BrightnessSliderControl->show();
-  ui_->VolumeSliderControl->hide();
+  ui_->BrightnessWidget->show();
+  ui_->VolumeWidget->hide();
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::on_pushButtonVolume_clicked() {
-  ui_->horizontalSliderVolume->show();
-  ui_->volumeValueLabel->show();
+void f1x::openauto::autoapp::ui::MainWindow::onClickButtonVolume() {
+  ui_->SliderVolume->show();
+  ui_->ValueVolume->show();
   if (this->toggleMute) {
-    ui_->pushButtonUnMute->show();
+    ui_->ButtonUnmute->show();
   } else {
-    ui_->pushButtonMute->show();
+    ui_->ButtonMute->show();
   }
-  ui_->VolumeSliderControl->show();
-  ui_->BrightnessSliderControl->hide();
+  ui_->VolumeWidget->show();
+  ui_->BrightnessWidget->hide();
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::
-    on_horizontalSliderBrightness_valueChanged(int value) {
+    onChangeSliderBrightness(int value) {
   int n = snprintf(this->brightness_str, 5, "%d", value);
   this->brightnessFile = new QFile(this->brightnessFilename);
   this->brightnessFileAlt = new QFile(this->brightnessFilenameAlt);
@@ -406,13 +404,13 @@ void f1x::openauto::autoapp::ui::MainWindow::
     }
   }
   QString bri = QString::number(value);
-  ui_->brightnessValueLabel->setText(bri);
+  ui_->ValueBrightness->setText(bri);
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::
-    on_horizontalSliderVolume_valueChanged(int value) {
+    onChangeSliderVolume(int value) {
   QString vol = QString::number(value);
-  ui_->volumeValueLabel->setText(vol + "%");
+  ui_->ValueVolume->setText(vol + "%");
   system(
       ("/usr/local/bin/autoapp_helper setvolume " + std::to_string(value) + "&")
           .c_str());
@@ -426,61 +424,61 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
     this->alpha_current_str = value;
     double alpha = value / 100.0;
     QString alp = QString::number(alpha);
-    ui_->pushButtonExit->setStyleSheet(
+    ui_->ButtonExit->setStyleSheet(
         "background-color: rgba(164, 0, 0, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonShutdown->setStyleSheet(
+    ui_->ButtonShutdown->setStyleSheet(
         "background-color: rgba(239, 41, 41, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonReboot->setStyleSheet(
+    ui_->ButtonReboot->setStyleSheet(
         "background-color: rgba(252, 175, 62, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonCancel->setStyleSheet(
+    ui_->ButtonCancel->setStyleSheet(
         "background-color: rgba(32, 74, 135, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonBrightness->setStyleSheet(
+    ui_->ButtonBrightness->setStyleSheet(
         "background-color: rgba(245, 121, 0, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonVolume->setStyleSheet(
+    ui_->ButtonVolume->setStyleSheet(
         "background-color: rgba(64, 191, 191, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonLock->setStyleSheet(
+    ui_->ButtonLock->setStyleSheet(
         "background-color: rgba(15, 54, 5, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonSettings->setStyleSheet(
+    ui_->ButtonSettings->setStyleSheet(
         "background-color: rgba(138, 226, 52, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonDay->setStyleSheet(
+    ui_->ButtonDay->setStyleSheet(
         "background: rgba(252, 233, 79, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonNight->setStyleSheet(
+    ui_->ButtonNight->setStyleSheet(
         "background-color: rgba(114, 159, 207, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonWifi->setStyleSheet(
+    ui_->ButtonWifi->setStyleSheet(
         "background-color: rgba(252, 175, 62, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonDebug->setStyleSheet(
+    ui_->ButtonDebug->setStyleSheet(
         "background-color: rgba(85, 87, 83, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->pushButtonAndroidAuto->setStyleSheet(
+    ui_->ButtonAndroidAuto->setStyleSheet(
         "background-color: rgba(48, 140, 198, " + alp +
         " ); border: 2px solid rgba(255,255,255,0.5); color: rgb(255,255,255); "
         "border-bottom: 0px; border-top: 0px;");
-    ui_->labelAndroidAutoBottom->setStyleSheet(
+    ui_->LabelAndroidAutoBottom->setStyleSheet(
         "background-color: rgba(48, 140, 198, " + alp +
         " ); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; "
         "border: 2px solid rgba(255,255,255,0.5); color: rgb(255,255,255); "
         "border-top: 0px;");
-    ui_->labelAndroidAutoTop->setStyleSheet(
+    ui_->LabelAndroidAutoTop->setStyleSheet(
         "background-color: rgba(48, 140, 198, " + alp +
         " ); border-top-left-radius: 4px; border-top-right-radius: 4px; "
         "border: 2px solid rgba(255,255,255,0.5); color: rgb(255,255,255); "
         "border-bottom: 0px;");
-    ui_->pushButtonNoDevice->setStyleSheet(
+    ui_->ButtonNoDevice->setStyleSheet(
         "background-color: rgba(48, 140, 198, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5); "
         "color: rgb(255,255,255);");
-    ui_->pushButtonNoWiFiDevice->setStyleSheet(
+    ui_->ButtonNoWiFiDevice->setStyleSheet(
         "background-color: rgba(252, 175, 62, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5); "
         "color: rgb(255,255,255);");
@@ -488,41 +486,41 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::switchGuiToNight() {
-  // MainWindow::on_pushButtonVolume_clicked();
+  // MainWindow::on_ButtonVolume_clicked();
   f1x::openauto::autoapp::ui::MainWindow::updateBG();
-  ui_->pushButtonDay->show();
-  ui_->pushButtonNight->hide();
-  ui_->BrightnessSliderControl->hide();
+  ui_->ButtonDay->show();
+  ui_->ButtonNight->hide();
+  ui_->BrightnessWidget->hide();
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::switchGuiToDay() {
-  // MainWindow::on_pushButtonVolume_clicked();
+  // MainWindow::on_ButtonVolume_clicked();
   f1x::openauto::autoapp::ui::MainWindow::updateBG();
-  ui_->pushButtonNight->show();
-  ui_->pushButtonDay->hide();
-  ui_->BrightnessSliderControl->hide();
+  ui_->ButtonNight->show();
+  ui_->ButtonDay->hide();
+  ui_->BrightnessWidget->hide();
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::toggleExit() {
   if (!this->exitMenuVisible) {
-    ui_->horizontalWidgetButtons->hide();
-    ui_->horizontalWidgetPower->show();
+    ui_->TilesFront->hide();
+    ui_->TilesBack->show();
     this->exitMenuVisible = true;
   } else {
-    ui_->horizontalWidgetButtons->show();
-    ui_->horizontalWidgetPower->hide();
+    ui_->TilesFront->show();
+    ui_->TilesBack->hide();
     this->exitMenuVisible = false;
   }
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::toggleMuteButton() {
   if (!this->toggleMute) {
-    ui_->pushButtonMute->hide();
-    ui_->pushButtonUnMute->show();
+    ui_->ButtonMute->hide();
+    ui_->ButtonUnmute->show();
     this->toggleMute = true;
   } else {
-    ui_->pushButtonUnMute->hide();
-    ui_->pushButtonMute->show();
+    ui_->ButtonUnmute->hide();
+    ui_->ButtonMute->show();
     this->toggleMute = false;
   }
 }
@@ -589,7 +587,7 @@ void f1x::openauto::autoapp::ui::MainWindow::showTime() {
     time_text[8] = ' ';
   }
 
-  ui_->Digital_clock->setText(time_text);
+  ui_->Clock->setText(time_text);
 
   // check connected devices
   if (localDevice->isValid()) {
@@ -602,18 +600,18 @@ void f1x::openauto::autoapp::ui::MainWindow::showTime() {
     if (count > 0) {
       // QBluetoothAddress btdevice = btdevices[0];
       // QString btmac = btdevice.toString();
-      // ui_->btDeviceCount->setText(QString::number(count));
-      if (ui_->btDevice->isVisible() == false) {
-        ui_->btDevice->show();
+      // ui_->BluetoothDeviceCount->setText(QString::number(count));
+      if (ui_->BluetoothDevice->isVisible() == false) {
+        ui_->BluetoothDevice->show();
       }
       if (std::ifstream("/tmp/btdevice")) {
-        ui_->btDevice->setText(
+        ui_->BluetoothDevice->setText(
             configuration_->readFileContent("/tmp/btdevice"));
       }
     } else {
-      if (ui_->btDevice->isVisible() == true) {
-        ui_->btDevice->hide();
-        ui_->btDevice->setText("BT-Device");
+      if (ui_->BluetoothDevice->isVisible() == true) {
+        ui_->BluetoothDevice->hide();
+        ui_->BluetoothDevice->setText("BT-Device");
       }
     }
   }
@@ -660,46 +658,46 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   // check if system is in display off mode (tap2wake)
   if (std::ifstream("/tmp/blankscreen")) {
-    if (ui_->centralWidget->isVisible() == true) {
+    if (ui_->MainWidget->isVisible() == true) {
       CloseAllDialogs();
-      ui_->centralWidget->hide();
+      ui_->MainWidget->hide();
     }
   } else {
-    if (ui_->centralWidget->isVisible() == false) {
-      ui_->centralWidget->show();
+    if (ui_->MainWidget->isVisible() == false) {
+      ui_->MainWidget->show();
     }
   }
 
   // check if system is in display off mode (tap2wake/screensaver)
   if (std::ifstream("/tmp/screensaver")) {
-    if (ui_->menuWidget->isVisible() == true) {
-      ui_->menuWidget->hide();
+    if (ui_->Tiles->isVisible() == true) {
+      ui_->Tiles->hide();
     }
 
-    if (ui_->headerWidget->isVisible() == true) {
-      ui_->headerWidget->hide();
+    if (ui_->Header->isVisible() == true) {
+      ui_->Header->hide();
       CloseAllDialogs();
     }
 
-    if (ui_->VolumeSliderControl->isVisible() == true) {
-      ui_->VolumeSliderControl->hide();
+    if (ui_->VolumeWidget->isVisible() == true) {
+      ui_->VolumeWidget->hide();
     }
-    if (ui_->BrightnessSliderControl->isVisible() == true) {
-      ui_->BrightnessSliderControl->hide();
+    if (ui_->BrightnessWidget->isVisible() == true) {
+      ui_->BrightnessWidget->hide();
     }
   } else {
-    if (ui_->headerWidget->isVisible() == false) {
-      ui_->headerWidget->show();
+    if (ui_->Header->isVisible() == false) {
+      ui_->Header->show();
     }
-    if (ui_->VolumeSliderControl->isVisible() == false) {
-      ui_->VolumeSliderControl->show();
+    if (ui_->VolumeWidget->isVisible() == false) {
+      ui_->VolumeWidget->show();
     }
   }
 
   // check if custom command needs black background
   if (std::ifstream("/tmp/blackscreen")) {
-    if (ui_->centralWidget->isVisible() == true) {
-      ui_->centralWidget->hide();
+    if (ui_->MainWidget->isVisible() == true) {
+      ui_->MainWidget->hide();
       this->setStyleSheet("QMainWindow {background-color: rgb(0,0,0);}");
       this->background_set = false;
     }
@@ -712,9 +710,9 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   // check if phone is conencted to usb
   if (std::ifstream("/tmp/android_device")) {
-    if (ui_->ButtonAndroidAuto->isVisible() == false) {
-      ui_->ButtonAndroidAuto->show();
-      ui_->pushButtonNoDevice->hide();
+    if (ui_->ButtonAndroidAutoWidget->isVisible() == false) {
+      ui_->ButtonAndroidAutoWidget->show();
+      ui_->ButtonNoDevice->hide();
     }
     try {
       QFile deviceData(QString("/tmp/android_device"));
@@ -722,43 +720,43 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       QTextStream data_date(&deviceData);
       QString linedate = data_date.readAll().split("\n")[1];
       deviceData.close();
-      ui_->labelAndroidAutoBottom->setText(
+      ui_->LabelAndroidAutoBottom->setText(
           linedate.simplified().replace("_", " "));
     } catch (...) {
-      ui_->labelAndroidAutoBottom->setText("");
+      ui_->LabelAndroidAutoBottom->setText("");
     }
   } else {
-    if (ui_->ButtonAndroidAuto->isVisible() == true) {
-      ui_->pushButtonNoDevice->show();
-      ui_->ButtonAndroidAuto->hide();
+    if (ui_->ButtonAndroidAutoWidget->isVisible() == true) {
+      ui_->ButtonNoDevice->show();
+      ui_->ButtonAndroidAutoWidget->hide();
     }
 
-    ui_->labelAndroidAutoBottom->setText("");
+    ui_->LabelAndroidAutoBottom->setText("");
   }
 
   // check if bluetooth pairable
   if (this->bluetoothEnabled) {
     if (std::ifstream("/tmp/bluetooth_pairable")) {
-      if (ui_->labelBluetoothPairable->isVisible() == false) {
-        ui_->labelBluetoothPairable->show();
+      if (ui_->Pairable->isVisible() == false) {
+        ui_->Pairable->show();
       }
-      if (ui_->pushButtonBluetooth->isVisible() == true) {
-        ui_->pushButtonBluetooth->hide();
+      if (ui_->ButtonBluetooth->isVisible() == true) {
+        ui_->ButtonBluetooth->hide();
       }
     } else {
-      if (ui_->labelBluetoothPairable->isVisible() == true) {
-        ui_->labelBluetoothPairable->hide();
+      if (ui_->Pairable->isVisible() == true) {
+        ui_->Pairable->hide();
       }
-      if (ui_->pushButtonBluetooth->isVisible() == false) {
-        ui_->pushButtonBluetooth->show();
+      if (ui_->ButtonBluetooth->isVisible() == false) {
+        ui_->ButtonBluetooth->show();
       }
     }
   } else {
-    if (ui_->labelBluetoothPairable->isVisible() == true) {
-      ui_->labelBluetoothPairable->hide();
+    if (ui_->Pairable->isVisible() == true) {
+      ui_->Pairable->hide();
     }
-    if (ui_->pushButtonBluetooth->isVisible() == true) {
-      ui_->pushButtonBluetooth->hide();
+    if (ui_->ButtonBluetooth->isVisible() == true) {
+      ui_->ButtonBluetooth->hide();
     }
   }
 
@@ -767,20 +765,20 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       std::ifstream("/tmp/enable_pairing")) {
     if (ui_->SysinfoTopLeft2->isVisible() == false) {
       if (std::ifstream("/tmp/config_in_progress")) {
-        ui_->pushButtonSettings->hide();
-        ui_->pushButtonLock->show();
+        ui_->ButtonSettings->hide();
+        ui_->ButtonLock->show();
         ui_->SysinfoTopLeft2->setText("Config in progress ...");
         ui_->SysinfoTopLeft2->show();
       }
       if (std::ifstream("/tmp/debug_in_progress")) {
-        ui_->pushButtonSettings->hide();
-        ui_->pushButtonDebug->hide();
-        ui_->pushButtonLock->show();
+        ui_->ButtonSettings->hide();
+        ui_->ButtonDebug->hide();
+        ui_->ButtonLock->show();
         ui_->SysinfoTopLeft2->setText("Creating debug.zip ...");
         ui_->SysinfoTopLeft2->show();
       }
       if (std::ifstream("/tmp/enable_pairing")) {
-        ui_->pushButtonDebug->hide();
+        ui_->ButtonDebug->hide();
         ui_->SysinfoTopLeft2->setText("Pairing enabled for 120 seconds!");
         ui_->SysinfoTopLeft2->show();
       }
@@ -789,10 +787,10 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
     if (ui_->SysinfoTopLeft2->isVisible() == true) {
       ui_->SysinfoTopLeft2->setText("");
       ui_->SysinfoTopLeft2->hide();
-      ui_->pushButtonSettings->show();
-      ui_->pushButtonLock->hide();
+      ui_->ButtonSettings->show();
+      ui_->ButtonLock->hide();
       if (this->systemDebugmode) {
-        ui_->pushButtonDebug->show();
+        ui_->ButtonDebug->show();
       }
     }
   }
@@ -834,70 +832,54 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   if (std::ifstream("/tmp/temp_recent_list") ||
       std::ifstream("/tmp/mobile_hotspot_detected")) {
-    if (ui_->pushButtonWifi->isVisible() == false) {
-      ui_->pushButtonWifi->show();
+    if (ui_->ButtonWifi->isVisible() == false) {
+      ui_->ButtonWifi->show();
     }
-    if (ui_->pushButtonNoWiFiDevice->isVisible() == true) {
-      ui_->pushButtonNoWiFiDevice->hide();
+    if (ui_->ButtonNoWiFiDevice->isVisible() == true) {
+      ui_->ButtonNoWiFiDevice->hide();
     }
   } else {
-    if (ui_->pushButtonWifi->isVisible() == true) {
-      ui_->pushButtonWifi->hide();
+    if (ui_->ButtonWifi->isVisible() == true) {
+      ui_->ButtonWifi->hide();
     }
-    if (ui_->pushButtonNoWiFiDevice->isVisible() == false) {
-      ui_->pushButtonNoWiFiDevice->show();
+    if (ui_->ButtonNoWiFiDevice->isVisible() == false) {
+      ui_->ButtonNoWiFiDevice->show();
     }
   }
 
   // clock viibility by settings
   if (!this->configuration_->showClock()) {
-    ui_->Digital_clock->hide();
+    ui_->Clock->hide();
     this->NoClock = true;
   } else {
     this->NoClock = false;
-    ui_->Digital_clock->show();
+    ui_->Clock->show();
   }
 
-  if (!this->configuration_->showNetworkinfo()) {
-    if (ui_->networkInfo->isVisible() == true) {
-      ui_->networkInfo->hide();
+  if (!this->configuration_->showNetworkInfo()) {
+    if (ui_->NetworkInfo->isVisible() == true) {
+      ui_->NetworkInfo->hide();
     }
   } else {
-    if (ui_->networkInfo->isVisible() == false) {
-      ui_->networkInfo->show();
+    if (ui_->NetworkInfo->isVisible() == false) {
+      ui_->NetworkInfo->show();
     }
   }
 
   // hide brightness button if eanbled in settings
   if (configuration_->hideBrightnessControl()) {
-    if ((ui_->pushButtonBrightness->isVisible() == true) ||
-        (ui_->pushButtonBrightness->isVisible() == true) ||
-        (ui_->BrightnessSliderControl->isVisible() == true)) {
-      ui_->pushButtonBrightness->hide();
-      ui_->BrightnessSliderControl->hide();
+    if ((ui_->ButtonBrightness->isVisible() == true) ||
+        (ui_->ButtonBrightness->isVisible() == true) ||
+        (ui_->BrightnessWidget->isVisible() == true)) {
+      ui_->ButtonBrightness->hide();
+      ui_->BrightnessWidget->hide();
       // also hide volume button if brightness hidden
-      ui_->pushButtonVolume->hide();
-      ui_->VolumeSliderControl->show();
+      ui_->ButtonVolume->hide();
+      ui_->VolumeWidget->show();
     }
   } else {
   }
 
-  // read value from tsl2561
-  if (std::ifstream("/tmp/tsl2561") && this->configuration_->showLux()) {
-    if (ui_->label_left->isVisible() == false) {
-      ui_->label_left->show();
-      ui_->label_right->show();
-    }
-    ui_->label_left->setText("Lux: " +
-                             configuration_->readFileContent("/tmp/tsl2561"));
-  } else {
-    if (ui_->label_left->isVisible() == true) {
-      ui_->label_left->hide();
-      ui_->label_right->hide();
-      ui_->label_left->setText("");
-      ui_->label_right->setText("");
-    }
-  }
   MainWindow::updateAlpha();
 
   // update notify
@@ -908,24 +890,20 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   if (this->csmtupdate || this->udevupdate || this->openautoupdate ||
       this->systemupdate) {
-    if (ui_->pushButtonUpdate->isVisible() == false) {
-      ui_->pushButtonUpdate->show();
-      ui_->label_left->show();
+    if (ui_->UpdateButton->isVisible() == false) {
+      ui_->UpdateButton->show();
       ui_->label_right->show();
       if (this->devModeEnabled) {
-        ui_->devlabel_right->hide();
+        ui_->DevModeEnabledLeft->hide();
       } else {
-        ui_->label_dummy_right->show();
       }
     }
   } else {
-    if (ui_->pushButtonUpdate->isVisible() == true) {
-      ui_->pushButtonUpdate->hide();
-      ui_->label_left->hide();
+    if (ui_->UpdateButton->isVisible() == true) {
+      ui_->UpdateButton->hide();
       ui_->label_right->hide();
-      ui_->label_dummy_right->hide();
       if (this->devModeEnabled) {
-        ui_->devlabel_right->show();
+        ui_->DevModeEnabledLeft->show();
       }
     }
   }
@@ -933,14 +911,12 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   if (std::ifstream("/tmp/btdevice") ||
       std::ifstream("/tmp/dev_mode_enabled") ||
       std::ifstream("/tmp/android_device")) {
-    if (ui_->labelLock->isVisible() == false) {
-      ui_->labelLock->show();
-      ui_->labelLockDummy->show();
+    if (ui_->Lock->isVisible() == false) {
+      ui_->Lock->show();
     }
   } else {
-    if (ui_->labelLock->isVisible() == true) {
-      ui_->labelLock->hide();
-      ui_->labelLockDummy->hide();
+    if (ui_->Lock->isVisible() == true) {
+      ui_->Lock->hide();
     }
   }
   updateNetworkInfo();

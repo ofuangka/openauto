@@ -17,7 +17,7 @@ WarningDialog::WarningDialog(QWidget *parent)
 {
     ui_->setupUi(this);
 
-    connect(ui_->pushButtonClose, &QPushButton::clicked, this, &WarningDialog::close);
+    connect(ui_->ButtonClose, &QPushButton::clicked, this, &WarningDialog::close);
     QTimer::singleShot(5000, this, SLOT(Autoclose()));
 }
 

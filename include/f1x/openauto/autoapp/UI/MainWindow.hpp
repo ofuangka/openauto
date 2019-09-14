@@ -61,7 +61,7 @@ class MainWindow : public QMainWindow {
   void openConnectDialog();
   void openWifiDialog();
   void openUpdateDialog();
-  void showBrightnessSlider();
+  void showSliderBrightness();
   void showVolumeSlider();
   void showAlphaSlider();
   void TriggerAppStart();
@@ -69,13 +69,13 @@ class MainWindow : public QMainWindow {
   void CloseAllDialogs();
 
  private slots:
-  void on_horizontalSliderBrightness_valueChanged(int value);
-  void on_horizontalSliderVolume_valueChanged(int value);
+  void onChangeSliderBrightness(int value);
+  void onChangeSliderVolume(int value);
   void updateAlpha();
 
  private slots:
-  void on_pushButtonBrightness_clicked();
-  void on_pushButtonVolume_clicked();
+  void onClickButtonBrightness();
+  void onClickButtonVolume();
   void switchGuiToDay();
   void switchGuiToNight();
   void showTime();

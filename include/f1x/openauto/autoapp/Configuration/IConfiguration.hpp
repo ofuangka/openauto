@@ -70,8 +70,8 @@ public:
     virtual bool showCursor() const = 0;
     virtual void hideBrightnessControl(bool value) = 0;
     virtual bool hideBrightnessControl() const = 0;
-    virtual void showNetworkinfo(bool value) = 0;
-    virtual bool showNetworkinfo() const = 0;
+    virtual void showNetworkInfo(bool value) = 0;
+    virtual bool showNetworkInfo() const = 0;
     virtual void hideWarning(bool value) = 0;
     virtual bool hideWarning() const = 0;
 

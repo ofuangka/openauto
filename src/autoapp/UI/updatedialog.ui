@@ -37,7 +37,7 @@ color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBoxRecent">
+    <widget class="QGroupBox" name="GroupRecent">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -150,7 +150,7 @@ border: 2px solid rgba(255,255,255,0.5);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonUpdateCsmt">
+          <widget class="QPushButton" name="ButtonUpdateCsmt">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -294,7 +294,7 @@ border: 2px solid rgba(255,255,255,0.5);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonUpdateUdev">
+          <widget class="QPushButton" name="ButtonUpdateUdev">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -438,7 +438,7 @@ border: 2px solid rgba(255,255,255,0.5);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonUpdateOpenauto">
+          <widget class="QPushButton" name="ButtonUpdateOpenauto">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -698,7 +698,7 @@ border: 2px solid rgba(255,255,255,0.5);</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonUpdateSystem">
+             <widget class="QPushButton" name="ButtonUpdateSystem">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -819,7 +819,7 @@ This can take some minutes!</string>
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButtonUpdateCheck">
+       <widget class="QPushButton" name="ButtonUpdateCheck">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -896,7 +896,7 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonUpdateCancel">
+       <widget class="QPushButton" name="ButtonUpdateCancel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -933,7 +933,7 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonClose">
+       <widget class="QPushButton" name="ButtonClose">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>

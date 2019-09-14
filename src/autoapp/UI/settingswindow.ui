@@ -42,7 +42,7 @@ color: rgb(255, 255, 255);</string>
       <number>4</number>
      </property>
      <item>
-      <widget class="QPushButton" name="pushButtonTab1">
+      <widget class="QPushButton" name="ButtonTab1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -68,7 +68,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab2">
+      <widget class="QPushButton" name="ButtonTab2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -93,7 +93,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab3">
+      <widget class="QPushButton" name="ButtonTab3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -118,7 +118,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab4">
+      <widget class="QPushButton" name="ButtonTab4">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -143,7 +143,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab5">
+      <widget class="QPushButton" name="ButtonTab5">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -168,7 +168,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab6">
+      <widget class="QPushButton" name="ButtonTab6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -193,7 +193,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab7">
+      <widget class="QPushButton" name="ButtonTab7">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -218,7 +218,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab9">
+      <widget class="QPushButton" name="ButtonTab9">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -243,7 +243,7 @@ outline: none;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTab8">
+      <widget class="QPushButton" name="ButtonTab8">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -320,7 +320,7 @@ outline: none;
             <number>0</number>
            </property>
            <item>
-            <widget class="QGroupBox" name="groupBoxHandenessOfTraffic">
+            <widget class="QGroupBox" name="GroupHandenessOfTraffic">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -341,7 +341,7 @@ outline: none;
                <number>2</number>
               </property>
               <item>
-               <widget class="QRadioButton" name="radioButtonLeftHandDrive">
+               <widget class="QRadioButton" name="RadioLeftHandDrive">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -357,7 +357,7 @@ outline: none;
                </widget>
               </item>
               <item>
-               <widget class="QRadioButton" name="radioButtonRightHandDrive">
+               <widget class="QRadioButton" name="RadioRightHandDrive">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -373,7 +373,7 @@ outline: none;
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBoxSafety">
+            <widget class="QGroupBox" name="GroupSafety">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -391,7 +391,7 @@ outline: none;
                <number>2</number>
               </property>
               <item>
-               <widget class="QCheckBox" name="checkBoxDontShowAgain">
+               <widget class="QCheckBox" name="CheckBoxDontShowAgain">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -428,7 +428,7 @@ outline: none;
             <number>2</number>
            </property>
            <item>
-            <widget class="QCheckBox" name="checkBoxShowClock">
+            <widget class="QCheckBox" name="CheckBoxShowClock">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -444,7 +444,7 @@ outline: none;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxOldGUI">
+            <widget class="QCheckBox" name="CheckBoxOldGUI">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -457,7 +457,7 @@ outline: none;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxShowBigClock">
+            <widget class="QCheckBox" name="CheckBoxShowBigClock">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -470,7 +470,7 @@ outline: none;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxHideMenuToggle">
+            <widget class="QCheckBox" name="CheckBoxHideMenuToggle">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -483,7 +483,7 @@ outline: none;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxHideBrightnessControl">
+            <widget class="QCheckBox" name="CheckBoxHideBrightnessControl">
              <property name="text">
               <string>Hide brightness control on main window</string>
              </property>
@@ -495,7 +495,7 @@ outline: none;
        </layout>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxAlpha">
+       <widget class="QGroupBox" name="GroupAlpha">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -594,7 +594,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxSliderDay">
+          <widget class="QGroupBox" name="GroupSliderDay">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -681,7 +681,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxSliderNight">
+          <widget class="QGroupBox" name="GroupSliderNight">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -768,7 +768,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxMediaPlayer">
+       <widget class="QGroupBox" name="GroupMediaPlayer">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -810,7 +810,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              <number>0</number>
             </property>
             <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBoxAutoPlay">
+             <widget class="QCheckBox" name="CheckBoxAutoPlay">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -842,7 +842,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="checkBoxInstantPlay">
+             <widget class="QCheckBox" name="CheckBoxInstantPlay">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -874,7 +874,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="checkBoxShowPlayer">
+             <widget class="QCheckBox" name="CheckBoxShowPlayer">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -961,7 +961,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxFrameRate">
+          <widget class="QGroupBox" name="GroupFrameRate">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1011,7 +1011,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxResolution">
+          <widget class="QGroupBox" name="GroupResolution">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1127,7 +1127,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxOmxLayerIndex">
+       <widget class="QGroupBox" name="GroupOmxLayerIndex">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -1469,7 +1469,7 @@ subcontrol-position: center left;
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxScreenDPI">
+       <widget class="QGroupBox" name="GroupScreenDPI">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -1602,7 +1602,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           <number>4</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxAudioChannels">
+          <widget class="QGroupBox" name="GroupAudioChannels">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -1635,7 +1635,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
                 <number>0</number>
                </property>
                <item>
-                <widget class="QCheckBox" name="checkBoxSpeechAudioChannel">
+                <widget class="QCheckBox" name="CheckBoxSpeechAudioChannel">
                  <property name="text">
                   <string>Speech channel</string>
                  </property>
@@ -1645,7 +1645,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkBoxMusicAudioChannel">
+                <widget class="QCheckBox" name="CheckBoxMusicAudioChannel">
                  <property name="text">
                   <string>Music channel</string>
                  </property>
@@ -1747,7 +1747,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxAudioOutputBackend">
+          <widget class="QGroupBox" name="GroupAudioOutputBackend">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -1777,7 +1777,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="radioButtonRtAudio">
+             <widget class="QRadioButton" name="RadioRtAudio">
               <property name="text">
                <string>RT audio</string>
               </property>
@@ -1787,7 +1787,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButtonQtAudio">
+             <widget class="QRadioButton" name="RadioQtAudio">
               <property name="text">
                <string>Qt</string>
               </property>
@@ -1800,7 +1800,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxPulse">
+       <widget class="QGroupBox" name="GroupPulse">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -1989,7 +1989,7 @@ QComboBox::item:selected {
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="pushButtonAudioTest">
+             <widget class="QPushButton" name="ButtonAudioTest">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -2068,7 +2068,7 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxSystemVolume">
+       <widget class="QGroupBox" name="GroupSystemVolume">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -2140,7 +2140,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxSystemCapture">
+       <widget class="QGroupBox" name="GroupSystemCapture">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -2349,14 +2349,14 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="checkBoxEnableTouchscreen">
+          <widget class="QCheckBox" name="CheckBoxEnableTouchscreen">
            <property name="text">
             <string>Enable touchscreen</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBoxShowCursor">
+          <widget class="QCheckBox" name="CheckBoxShowCursor">
            <property name="text">
             <string>Show cursor (needs reboot!)</string>
            </property>
@@ -2381,98 +2381,98 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           <number>9</number>
          </property>
          <item row="0" column="3">
-          <widget class="QCheckBox" name="checkBoxUpButton">
+          <widget class="QCheckBox" name="CheckBoxUpButton">
            <property name="text">
             <string>Up [Up]</string>
            </property>
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QCheckBox" name="checkBoxLeftButton">
+          <widget class="QCheckBox" name="CheckBoxLeftButton">
            <property name="text">
             <string>Left [Left]</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QCheckBox" name="checkBoxPreviousTrackButton">
+          <widget class="QCheckBox" name="CheckBoxPreviousTrackButton">
            <property name="text">
             <string>Previous track [V]</string>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBoxPlayButton">
+          <widget class="QCheckBox" name="CheckBoxPlayButton">
            <property name="text">
             <string>Play [X]</string>
            </property>
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QCheckBox" name="checkBoxCallEndButton">
+          <widget class="QCheckBox" name="CheckBoxCallEndButton">
            <property name="text">
             <string>Call end [O]</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QCheckBox" name="checkBoxTogglePlayButton">
+          <widget class="QCheckBox" name="CheckBoxTogglePlayButton">
            <property name="text">
             <string>Toggle play [B]</string>
            </property>
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QCheckBox" name="checkBoxVoiceCommandButton">
+          <widget class="QCheckBox" name="CheckBoxVoiceCommandButton">
            <property name="text">
             <string>Voice command [M]</string>
            </property>
           </widget>
          </item>
          <item row="3" column="3">
-          <widget class="QCheckBox" name="checkBoxBackButton">
+          <widget class="QCheckBox" name="CheckBoxBackButton">
            <property name="text">
             <string>Back [Esc]</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QCheckBox" name="checkBoxPauseButton">
+          <widget class="QCheckBox" name="CheckBoxPauseButton">
            <property name="text">
             <string>Pause [C]</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QCheckBox" name="checkBoxHomeButton">
+          <widget class="QCheckBox" name="CheckBoxHomeButton">
            <property name="text">
             <string>Home [H]</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QCheckBox" name="checkBoxEnterButton">
+          <widget class="QCheckBox" name="CheckBoxEnterButton">
            <property name="text">
             <string>Enter [Enter]</string>
            </property>
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QCheckBox" name="checkBoxDownButton">
+          <widget class="QCheckBox" name="CheckBoxDownButton">
            <property name="text">
             <string>Down [Down]</string>
            </property>
           </widget>
          </item>
          <item row="2" column="3">
-          <widget class="QCheckBox" name="checkBoxScrollWheelButton">
+          <widget class="QCheckBox" name="CheckBoxScrollWheelButton">
            <property name="text">
             <string>Scroll wheel [1] / [2]</string>
            </property>
           </widget>
          </item>
          <item row="0" column="4">
-          <widget class="QPushButton" name="pushButtonSelectAll">
+          <widget class="QPushButton" name="ButtonSelectAll">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2491,28 +2491,28 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QCheckBox" name="checkBoxRightButton">
+          <widget class="QCheckBox" name="CheckBoxRightButton">
            <property name="text">
             <string>Right [Right]</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QCheckBox" name="checkBoxPhoneButton">
+          <widget class="QCheckBox" name="CheckBoxPhoneButton">
            <property name="text">
             <string>Phone [P]</string>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QCheckBox" name="checkBoxNextTrackButton">
+          <widget class="QCheckBox" name="CheckBoxNextTrackButton">
            <property name="text">
             <string>Next track [N]</string>
            </property>
           </widget>
          </item>
          <item row="3" column="4">
-          <widget class="QPushButton" name="pushButtonClearSelection">
+          <widget class="QPushButton" name="ButtonClearSelection">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2606,7 +2606,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBoxPlayerControl">
+          <widget class="QCheckBox" name="CheckBoxPlayerControl">
            <property name="text">
             <string>Enable Controls</string>
            </property>
@@ -2769,21 +2769,21 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QRadioButton" name="radioButtonDisableBluetooth">
+          <widget class="QRadioButton" name="RadioDisableBluetooth">
            <property name="text">
             <string>Disable bluetooth</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButtonUseLocalBluetoothAdapter">
+          <widget class="QRadioButton" name="RadioUseLocalBluetoothAdapter">
            <property name="text">
             <string>Use local adapter</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButtonUseExternalBluetoothAdapter">
+          <widget class="QRadioButton" name="RadioUseExternalBluetoothAdapter">
            <property name="text">
             <string>Use external adapter</string>
            </property>
@@ -2793,7 +2793,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxBluetoothAdapter">
+       <widget class="QGroupBox" name="GroupBluetoothAdapter">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -2832,7 +2832,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QCheckBox" name="checkBoxBluetoothAutoPair">
+             <widget class="QCheckBox" name="CheckBoxBluetoothAutoPair">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -2870,7 +2870,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonUnpair">
+             <widget class="QPushButton" name="ButtonUnpair">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -3497,7 +3497,7 @@ outline: none;</string>
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QCheckBox" name="checkBoxHotspot">
+                <widget class="QCheckBox" name="CheckBoxHotspot">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -3550,7 +3550,7 @@ outline: none;</string>
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QCheckBox" name="checkBoxNetworkinfo">
+                <widget class="QCheckBox" name="CheckBoxNetworkinfo">
                  <property name="text">
                   <string>Enable</string>
                  </property>
@@ -3591,7 +3591,7 @@ outline: none;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QGroupBox" name="groupBoxWifiMode">
+             <widget class="QGroupBox" name="GroupWifiMode">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -3632,7 +3632,7 @@ outline: none;</string>
                   <number>9</number>
                  </property>
                  <item>
-                  <widget class="QRadioButton" name="radioButtonClient">
+                  <widget class="QRadioButton" name="RadioClient">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -3651,7 +3651,7 @@ outline: none;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QRadioButton" name="radioButtonHotspot">
+                  <widget class="QRadioButton" name="RadioHotspot">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -3712,7 +3712,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="groupBoxClientNetwork">
+             <widget class="QGroupBox" name="GroupClientNetwork">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -3742,7 +3742,7 @@ outline: none;</string>
                 <number>2</number>
                </property>
                <item>
-                <widget class="QPushButton" name="pushButtonNetworkAuto">
+                <widget class="QPushButton" name="ButtonNetworkAuto">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -3804,7 +3804,7 @@ outline: none;</string>
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QPushButton" name="pushButtonNetwork0">
+                   <widget class="QPushButton" name="ButtonNetwork0">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3839,7 +3839,7 @@ outline: none;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="pushButtonNetwork1">
+                   <widget class="QPushButton" name="ButtonNetwork1">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3914,7 +3914,7 @@ outline: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxNetworking">
+       <widget class="QGroupBox" name="GroupNetworking">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -4142,7 +4142,7 @@ outline: none;</string>
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="pushButtonSambaStop">
+               <widget class="QPushButton" name="ButtonSambaStop">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -4171,7 +4171,7 @@ outline: none;</string>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButtonSambaStart">
+               <widget class="QPushButton" name="ButtonSambaStart">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -4352,7 +4352,7 @@ outline: none;</string>
        <number>2</number>
       </property>
       <item>
-       <widget class="QGroupBox" name="groupBoxSystemInfo">
+       <widget class="QGroupBox" name="GroupSystemInfo">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -4635,7 +4635,7 @@ outline: none;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxScreenOrientation">
+          <widget class="QGroupBox" name="GroupScreenOrientation">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -4653,7 +4653,7 @@ outline: none;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="radioButtonScreenNormal">
+             <widget class="QRadioButton" name="RadioScreenNormal">
               <property name="text">
                <string>Normal</string>
               </property>
@@ -4663,7 +4663,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButtonScreenRotated">
+             <widget class="QRadioButton" name="RadioScreenRotated">
               <property name="text">
                <string>180° Rotated</string>
               </property>
@@ -4673,7 +4673,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxStartMode">
+          <widget class="QGroupBox" name="GroupStartMode">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -4701,7 +4701,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButtonX11">
+             <widget class="QRadioButton" name="RadioX11">
               <property name="text">
                <string>X11</string>
               </property>
@@ -4735,7 +4735,7 @@ outline: none;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxBootScreen">
+          <widget class="QGroupBox" name="GroupBootScreen">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -4756,7 +4756,7 @@ outline: none;</string>
              <number>1</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="radioButtonAnimatedCSNG">
+             <widget class="QRadioButton" name="RadioAnimatedCSNG">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -4809,7 +4809,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButtonCustom">
+             <widget class="QRadioButton" name="RadioCustom">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -4837,7 +4837,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxUpdates">
+          <widget class="QGroupBox" name="GroupUpdates">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -4858,7 +4858,7 @@ outline: none;</string>
              <number>0</number>
             </property>
             <item row="0" column="0">
-             <widget class="QPushButton" name="pushButtonCheckNow">
+             <widget class="QPushButton" name="ButtonCheckNow">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -4906,7 +4906,7 @@ outline: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxTimer">
+       <widget class="QGroupBox" name="GroupTimer">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -5063,7 +5063,7 @@ subcontrol-position: center left;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxDisableScreenOff">
+            <widget class="QCheckBox" name="CheckBoxDisableScreenOff">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -5076,7 +5076,7 @@ subcontrol-position: center left;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxBlankOnly">
+            <widget class="QCheckBox" name="CheckBoxBlankOnly">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -5242,7 +5242,7 @@ subcontrol-position: center left;
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxDisableShutdown">
+            <widget class="QCheckBox" name="CheckBoxDisableShutdown">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -6995,7 +6995,7 @@ subcontrol-position: center left;
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxDebugmode">
+          <widget class="QGroupBox" name="GroupDebugmode">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -7019,21 +7019,21 @@ subcontrol-position: center left;
              <number>2</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="radioButtonDebugmodeDisabled">
+             <widget class="QRadioButton" name="RadioDebugmodeDisabled">
               <property name="text">
                <string>Disabled</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButtonDebugmodeEnabled">
+             <widget class="QRadioButton" name="RadioDebugmodeEnabled">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonDebuglog">
+             <widget class="QPushButton" name="ButtonDebuglog">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -7065,7 +7065,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxBrightnessCommand">
+          <widget class="QGroupBox" name="GroupBrightnessCommand">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -7114,7 +7114,7 @@ outline: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxDayNight">
+       <widget class="QGroupBox" name="GroupDayNight">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -7379,7 +7379,7 @@ subcontrol-position: center left;
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBoxDisableDayNightRTC">
+             <widget class="QCheckBox" name="CheckBoxDisableDayNightRTC">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -7547,7 +7547,7 @@ subcontrol-position: center left;
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBoxLux">
+          <widget class="QGroupBox" name="GroupLux">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -7784,7 +7784,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBoxBrightness">
+          <widget class="QGroupBox" name="GroupBrightness">
            <property name="title">
             <string>Brightness (set this value if lux level reached)</string>
            </property>
@@ -8018,7 +8018,7 @@ QSlider::groove:horizontal { background: #6d6d6d; height: 32px;}</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxOptions">
+       <widget class="QGroupBox" name="GroupOptions">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -8255,7 +8255,7 @@ or lower</string>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBoxShowLux">
+          <widget class="QCheckBox" name="CheckBoxShowLux">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -8522,7 +8522,7 @@ subcontrol-position: center left;
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonSetTime">
+             <widget class="QPushButton" name="ButtonSetTime">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -8570,7 +8570,7 @@ outline: none;</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonNTP">
+             <widget class="QPushButton" name="ButtonNTP">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -8612,7 +8612,7 @@ outline: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBoxHardware">
+       <widget class="QGroupBox" name="GroupHardware">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -9682,7 +9682,7 @@ QComboBox::item:selected {
                <number>0</number>
               </property>
               <item>
-               <widget class="QCheckBox" name="checkBoxFlipX">
+               <widget class="QCheckBox" name="CheckBoxFlipX">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -9727,7 +9727,7 @@ border-color: rgb(85, 87, 83);</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBoxFlipY">
+               <widget class="QCheckBox" name="CheckBoxFlipY">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -10276,7 +10276,7 @@ QComboBox::item:selected {
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBoxAutoRecording">
+               <widget class="QCheckBox" name="CheckBoxAutoRecording">
                 <property name="text">
                  <string>Auto record</string>
                 </property>
@@ -10402,7 +10402,7 @@ QComboBox::item:selected {
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBoxFlipXUSB">
+               <widget class="QCheckBox" name="CheckBoxFlipXUSB">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -10447,7 +10447,7 @@ border-color: rgb(85, 87, 83);</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBoxFlipYUSB">
+               <widget class="QCheckBox" name="CheckBoxFlipYUSB">
                 <property name="minimumSize">
                  <size>
                   <width>118</width>
@@ -10572,7 +10572,7 @@ QComboBox::item:selected {
              <number>0</number>
             </property>
             <item>
-             <widget class="QCheckBox" name="checkBoxHardwareSave">
+             <widget class="QCheckBox" name="CheckBoxHardwareSave">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -10685,7 +10685,7 @@ QComboBox::item:selected {
    <item>
     <layout class="QHBoxLayout" name="Controls">
      <item>
-      <widget class="QPushButton" name="pushButtonSave">
+      <widget class="QPushButton" name="ButtonSave">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -10720,7 +10720,7 @@ outline: none;</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonResetToDefaults">
+      <widget class="QPushButton" name="ButtonResetToDefaults">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -10755,7 +10755,7 @@ outline: none;</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonCancel">
+      <widget class="QPushButton" name="ButtonCancel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>

@@ -357,12 +357,12 @@ bool Configuration::hideWarning() const
     return hideWarning_;
 }
 
-void Configuration::showNetworkinfo(bool value)
+void Configuration::showNetworkInfo(bool value)
 {
     showNetworkinfo_ = value;
 }
 
-bool Configuration::showNetworkinfo() const
+bool Configuration::showNetworkInfo() const
 {
     return showNetworkinfo_;
 }

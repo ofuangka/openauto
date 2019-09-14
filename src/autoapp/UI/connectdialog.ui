@@ -100,7 +100,7 @@ color: rgb(255, 255, 255);</string>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBoxRecent">
+    <widget class="QGroupBox" name="GroupRecent">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -175,7 +175,7 @@ color: rgb(255, 255, 255);</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="pushButtonUpdate">
+          <widget class="QPushButton" name="ButtonUpdate">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -258,7 +258,7 @@ color: rgb(255, 255, 255);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonConnect">
+          <widget class="QPushButton" name="ButtonConnect">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -303,7 +303,7 @@ color: rgb(255, 255, 255);</string>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonCancel">
+          <widget class="QPushButton" name="ButtonCancel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>

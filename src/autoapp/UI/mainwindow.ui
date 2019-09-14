@@ -33,7 +33,7 @@
   <property name="styleSheet">
    <string notr="true">color: rgb(0, 0, 0);</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
+  <widget class="QWidget" name="MainWidget">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -46,7 +46,7 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="_MainWidgetLayout">
     <property name="spacing">
      <number>4</number>
     </property>
@@ -63,7 +63,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QWidget" name="headerWidget" native="true">
+     <widget class="QWidget" name="Header" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -96,7 +96,7 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="Header">
+        <layout class="QHBoxLayout" name="_HeaderTop">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -104,7 +104,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="labelLock">
+          <widget class="QLabel" name="Lock">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -138,7 +138,7 @@ border-radius: 4px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="devlabel_right">
+          <widget class="QLabel" name="DevModeEnabledLeft">
            <property name="minimumSize">
             <size>
              <width>150</width>
@@ -172,7 +172,7 @@ border-radius: 4px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonUpdate">
+          <widget class="QPushButton" name="UpdateButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -210,33 +210,6 @@ border-radius: 4px;
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_left">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(0, 0, 0, 0);
-color: rgb(211, 215, 207);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="margin">
-            <number>4</number>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="label_right">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -267,64 +240,7 @@ color: rgb(211, 215, 207);</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_dummy_right">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(0, 0, 0, 0);
-color: rgb(211, 215, 207);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="labelLockDummy">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>40</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(0, 0, 0, 0);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="devlabel_left">
+          <widget class="QLabel" name="DevModeEnabled">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -365,7 +281,7 @@ border-radius: 4px;</string>
         </layout>
        </item>
        <item>
-        <widget class="QWidget" name="InfoLineWidget" native="true">
+        <widget class="QWidget" name="_HeaderBottom" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -404,7 +320,7 @@ border-radius: 4px;</string>
            <number>0</number>
           </property>
           <item>
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QWidget" name="_HeaderBottomLeft" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -423,7 +339,7 @@ border-radius: 4px;</string>
               <height>24</height>
              </size>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
+            <layout class="QHBoxLayout" name="_HeaderBottomLeftLayout">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -517,7 +433,7 @@ color: rgb(78, 244, 37);</string>
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QWidget" name="_HeaderBottomRight" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -536,7 +452,7 @@ color: rgb(78, 244, 37);</string>
               <height>24</height>
              </size>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <layout class="QHBoxLayout" name="_HeaderBottomRightLayout">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -553,7 +469,7 @@ color: rgb(78, 244, 37);</string>
               <number>0</number>
              </property>
              <item>
-              <spacer name="horizontalSpacer_11">
+              <spacer name="_BluetoothSpacer">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -566,7 +482,7 @@ color: rgb(78, 244, 37);</string>
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="btDevice">
+              <widget class="QLabel" name="BluetoothDevice">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -604,39 +520,7 @@ color: rgb(0, 102, 255);</string>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_16">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>10</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_12">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>10</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="labelBluetoothPairable">
+              <widget class="QLabel" name="Pairable">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -671,7 +555,7 @@ border-radius: 4px;
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButtonBluetooth">
+              <widget class="QPushButton" name="ButtonBluetooth">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -709,7 +593,7 @@ border-radius: 4px;
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="Digital_clock">
+              <widget class="QLabel" name="Clock">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -752,33 +636,11 @@ color: rgb(255, 255, 255);</string>
          </layout>
         </widget>
        </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>1</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgba(255,255,255,0.3);</string>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="networkInfo" native="true">
+     <widget class="QWidget" name="NetworkInfo" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -820,20 +682,7 @@ outline: none;</string>
         <number>0</number>
        </property>
        <item>
-        <spacer name="horizontalSpacer_14">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>10</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QWidget" name="ssidInfo" native="true">
+        <widget class="QWidget" name="_SsidWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -862,7 +711,7 @@ outline: none;</string>
          <property name="styleSheet">
           <string notr="true">border: no-border;</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <layout class="QHBoxLayout" name="_SsidWidgetLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -876,7 +725,7 @@ outline: none;</string>
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_ssid">
+           <widget class="QLabel" name="_LabelSsid">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -913,7 +762,7 @@ border: no-border;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="value_ssid">
+           <widget class="QLabel" name="ValueSsid">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -944,7 +793,7 @@ border: no-border;</string>
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="ipInfo" native="true">
+        <widget class="QWidget" name="_IpWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -980,7 +829,7 @@ border: no-border;</string>
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_ip">
+           <widget class="QLabel" name="_LabelIp">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1017,7 +866,7 @@ border: no-border;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="value_ip">
+           <widget class="QLabel" name="ValueIp">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1060,7 +909,7 @@ border: no-border;</string>
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="maskInfo" native="true">
+        <widget class="QWidget" name="_MaskWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -1082,7 +931,7 @@ border: no-border;</string>
          <property name="styleSheet">
           <string notr="true">border: no-border;</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_20">
+         <layout class="QHBoxLayout" name="_MaskWidgetLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -1096,7 +945,7 @@ border: no-border;</string>
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_mask">
+           <widget class="QLabel" name="_LabelMask">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1133,7 +982,7 @@ border: no-border;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="value_mask">
+           <widget class="QLabel" name="ValueMask">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1176,7 +1025,7 @@ border: no-border;</string>
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="gwInfo" native="true">
+        <widget class="QWidget" name="_GwWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -1198,7 +1047,7 @@ border: no-border;</string>
          <property name="styleSheet">
           <string notr="true">border: no-border;</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_22">
+         <layout class="QHBoxLayout" name="_GwWidgetLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -1212,7 +1061,7 @@ border: no-border;</string>
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_gw">
+           <widget class="QLabel" name="_LabelGw">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1243,7 +1092,7 @@ border: no-border;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="value_gw">
+           <widget class="QLabel" name="ValueGw">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1279,24 +1128,11 @@ border: no-border;</string>
          </layout>
         </widget>
        </item>
-       <item>
-        <spacer name="horizontalSpacer_15">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>10</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="menuWidget" native="true">
+     <widget class="QWidget" name="Tiles" native="true">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -1309,7 +1145,7 @@ border: no-border;</string>
       <property name="styleSheet">
        <string notr="true">outline: none;</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_TileArea">
+      <layout class="QGridLayout" name="_TilesLayout">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -1323,7 +1159,7 @@ border: no-border;</string>
         <number>0</number>
        </property>
        <item row="0" column="0" colspan="2">
-        <layout class="QHBoxLayout" name="Layout_Sliderselect">
+        <layout class="QHBoxLayout" name="_TilesTop">
          <item>
           <widget class="QWidget" name="AAUSBWidget" native="true">
            <property name="sizePolicy">
@@ -1346,7 +1182,7 @@ border: no-border;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QWidget" name="ButtonAndroidAuto" native="true">
+             <widget class="QWidget" name="ButtonAndroidAutoWidget" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1370,7 +1206,7 @@ border: no-border;</string>
                 <number>0</number>
                </property>
                <item>
-                <widget class="QLabel" name="labelAndroidAutoTop">
+                <widget class="QLabel" name="LabelAndroidAutoTop">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -1392,7 +1228,7 @@ border-bottom: 0px;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButtonAndroidAuto">
+                <widget class="QPushButton" name="ButtonAndroidAuto">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -1434,7 +1270,7 @@ border-bottom: 0px;
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="labelAndroidAutoBottom">
+                <widget class="QLabel" name="LabelAndroidAutoBottom">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -1468,7 +1304,7 @@ border-top: 0px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonNoDevice">
+             <widget class="QPushButton" name="ButtonNoDevice">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1519,7 +1355,7 @@ USB Device</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="pushButtonWifi">
+             <widget class="QPushButton" name="ButtonWifi">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1550,7 +1386,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonNoWiFiDevice">
+             <widget class="QPushButton" name="ButtonNoWiFiDevice">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1580,7 +1416,7 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonDay">
+          <widget class="QPushButton" name="ButtonDay">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1619,7 +1455,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonNight">
+          <widget class="QPushButton" name="ButtonNight">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1658,7 +1494,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonVolume">
+          <widget class="QPushButton" name="ButtonVolume">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1688,7 +1524,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonDebug">
+          <widget class="QPushButton" name="ButtonDebug">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1720,9 +1556,9 @@ outline: none;</string>
         </layout>
        </item>
        <item row="1" column="0" colspan="2">
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
+        <layout class="QHBoxLayout" name="_TilesBottom">
          <item>
-          <widget class="QWidget" name="horizontalWidgetButtons" native="true">
+          <widget class="QWidget" name="TilesFront" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1743,7 +1579,7 @@ outline: none;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="pushButtonLock">
+             <widget class="QPushButton" name="ButtonLock">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1775,7 +1611,7 @@ outline: none;
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonSettings">
+             <widget class="QPushButton" name="ButtonSettings">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1808,7 +1644,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonBrightness">
+             <widget class="QPushButton" name="ButtonBrightness">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1838,7 +1674,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonExit">
+             <widget class="QPushButton" name="ButtonExit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1871,7 +1707,7 @@ outline: none;</string>
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="horizontalWidgetPower" native="true">
+          <widget class="QWidget" name="TilesBack" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1892,7 +1728,7 @@ outline: none;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="pushButtonShutdown">
+             <widget class="QPushButton" name="ButtonShutdown">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1922,7 +1758,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonReboot">
+             <widget class="QPushButton" name="ButtonReboot">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1952,7 +1788,7 @@ outline: none;</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonCancel">
+             <widget class="QPushButton" name="ButtonCancel">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1990,7 +1826,7 @@ outline: none;</string>
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="VolumeSliderControl" native="true">
+     <widget class="QWidget" name="VolumeWidget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -2009,7 +1845,7 @@ outline: none;</string>
         <height>30</height>
        </size>
       </property>
-      <layout class="QHBoxLayout" name="Layout_Volume">
+      <layout class="QHBoxLayout" name="_VolumeWidgetLayout">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -2023,7 +1859,7 @@ outline: none;</string>
         <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButtonUnMute">
+        <widget class="QPushButton" name="ButtonUnmute">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -2053,7 +1889,7 @@ outline: none;</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonMute">
+        <widget class="QPushButton" name="ButtonMute">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -2086,7 +1922,7 @@ outline: none;</string>
         </widget>
        </item>
        <item>
-        <widget class="QSlider" name="horizontalSliderVolume">
+        <widget class="QSlider" name="SliderVolume">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -2113,7 +1949,7 @@ outline: none;</string>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="volumeValueLabel">
+        <widget class="QLabel" name="ValueVolume">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -2154,7 +1990,7 @@ background-color: #6d6d6d;</string>
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="BrightnessSliderControl" native="true">
+     <widget class="QWidget" name="BrightnessWidget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -2173,7 +2009,7 @@ background-color: #6d6d6d;</string>
         <height>30</height>
        </size>
       </property>
-      <layout class="QHBoxLayout" name="Layout_Brightness">
+      <layout class="QHBoxLayout" name="_BrightnessWidget">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -2187,7 +2023,7 @@ background-color: #6d6d6d;</string>
         <number>0</number>
        </property>
        <item>
-        <widget class="QSlider" name="horizontalSliderBrightness">
+        <widget class="QSlider" name="SliderBrightness">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -2232,7 +2068,7 @@ outline: none;</string>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="brightnessValueLabel">
+        <widget class="QLabel" name="ValueBrightness">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>

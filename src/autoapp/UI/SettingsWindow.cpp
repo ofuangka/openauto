@@ -45,10 +45,10 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
     , configuration_(std::move(configuration))
 {
     ui_->setupUi(this);
-    connect(ui_->pushButtonCancel, &QPushButton::clicked, this, &SettingsWindow::close);
-    connect(ui_->pushButtonSave, &QPushButton::clicked, this, &SettingsWindow::onSave);
-    connect(ui_->pushButtonUnpair , &QPushButton::clicked, this, &SettingsWindow::unpairAll);
-    connect(ui_->pushButtonUnpair , &QPushButton::clicked, this, &SettingsWindow::close);
+    connect(ui_->ButtonCancel, &QPushButton::clicked, this, &SettingsWindow::close);
+    connect(ui_->ButtonSave, &QPushButton::clicked, this, &SettingsWindow::onSave);
+    connect(ui_->ButtonUnpair , &QPushButton::clicked, this, &SettingsWindow::unpairAll);
+    connect(ui_->ButtonUnpair , &QPushButton::clicked, this, &SettingsWindow::close);
     connect(ui_->horizontalSliderScreenDPI, &QSlider::valueChanged, this, &SettingsWindow::onUpdateScreenDPI);
     connect(ui_->horizontalSliderAlphaTrans, &QSlider::valueChanged, this, &SettingsWindow::onUpdateAlphaTrans);
     connect(ui_->horizontalSliderDay, &QSlider::valueChanged, this, &SettingsWindow::onUpdateBrightnessDay);
@@ -63,28 +63,28 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
     connect(ui_->horizontalSliderLux3, &QSlider::valueChanged, this, &SettingsWindow::onUpdateLux3);
     connect(ui_->horizontalSliderLux4, &QSlider::valueChanged, this, &SettingsWindow::onUpdateLux4);
     connect(ui_->horizontalSliderLux5, &QSlider::valueChanged, this, &SettingsWindow::onUpdateLux5);
-    connect(ui_->radioButtonUseExternalBluetoothAdapter, &QRadioButton::clicked, [&](bool checked) { ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(checked); });
-    connect(ui_->radioButtonDisableBluetooth, &QRadioButton::clicked, [&]() { ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(false); });
-    connect(ui_->radioButtonUseLocalBluetoothAdapter, &QRadioButton::clicked, [&]() { ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(false); });
-    connect(ui_->pushButtonClearSelection, &QPushButton::clicked, std::bind(&SettingsWindow::setButtonCheckBoxes, this, false));
-    connect(ui_->pushButtonSelectAll, &QPushButton::clicked, std::bind(&SettingsWindow::setButtonCheckBoxes, this, true));
-    connect(ui_->pushButtonResetToDefaults, &QPushButton::clicked, this, &SettingsWindow::onResetToDefaults);
+    connect(ui_->RadioUseExternalBluetoothAdapter, &QRadioButton::clicked, [&](bool checked) { ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(checked); });
+    connect(ui_->RadioDisableBluetooth, &QRadioButton::clicked, [&]() { ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(false); });
+    connect(ui_->RadioUseLocalBluetoothAdapter, &QRadioButton::clicked, [&]() { ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(false); });
+    connect(ui_->ButtonClearSelection, &QPushButton::clicked, std::bind(&SettingsWindow::setButtonCheckBoxes, this, false));
+    connect(ui_->ButtonSelectAll, &QPushButton::clicked, std::bind(&SettingsWindow::setButtonCheckBoxes, this, true));
+    connect(ui_->ButtonResetToDefaults, &QPushButton::clicked, this, &SettingsWindow::onResetToDefaults);
     connect(ui_->horizontalSliderSystemVolume, &QSlider::valueChanged, this, &SettingsWindow::onUpdateSystemVolume);
     connect(ui_->horizontalSliderSystemCapture, &QSlider::valueChanged, this, &SettingsWindow::onUpdateSystemCapture);
-    connect(ui_->radioButtonHotspot, &QPushButton::clicked, this, &SettingsWindow::onStartHotspot);
-    connect(ui_->radioButtonClient, &QPushButton::clicked, this, &SettingsWindow::onStopHotspot);
-    connect(ui_->pushButtonSetTime, &QPushButton::clicked, this, &SettingsWindow::setTime);
-    connect(ui_->pushButtonSetTime, &QPushButton::clicked, this, &SettingsWindow::close);
-    connect(ui_->pushButtonNTP, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft rtc sync &"); });
-    connect(ui_->pushButtonNTP, &QPushButton::clicked, this, &SettingsWindow::close);
-    connect(ui_->pushButtonCheckNow, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft update check &"); });
-    connect(ui_->pushButtonDebuglog, &QPushButton::clicked, this, &SettingsWindow::close);
-    connect(ui_->pushButtonDebuglog, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft debuglog &");});
-    connect(ui_->pushButtonNetworkAuto, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft network auto &");});
-    connect(ui_->pushButtonNetwork0, &QPushButton::clicked, this, &SettingsWindow::on_pushButtonNetwork0_clicked);
-    connect(ui_->pushButtonNetwork1, &QPushButton::clicked, this, &SettingsWindow::on_pushButtonNetwork1_clicked);
-    connect(ui_->pushButtonSambaStart, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft samba start &");});
-    connect(ui_->pushButtonSambaStop, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft samba stop &");});
+    connect(ui_->RadioHotspot, &QPushButton::clicked, this, &SettingsWindow::onStartHotspot);
+    connect(ui_->RadioClient, &QPushButton::clicked, this, &SettingsWindow::onStopHotspot);
+    connect(ui_->ButtonSetTime, &QPushButton::clicked, this, &SettingsWindow::setTime);
+    connect(ui_->ButtonSetTime, &QPushButton::clicked, this, &SettingsWindow::close);
+    connect(ui_->ButtonNTP, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft rtc sync &"); });
+    connect(ui_->ButtonNTP, &QPushButton::clicked, this, &SettingsWindow::close);
+    connect(ui_->ButtonCheckNow, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft update check &"); });
+    connect(ui_->ButtonDebuglog, &QPushButton::clicked, this, &SettingsWindow::close);
+    connect(ui_->ButtonDebuglog, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft debuglog &");});
+    connect(ui_->ButtonNetworkAuto, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft network auto &");});
+    connect(ui_->ButtonNetwork0, &QPushButton::clicked, this, &SettingsWindow::on_ButtonNetwork0_clicked);
+    connect(ui_->ButtonNetwork1, &QPushButton::clicked, this, &SettingsWindow::on_ButtonNetwork1_clicked);
+    connect(ui_->ButtonSambaStart, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft samba start &");});
+    connect(ui_->ButtonSambaStop, &QPushButton::clicked, [&]() { system("/usr/local/bin/crankshaft samba stop &");});
 
     // menu
     ui_->tab1->show();
@@ -102,17 +102,17 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
     ui_->lineEditExternalBluetoothAdapterAddress->hide();
     ui_->labelTestInProgress->hide();
 
-    connect(ui_->pushButtonTab1, &QPushButton::clicked, this, &SettingsWindow::show_tab1);
-    connect(ui_->pushButtonTab2, &QPushButton::clicked, this, &SettingsWindow::show_tab2);
-    connect(ui_->pushButtonTab3, &QPushButton::clicked, this, &SettingsWindow::show_tab3);
-    connect(ui_->pushButtonTab4, &QPushButton::clicked, this, &SettingsWindow::show_tab4);
-    connect(ui_->pushButtonTab5, &QPushButton::clicked, this, &SettingsWindow::show_tab5);
-    connect(ui_->pushButtonTab5, &QPushButton::clicked, this, &SettingsWindow::updateNetworkInfo);
-    connect(ui_->pushButtonTab6, &QPushButton::clicked, this, &SettingsWindow::show_tab6);
-    connect(ui_->pushButtonTab6, &QPushButton::clicked, this, &SettingsWindow::updateSystemInfo);
-    connect(ui_->pushButtonTab7, &QPushButton::clicked, this, &SettingsWindow::show_tab7);
-    connect(ui_->pushButtonTab8, &QPushButton::clicked, this, &SettingsWindow::show_tab8);
-    connect(ui_->pushButtonTab9, &QPushButton::clicked, this, &SettingsWindow::show_tab9);
+    connect(ui_->ButtonTab1, &QPushButton::clicked, this, &SettingsWindow::show_tab1);
+    connect(ui_->ButtonTab2, &QPushButton::clicked, this, &SettingsWindow::show_tab2);
+    connect(ui_->ButtonTab3, &QPushButton::clicked, this, &SettingsWindow::show_tab3);
+    connect(ui_->ButtonTab4, &QPushButton::clicked, this, &SettingsWindow::show_tab4);
+    connect(ui_->ButtonTab5, &QPushButton::clicked, this, &SettingsWindow::show_tab5);
+    connect(ui_->ButtonTab5, &QPushButton::clicked, this, &SettingsWindow::updateNetworkInfo);
+    connect(ui_->ButtonTab6, &QPushButton::clicked, this, &SettingsWindow::show_tab6);
+    connect(ui_->ButtonTab6, &QPushButton::clicked, this, &SettingsWindow::updateSystemInfo);
+    connect(ui_->ButtonTab7, &QPushButton::clicked, this, &SettingsWindow::show_tab7);
+    connect(ui_->ButtonTab8, &QPushButton::clicked, this, &SettingsWindow::show_tab8);
+    connect(ui_->ButtonTab9, &QPushButton::clicked, this, &SettingsWindow::show_tab9);
 
     QTime time=QTime::currentTime();
     QString time_text_hour=time.toString("hh");
@@ -125,27 +125,27 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
     QString wifi_ssid = configuration_->getCSValue("WIFI_SSID");
     QString wifi2_ssid = configuration_->getCSValue("WIFI2_SSID");
 
-    ui_->pushButtonNetwork0->setText(wifi_ssid);
-    ui_->pushButtonNetwork1->setText(wifi2_ssid);
+    ui_->ButtonNetwork0->setText(wifi_ssid);
+    ui_->ButtonNetwork1->setText(wifi2_ssid);
 
     if (!std::ifstream("/boot/crankshaft/network1.conf")) {
-        ui_->pushButtonNetwork1->hide();
-        ui_->pushButtonNetwork0->show();
+        ui_->ButtonNetwork1->hide();
+        ui_->ButtonNetwork0->show();
     }
     if (!std::ifstream("/boot/crankshaft/network0.conf")) {
-        ui_->pushButtonNetwork1->hide();
-        ui_->pushButtonNetwork0->setText(configuration_->getCSValue("WIFI2_SSID"));
+        ui_->ButtonNetwork1->hide();
+        ui_->ButtonNetwork0->setText(configuration_->getCSValue("WIFI2_SSID"));
     }
     if (!std::ifstream("/boot/crankshaft/network0.conf") && !std::ifstream("/boot/crankshaft/network1.conf")) {
-        ui_->pushButtonNetwork0->hide();
-        ui_->pushButtonNetwork1->hide();
-        ui_->pushButtonNetworkAuto->hide();
+        ui_->ButtonNetwork0->hide();
+        ui_->ButtonNetwork1->hide();
+        ui_->ButtonNetworkAuto->hide();
         ui_->label_notavailable->show();
     }
 
     if (std::ifstream("/tmp/hotspot_active")) {
-        ui_->radioButtonClient->setChecked(0);
-        ui_->radioButtonHotspot->setChecked(1);
+        ui_->RadioClient->setChecked(0);
+        ui_->RadioHotspot->setChecked(1);
         ui_->lineEditWifiSSID->setText(configuration_->getParamFromFile("/etc/hostapd/hostapd.conf","ssid"));
         ui_->lineEditPassword->show();
         ui_->label_password->show();
@@ -153,8 +153,8 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
         ui_->clientNetworkSelect->hide();
         ui_->label_notavailable->show();
     } else {
-        ui_->radioButtonClient->setChecked(1);
-        ui_->radioButtonHotspot->setChecked(0);
+        ui_->RadioClient->setChecked(1);
+        ui_->RadioHotspot->setChecked(0);
         ui_->lineEditWifiSSID->setText(configuration_->readFileContent("/tmp/wifi_ssid"));
         ui_->lineEditPassword->hide();
         ui_->label_password->hide();
@@ -165,12 +165,12 @@ SettingsWindow::SettingsWindow(configuration::IConfiguration::Pointer configurat
 
     if (std::ifstream("/tmp/samba_running")) {
         ui_->labelSambaStatus->setText("running");
-        ui_->pushButtonSambaStart->hide();
-        ui_->pushButtonSambaStop->show();
+        ui_->ButtonSambaStart->hide();
+        ui_->ButtonSambaStop->show();
     } else {
         ui_->labelSambaStatus->setText("stopped");
-        ui_->pushButtonSambaStop->hide();
-        ui_->pushButtonSambaStart->show();
+        ui_->ButtonSambaStop->hide();
+        ui_->ButtonSambaStart->show();
     }
 
     QTimer *refresh=new QTimer(this);
@@ -195,21 +195,21 @@ void SettingsWindow::updateInfo()
 
 void SettingsWindow::onSave()
 {
-    configuration_->setHandednessOfTrafficType(ui_->radioButtonLeftHandDrive->isChecked() ? configuration::HandednessOfTrafficType::LEFT_HAND_DRIVE : configuration::HandednessOfTrafficType::RIGHT_HAND_DRIVE);
+    configuration_->setHandednessOfTrafficType(ui_->RadioLeftHandDrive->isChecked() ? configuration::HandednessOfTrafficType::LEFT_HAND_DRIVE : configuration::HandednessOfTrafficType::RIGHT_HAND_DRIVE);
 
-    configuration_->showClock(ui_->checkBoxShowClock->isChecked());
-    configuration_->showBigClock(ui_->checkBoxShowBigClock->isChecked());
-    configuration_->oldGUI(ui_->checkBoxOldGUI->isChecked());
+    configuration_->showClock(ui_->CheckBoxShowClock->isChecked());
+    configuration_->showBigClock(ui_->CheckBoxShowBigClock->isChecked());
+    configuration_->oldGUI(ui_->CheckBoxOldGUI->isChecked());
     configuration_->setAlphaTrans(static_cast<size_t>(ui_->horizontalSliderAlphaTrans->value()));
-    configuration_->hideMenuToggle(ui_->checkBoxHideMenuToggle->isChecked());
-    configuration_->showLux(ui_->checkBoxShowLux->isChecked());
-    configuration_->showCursor(ui_->checkBoxShowCursor->isChecked());
-    configuration_->hideBrightnessControl(ui_->checkBoxHideBrightnessControl->isChecked());
-    configuration_->showNetworkinfo(ui_->checkBoxNetworkinfo->isChecked());
-    configuration_->mp3AutoPlay(ui_->checkBoxAutoPlay->isChecked());
-    configuration_->showAutoPlay(ui_->checkBoxShowPlayer->isChecked());
-    configuration_->instantPlay(ui_->checkBoxInstantPlay->isChecked());
-    configuration_->hideWarning(ui_->checkBoxDontShowAgain->isChecked());
+    configuration_->hideMenuToggle(ui_->CheckBoxHideMenuToggle->isChecked());
+    configuration_->showLux(ui_->CheckBoxShowLux->isChecked());
+    configuration_->showCursor(ui_->CheckBoxShowCursor->isChecked());
+    configuration_->hideBrightnessControl(ui_->CheckBoxHideBrightnessControl->isChecked());
+    configuration_->showNetworkInfo(ui_->CheckBoxNetworkinfo->isChecked());
+    configuration_->mp3AutoPlay(ui_->CheckBoxAutoPlay->isChecked());
+    configuration_->showAutoPlay(ui_->CheckBoxShowPlayer->isChecked());
+    configuration_->instantPlay(ui_->CheckBoxInstantPlay->isChecked());
+    configuration_->hideWarning(ui_->CheckBoxDontShowAgain->isChecked());
 
     configuration_->setVideoFPS(ui_->radioButton30FPS->isChecked() ? aasdk::proto::enums::VideoFPS::_30 : aasdk::proto::enums::VideoFPS::_60);
 
@@ -232,29 +232,29 @@ void SettingsWindow::onSave()
     QRect videoMargins(0, 0, ui_->spinBoxVideoMarginWidth->value(), ui_->spinBoxVideoMarginHeight->value());
     configuration_->setVideoMargins(std::move(videoMargins));
 
-    configuration_->setTouchscreenEnabled(ui_->checkBoxEnableTouchscreen->isChecked());
+    configuration_->setTouchscreenEnabled(ui_->CheckBoxEnableTouchscreen->isChecked());
     this->saveButtonCheckBoxes();
 
-    configuration_->playerButtonControl(ui_->checkBoxPlayerControl->isChecked());
+    configuration_->playerButtonControl(ui_->CheckBoxPlayerControl->isChecked());
 
-    if(ui_->radioButtonDisableBluetooth->isChecked())
+    if(ui_->RadioDisableBluetooth->isChecked())
     {
         configuration_->setBluetoothAdapterType(configuration::BluetoothAdapterType::NONE);
     }
-    else if(ui_->radioButtonUseLocalBluetoothAdapter->isChecked())
+    else if(ui_->RadioUseLocalBluetoothAdapter->isChecked())
     {
         configuration_->setBluetoothAdapterType(configuration::BluetoothAdapterType::LOCAL);
     }
-    else if(ui_->radioButtonUseExternalBluetoothAdapter->isChecked())
+    else if(ui_->RadioUseExternalBluetoothAdapter->isChecked())
     {
         configuration_->setBluetoothAdapterType(configuration::BluetoothAdapterType::REMOTE);
     }
 
     configuration_->setBluetoothRemoteAdapterAddress(ui_->lineEditExternalBluetoothAdapterAddress->text().toStdString());
 
-    configuration_->setMusicAudioChannelEnabled(ui_->checkBoxMusicAudioChannel->isChecked());
-    configuration_->setSpeechAudioChannelEnabled(ui_->checkBoxSpeechAudioChannel->isChecked());
-    configuration_->setAudioOutputBackendType(ui_->radioButtonRtAudio->isChecked() ? configuration::AudioOutputBackendType::RTAUDIO : configuration::AudioOutputBackendType::QT);
+    configuration_->setMusicAudioChannelEnabled(ui_->CheckBoxMusicAudioChannel->isChecked());
+    configuration_->setSpeechAudioChannelEnabled(ui_->CheckBoxSpeechAudioChannel->isChecked());
+    configuration_->setAudioOutputBackendType(ui_->RadioRtAudio->isChecked() ? configuration::AudioOutputBackendType::RTAUDIO : configuration::AudioOutputBackendType::QT);
 
     configuration_->save();
 
@@ -288,13 +288,13 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::string(ui_->comboBoxAndroid->currentText().toStdString()) );
     params.append("#");
-    if (ui_->radioButtonX11->isChecked()) {
+    if (ui_->RadioX11->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->radioButtonScreenRotated->isChecked()) {
+    if (ui_->RadioScreenRotated->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -310,19 +310,19 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::string(ui_->comboBoxHardwareDAC->currentText().toStdString()) );
     params.append("#");
-    if (ui_->checkBoxDisableShutdown->isChecked()) {
+    if (ui_->CheckBoxDisableShutdown->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->checkBoxDisableScreenOff->isChecked()) {
+    if (ui_->CheckBoxDisableScreenOff->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->radioButtonDebugmodeEnabled->isChecked()) {
+    if (ui_->RadioDebugmodeEnabled->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -332,7 +332,7 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::to_string(ui_->spinBoxGPIOShutdownDelay->value()) );
     params.append("#");
-    if (ui_->checkBoxHotspot->isChecked()) {
+    if (ui_->CheckBoxHotspot->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -340,7 +340,7 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::string(ui_->comboBoxCam->currentText().toStdString()) );
     params.append("#");
-    if (ui_->checkBoxBluetoothAutoPair->isChecked()) {
+    if (ui_->CheckBoxBluetoothAutoPair->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -348,7 +348,7 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::string(ui_->comboBoxBluetooth->currentText().toStdString()) );
     params.append("#");
-    if (ui_->checkBoxHardwareSave->isChecked()) {
+    if (ui_->CheckBoxHardwareSave->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -388,13 +388,13 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::string(ui_->comboBoxNightmodeStep->currentText().toStdString()) );
     params.append("#");
-    if (ui_->checkBoxDisableDayNightRTC->isChecked()) {
+    if (ui_->CheckBoxDisableDayNightRTC->isChecked()) {
         params.append("0");
     } else {
         params.append("1");
     }
     params.append("#");
-    if(ui_->radioButtonAnimatedCSNG->isChecked())
+    if(ui_->RadioAnimatedCSNG->isChecked())
     {
         params.append("0");
     }
@@ -402,26 +402,26 @@ void SettingsWindow::onSave()
     {
         params.append("1");
     }
-    else if(ui_->radioButtonCustom->isChecked())
+    else if(ui_->RadioCustom->isChecked())
     {
         params.append("2");
     }
     params.append("#");
     params.append( std::string(ui_->comboBoxCountryCode->currentText().split("|")[0].replace(" ","").toStdString()) );
     params.append("#");
-    if (ui_->checkBoxBlankOnly ->isChecked()) {
+    if (ui_->CheckBoxBlankOnly ->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->checkBoxFlipX ->isChecked()) {
+    if (ui_->CheckBoxFlipX ->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->checkBoxFlipY ->isChecked()) {
+    if (ui_->CheckBoxFlipY ->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -441,19 +441,19 @@ void SettingsWindow::onSave()
     params.append("#");
     params.append( std::string(ui_->comboBoxLoopCount->currentText().toStdString()) );
     params.append("#");
-    if (ui_->checkBoxAutoRecording ->isChecked()) {
+    if (ui_->CheckBoxAutoRecording ->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->checkBoxFlipXUSB ->isChecked()) {
+    if (ui_->CheckBoxFlipXUSB ->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
     }
     params.append("#");
-    if (ui_->checkBoxFlipYUSB ->isChecked()) {
+    if (ui_->CheckBoxFlipYUSB ->isChecked()) {
         params.append("1");
     } else {
         params.append("0");
@@ -485,22 +485,22 @@ void SettingsWindow::showEvent(QShowEvent* event)
 
 void SettingsWindow::load()
 {
-    ui_->radioButtonLeftHandDrive->setChecked(configuration_->getHandednessOfTrafficType() == configuration::HandednessOfTrafficType::LEFT_HAND_DRIVE);
-    ui_->radioButtonRightHandDrive->setChecked(configuration_->getHandednessOfTrafficType() == configuration::HandednessOfTrafficType::RIGHT_HAND_DRIVE);
-    ui_->checkBoxShowClock->setChecked(configuration_->showClock());
+    ui_->RadioLeftHandDrive->setChecked(configuration_->getHandednessOfTrafficType() == configuration::HandednessOfTrafficType::LEFT_HAND_DRIVE);
+    ui_->RadioRightHandDrive->setChecked(configuration_->getHandednessOfTrafficType() == configuration::HandednessOfTrafficType::RIGHT_HAND_DRIVE);
+    ui_->CheckBoxShowClock->setChecked(configuration_->showClock());
     ui_->horizontalSliderAlphaTrans->setValue(static_cast<int>(configuration_->getAlphaTrans()));
 
-    ui_->checkBoxShowBigClock->setChecked(configuration_->showBigClock());
-    ui_->checkBoxOldGUI->setChecked(configuration_->oldGUI());
-    ui_->checkBoxHideMenuToggle->setChecked(configuration_->hideMenuToggle());
-    ui_->checkBoxShowLux->setChecked(configuration_->showLux());
-    ui_->checkBoxShowCursor->setChecked(configuration_->showCursor());
-    ui_->checkBoxHideBrightnessControl->setChecked(configuration_->hideBrightnessControl());
-    ui_->checkBoxNetworkinfo->setChecked(configuration_->showNetworkinfo());
-    ui_->checkBoxAutoPlay->setChecked(configuration_->mp3AutoPlay());
-    ui_->checkBoxShowPlayer->setChecked(configuration_->showAutoPlay());
-    ui_->checkBoxInstantPlay->setChecked(configuration_->instantPlay());
-    ui_->checkBoxDontShowAgain->setChecked(configuration_->hideWarning());
+    ui_->CheckBoxShowBigClock->setChecked(configuration_->showBigClock());
+    ui_->CheckBoxOldGUI->setChecked(configuration_->oldGUI());
+    ui_->CheckBoxHideMenuToggle->setChecked(configuration_->hideMenuToggle());
+    ui_->CheckBoxShowLux->setChecked(configuration_->showLux());
+    ui_->CheckBoxShowCursor->setChecked(configuration_->showCursor());
+    ui_->CheckBoxHideBrightnessControl->setChecked(configuration_->hideBrightnessControl());
+    ui_->CheckBoxNetworkinfo->setChecked(configuration_->showNetworkInfo());
+    ui_->CheckBoxAutoPlay->setChecked(configuration_->mp3AutoPlay());
+    ui_->CheckBoxShowPlayer->setChecked(configuration_->showAutoPlay());
+    ui_->CheckBoxInstantPlay->setChecked(configuration_->instantPlay());
+    ui_->CheckBoxDontShowAgain->setChecked(configuration_->hideWarning());
 
     ui_->radioButton30FPS->setChecked(configuration_->getVideoFPS() == aasdk::proto::enums::VideoFPS::_30);
     ui_->radioButton60FPS->setChecked(configuration_->getVideoFPS() == aasdk::proto::enums::VideoFPS::_60);
@@ -515,24 +515,24 @@ void SettingsWindow::load()
     ui_->spinBoxVideoMarginWidth->setValue(videoMargins.width());
     ui_->spinBoxVideoMarginHeight->setValue(videoMargins.height());
 
-    ui_->checkBoxEnableTouchscreen->setChecked(configuration_->getTouchscreenEnabled());
+    ui_->CheckBoxEnableTouchscreen->setChecked(configuration_->getTouchscreenEnabled());
     this->loadButtonCheckBoxes();
-    ui_->checkBoxPlayerControl->setChecked(configuration_->playerButtonControl());
+    ui_->CheckBoxPlayerControl->setChecked(configuration_->playerButtonControl());
 
-    ui_->radioButtonDisableBluetooth->setChecked(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::NONE);
-    ui_->radioButtonUseLocalBluetoothAdapter->setChecked(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::LOCAL);
-    ui_->radioButtonUseExternalBluetoothAdapter->setChecked(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::REMOTE);
+    ui_->RadioDisableBluetooth->setChecked(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::NONE);
+    ui_->RadioUseLocalBluetoothAdapter->setChecked(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::LOCAL);
+    ui_->RadioUseExternalBluetoothAdapter->setChecked(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::REMOTE);
     ui_->lineEditExternalBluetoothAdapterAddress->setEnabled(configuration_->getBluetoothAdapterType() == configuration::BluetoothAdapterType::REMOTE);
     ui_->lineEditExternalBluetoothAdapterAddress->setText(QString::fromStdString(configuration_->getBluetoothRemoteAdapterAddress()));
 
-    ui_->checkBoxMusicAudioChannel->setChecked(configuration_->musicAudioChannelEnabled());
-    ui_->checkBoxSpeechAudioChannel->setChecked(configuration_->speechAudioChannelEnabled());
+    ui_->CheckBoxMusicAudioChannel->setChecked(configuration_->musicAudioChannelEnabled());
+    ui_->CheckBoxSpeechAudioChannel->setChecked(configuration_->speechAudioChannelEnabled());
 
     const auto& audioOutputBackendType = configuration_->getAudioOutputBackendType();
-    ui_->radioButtonRtAudio->setChecked(audioOutputBackendType == configuration::AudioOutputBackendType::RTAUDIO);
-    ui_->radioButtonQtAudio->setChecked(audioOutputBackendType == configuration::AudioOutputBackendType::QT);
+    ui_->RadioRtAudio->setChecked(audioOutputBackendType == configuration::AudioOutputBackendType::RTAUDIO);
+    ui_->RadioQtAudio->setChecked(audioOutputBackendType == configuration::AudioOutputBackendType::QT);
 
-    ui_->checkBoxHardwareSave->setChecked(false);
+    ui_->CheckBoxHardwareSave->setChecked(false);
     QStorageInfo storage("/media/USBDRIVES/CSSTORAGE");
     storage.refresh();
     if (storage.isValid() && storage.isReady()) {
@@ -549,63 +549,63 @@ void SettingsWindow::load()
 void SettingsWindow::loadButtonCheckBoxes()
 {
     const auto& buttonCodes = configuration_->getButtonCodes();
-    ui_->checkBoxPlayButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PLAY) != buttonCodes.end());
-    ui_->checkBoxPauseButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PAUSE) != buttonCodes.end());
-    ui_->checkBoxTogglePlayButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::TOGGLE_PLAY) != buttonCodes.end());
-    ui_->checkBoxNextTrackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::NEXT) != buttonCodes.end());
-    ui_->checkBoxPreviousTrackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PREV) != buttonCodes.end());
-    ui_->checkBoxHomeButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::HOME) != buttonCodes.end());
-    ui_->checkBoxPhoneButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PHONE) != buttonCodes.end());
-    ui_->checkBoxCallEndButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::CALL_END) != buttonCodes.end());
-    ui_->checkBoxVoiceCommandButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::MICROPHONE_1) != buttonCodes.end());
-    ui_->checkBoxLeftButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::LEFT) != buttonCodes.end());
-    ui_->checkBoxRightButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::RIGHT) != buttonCodes.end());
-    ui_->checkBoxUpButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::UP) != buttonCodes.end());
-    ui_->checkBoxDownButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::DOWN) != buttonCodes.end());
-    ui_->checkBoxScrollWheelButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::SCROLL_WHEEL) != buttonCodes.end());
-    ui_->checkBoxBackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::BACK) != buttonCodes.end());
-    ui_->checkBoxEnterButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::ENTER) != buttonCodes.end());
+    ui_->CheckBoxPlayButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PLAY) != buttonCodes.end());
+    ui_->CheckBoxPauseButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PAUSE) != buttonCodes.end());
+    ui_->CheckBoxTogglePlayButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::TOGGLE_PLAY) != buttonCodes.end());
+    ui_->CheckBoxNextTrackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::NEXT) != buttonCodes.end());
+    ui_->CheckBoxPreviousTrackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PREV) != buttonCodes.end());
+    ui_->CheckBoxHomeButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::HOME) != buttonCodes.end());
+    ui_->CheckBoxPhoneButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::PHONE) != buttonCodes.end());
+    ui_->CheckBoxCallEndButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::CALL_END) != buttonCodes.end());
+    ui_->CheckBoxVoiceCommandButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::MICROPHONE_1) != buttonCodes.end());
+    ui_->CheckBoxLeftButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::LEFT) != buttonCodes.end());
+    ui_->CheckBoxRightButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::RIGHT) != buttonCodes.end());
+    ui_->CheckBoxUpButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::UP) != buttonCodes.end());
+    ui_->CheckBoxDownButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::DOWN) != buttonCodes.end());
+    ui_->CheckBoxScrollWheelButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::SCROLL_WHEEL) != buttonCodes.end());
+    ui_->CheckBoxBackButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::BACK) != buttonCodes.end());
+    ui_->CheckBoxEnterButton->setChecked(std::find(buttonCodes.begin(), buttonCodes.end(), aasdk::proto::enums::ButtonCode::ENTER) != buttonCodes.end());
 }
 
 void SettingsWindow::setButtonCheckBoxes(bool value)
 {
-    ui_->checkBoxPlayButton->setChecked(value);
-    ui_->checkBoxPauseButton->setChecked(value);
-    ui_->checkBoxTogglePlayButton->setChecked(value);
-    ui_->checkBoxNextTrackButton->setChecked(value);
-    ui_->checkBoxPreviousTrackButton->setChecked(value);
-    ui_->checkBoxHomeButton->setChecked(value);
-    ui_->checkBoxPhoneButton->setChecked(value);
-    ui_->checkBoxCallEndButton->setChecked(value);
-    ui_->checkBoxVoiceCommandButton->setChecked(value);
-    ui_->checkBoxLeftButton->setChecked(value);
-    ui_->checkBoxRightButton->setChecked(value);
-    ui_->checkBoxUpButton->setChecked(value);
-    ui_->checkBoxDownButton->setChecked(value);
-    ui_->checkBoxScrollWheelButton->setChecked(value);
-    ui_->checkBoxBackButton->setChecked(value);
-    ui_->checkBoxEnterButton->setChecked(value);
+    ui_->CheckBoxPlayButton->setChecked(value);
+    ui_->CheckBoxPauseButton->setChecked(value);
+    ui_->CheckBoxTogglePlayButton->setChecked(value);
+    ui_->CheckBoxNextTrackButton->setChecked(value);
+    ui_->CheckBoxPreviousTrackButton->setChecked(value);
+    ui_->CheckBoxHomeButton->setChecked(value);
+    ui_->CheckBoxPhoneButton->setChecked(value);
+    ui_->CheckBoxCallEndButton->setChecked(value);
+    ui_->CheckBoxVoiceCommandButton->setChecked(value);
+    ui_->CheckBoxLeftButton->setChecked(value);
+    ui_->CheckBoxRightButton->setChecked(value);
+    ui_->CheckBoxUpButton->setChecked(value);
+    ui_->CheckBoxDownButton->setChecked(value);
+    ui_->CheckBoxScrollWheelButton->setChecked(value);
+    ui_->CheckBoxBackButton->setChecked(value);
+    ui_->CheckBoxEnterButton->setChecked(value);
 }
 
 void SettingsWindow::saveButtonCheckBoxes()
 {
     configuration::IConfiguration::ButtonCodes buttonCodes;
-    this->saveButtonCheckBox(ui_->checkBoxPlayButton, buttonCodes, aasdk::proto::enums::ButtonCode::PLAY);
-    this->saveButtonCheckBox(ui_->checkBoxPauseButton, buttonCodes, aasdk::proto::enums::ButtonCode::PAUSE);
-    this->saveButtonCheckBox(ui_->checkBoxTogglePlayButton, buttonCodes, aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
-    this->saveButtonCheckBox(ui_->checkBoxNextTrackButton, buttonCodes, aasdk::proto::enums::ButtonCode::NEXT);
-    this->saveButtonCheckBox(ui_->checkBoxPreviousTrackButton, buttonCodes, aasdk::proto::enums::ButtonCode::PREV);
-    this->saveButtonCheckBox(ui_->checkBoxHomeButton, buttonCodes, aasdk::proto::enums::ButtonCode::HOME);
-    this->saveButtonCheckBox(ui_->checkBoxPhoneButton, buttonCodes, aasdk::proto::enums::ButtonCode::PHONE);
-    this->saveButtonCheckBox(ui_->checkBoxCallEndButton, buttonCodes, aasdk::proto::enums::ButtonCode::CALL_END);
-    this->saveButtonCheckBox(ui_->checkBoxVoiceCommandButton, buttonCodes, aasdk::proto::enums::ButtonCode::MICROPHONE_1);
-    this->saveButtonCheckBox(ui_->checkBoxLeftButton, buttonCodes, aasdk::proto::enums::ButtonCode::LEFT);
-    this->saveButtonCheckBox(ui_->checkBoxRightButton, buttonCodes, aasdk::proto::enums::ButtonCode::RIGHT);
-    this->saveButtonCheckBox(ui_->checkBoxUpButton, buttonCodes, aasdk::proto::enums::ButtonCode::UP);
-    this->saveButtonCheckBox(ui_->checkBoxDownButton, buttonCodes, aasdk::proto::enums::ButtonCode::DOWN);
-    this->saveButtonCheckBox(ui_->checkBoxScrollWheelButton, buttonCodes, aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
-    this->saveButtonCheckBox(ui_->checkBoxBackButton, buttonCodes, aasdk::proto::enums::ButtonCode::BACK);
-    this->saveButtonCheckBox(ui_->checkBoxEnterButton, buttonCodes, aasdk::proto::enums::ButtonCode::ENTER);
+    this->saveButtonCheckBox(ui_->CheckBoxPlayButton, buttonCodes, aasdk::proto::enums::ButtonCode::PLAY);
+    this->saveButtonCheckBox(ui_->CheckBoxPauseButton, buttonCodes, aasdk::proto::enums::ButtonCode::PAUSE);
+    this->saveButtonCheckBox(ui_->CheckBoxTogglePlayButton, buttonCodes, aasdk::proto::enums::ButtonCode::TOGGLE_PLAY);
+    this->saveButtonCheckBox(ui_->CheckBoxNextTrackButton, buttonCodes, aasdk::proto::enums::ButtonCode::NEXT);
+    this->saveButtonCheckBox(ui_->CheckBoxPreviousTrackButton, buttonCodes, aasdk::proto::enums::ButtonCode::PREV);
+    this->saveButtonCheckBox(ui_->CheckBoxHomeButton, buttonCodes, aasdk::proto::enums::ButtonCode::HOME);
+    this->saveButtonCheckBox(ui_->CheckBoxPhoneButton, buttonCodes, aasdk::proto::enums::ButtonCode::PHONE);
+    this->saveButtonCheckBox(ui_->CheckBoxCallEndButton, buttonCodes, aasdk::proto::enums::ButtonCode::CALL_END);
+    this->saveButtonCheckBox(ui_->CheckBoxVoiceCommandButton, buttonCodes, aasdk::proto::enums::ButtonCode::MICROPHONE_1);
+    this->saveButtonCheckBox(ui_->CheckBoxLeftButton, buttonCodes, aasdk::proto::enums::ButtonCode::LEFT);
+    this->saveButtonCheckBox(ui_->CheckBoxRightButton, buttonCodes, aasdk::proto::enums::ButtonCode::RIGHT);
+    this->saveButtonCheckBox(ui_->CheckBoxUpButton, buttonCodes, aasdk::proto::enums::ButtonCode::UP);
+    this->saveButtonCheckBox(ui_->CheckBoxDownButton, buttonCodes, aasdk::proto::enums::ButtonCode::DOWN);
+    this->saveButtonCheckBox(ui_->CheckBoxScrollWheelButton, buttonCodes, aasdk::proto::enums::ButtonCode::SCROLL_WHEEL);
+    this->saveButtonCheckBox(ui_->CheckBoxBackButton, buttonCodes, aasdk::proto::enums::ButtonCode::BACK);
+    this->saveButtonCheckBox(ui_->CheckBoxEnterButton, buttonCodes, aasdk::proto::enums::ButtonCode::ENTER);
     configuration_->setButtonCodes(buttonCodes);
 }
 
@@ -811,13 +811,13 @@ void SettingsWindow::loadSystemValues()
         if (configuration_->getCSValue("START_X11") == "0") {
             ui_->radioButtonEGL->setChecked(true);
         } else {
-            ui_->radioButtonX11->setChecked(true);
+            ui_->RadioX11->setChecked(true);
         }
         // set rotation
         if (configuration_->getCSValue("FLIP_SCREEN") == "0") {
-            ui_->radioButtonScreenNormal->setChecked(true);
+            ui_->RadioScreenNormal->setChecked(true);
         } else {
-            ui_->radioButtonScreenRotated->setChecked(true);
+            ui_->RadioScreenRotated->setChecked(true);
         }
 
         if (std::ifstream("/tmp/get_inputs")) {
@@ -937,16 +937,16 @@ void SettingsWindow::loadSystemValues()
 
         // set shutdown disable
         if (configuration_->getCSValue("DISCONNECTION_POWEROFF_DISABLE") == "1") {
-            ui_->checkBoxDisableShutdown->setChecked(true);
+            ui_->CheckBoxDisableShutdown->setChecked(true);
         } else {
-            ui_->checkBoxDisableShutdown->setChecked(false);
+            ui_->CheckBoxDisableShutdown->setChecked(false);
         }
 
         // set screen off disable
         if (configuration_->getCSValue("DISCONNECTION_SCREEN_POWEROFF_DISABLE") == "1") {
-            ui_->checkBoxDisableScreenOff->setChecked(true);
+            ui_->CheckBoxDisableScreenOff->setChecked(true);
         } else {
-            ui_->checkBoxDisableScreenOff->setChecked(false);
+            ui_->CheckBoxDisableScreenOff->setChecked(false);
         }
 
         // set custom brightness command
@@ -958,9 +958,9 @@ void SettingsWindow::loadSystemValues()
 
         // set debug mode
         if (configuration_->getCSValue("DEBUG_MODE") == "1") {
-            ui_->radioButtonDebugmodeEnabled->setChecked(true);
+            ui_->RadioDebugmodeEnabled->setChecked(true);
         } else {
-            ui_->radioButtonDebugmodeDisabled->setChecked(true);
+            ui_->RadioDebugmodeDisabled->setChecked(true);
         }
 
         // GPIO based shutdown
@@ -969,9 +969,9 @@ void SettingsWindow::loadSystemValues()
 
         // Wifi Hotspot
         if (configuration_->getCSValue("ENABLE_HOTSPOT") == "1") {
-            ui_->checkBoxHotspot->setChecked(true);
+            ui_->CheckBoxHotspot->setChecked(true);
         } else {
-            ui_->checkBoxHotspot->setChecked(false);
+            ui_->CheckBoxHotspot->setChecked(false);
         }
 
         // set cam
@@ -981,14 +981,14 @@ void SettingsWindow::loadSystemValues()
             ui_->comboBoxCam->setCurrentText("disabled");
         }
         if (configuration_->getCSValue("RPICAM_HFLIP") == "1") {
-            ui_->checkBoxFlipX->setChecked(true);
+            ui_->CheckBoxFlipX->setChecked(true);
         } else {
-            ui_->checkBoxFlipX->setChecked(false);
+            ui_->CheckBoxFlipX->setChecked(false);
         }
         if (configuration_->getCSValue("RPICAM_VFLIP") == "1") {
-            ui_->checkBoxFlipY->setChecked(true);
+            ui_->CheckBoxFlipY->setChecked(true);
         } else {
-            ui_->checkBoxFlipY->setChecked(false);
+            ui_->CheckBoxFlipY->setChecked(false);
         }
         ui_->comboBoxRotation->setCurrentText(configuration_->getCSValue("RPICAM_ROTATION"));
         ui_->comboBoxResolution->setCurrentText(configuration_->getCSValue("RPICAM_RESOLUTION"));
@@ -999,9 +999,9 @@ void SettingsWindow::loadSystemValues()
         ui_->comboBoxLoopCount->setCurrentText(configuration_->getCSValue("RPICAM_LOOPCOUNT"));
 
         if (configuration_->getCSValue("RPICAM_AUTORECORDING") == "1") {
-            ui_->checkBoxAutoRecording->setChecked(true);
+            ui_->CheckBoxAutoRecording->setChecked(true);
         } else {
-            ui_->checkBoxAutoRecording->setChecked(false);
+            ui_->CheckBoxAutoRecording->setChecked(false);
         }
 
         if (configuration_->getCSValue("USBCAM_USE") == "1") {
@@ -1015,34 +1015,34 @@ void SettingsWindow::loadSystemValues()
             ui_->comboBoxUSBRotation->setCurrentText("0");
         }
         if (configuration_->getCSValue("USBCAM_HFLIP") == "1") {
-            ui_->checkBoxFlipXUSB->setChecked(true);
+            ui_->CheckBoxFlipXUSB->setChecked(true);
         } else {
-            ui_->checkBoxFlipXUSB->setChecked(false);
+            ui_->CheckBoxFlipXUSB->setChecked(false);
         }
         if (configuration_->getCSValue("USBCAM_VFLIP") == "1") {
-            ui_->checkBoxFlipYUSB->setChecked(true);
+            ui_->CheckBoxFlipYUSB->setChecked(true);
         } else {
-            ui_->checkBoxFlipYUSB->setChecked(false);
+            ui_->CheckBoxFlipYUSB->setChecked(false);
         }
 
         // set bluetooth
         if (configuration_->getCSValue("ENABLE_BLUETOOTH") == "1") {
             // check external bluetooth enabled
             if (configuration_->getCSValue("EXTERNAL_BLUETOOTH") == "1") {
-                ui_->radioButtonUseExternalBluetoothAdapter->setChecked(true);
+                ui_->RadioUseExternalBluetoothAdapter->setChecked(true);
             } else {
-                ui_->radioButtonUseLocalBluetoothAdapter->setChecked(true);
+                ui_->RadioUseLocalBluetoothAdapter->setChecked(true);
             }
             // mac
             //ui_->lineEditExternalBluetoothAdapterAddress->setText(getparams[37]);
         } else {
-            ui_->radioButtonDisableBluetooth->setChecked(true);
+            ui_->RadioDisableBluetooth->setChecked(true);
             ui_->lineEditExternalBluetoothAdapterAddress->setText("");
         }
         if (configuration_->getCSValue("ENABLE_PAIRABLE") == "1") {
-            ui_->checkBoxBluetoothAutoPair->setChecked(true);
+            ui_->CheckBoxBluetoothAutoPair->setChecked(true);
         } else {
-            ui_->checkBoxBluetoothAutoPair->setChecked(false);
+            ui_->CheckBoxBluetoothAutoPair->setChecked(false);
         }
         // set bluetooth type
         if (configuration_->getCSValue("ENABLE_BLUETOOTH") == "1") {
@@ -1059,37 +1059,37 @@ void SettingsWindow::loadSystemValues()
         // set lightsensor
         if (std::ifstream("/etc/cs_lightsensor")) {
             ui_->comboBoxLS->setCurrentIndex(1);
-            ui_->groupBoxSliderDay->hide();
-            ui_->groupBoxSliderNight->hide();
+            ui_->GroupSliderDay->hide();
+            ui_->GroupSliderNight->hide();
         } else {
             ui_->comboBoxLS->setCurrentIndex(0);
-            ui_->pushButtonTab9->hide();
-            ui_->groupBoxSliderDay->show();
-            ui_->groupBoxSliderNight->show();
+            ui_->ButtonTab9->hide();
+            ui_->GroupSliderDay->show();
+            ui_->GroupSliderNight->show();
         }
         ui_->comboBoxDayNight->setCurrentText(configuration_->getCSValue("DAYNIGHT_PIN"));
         if (configuration_->getCSValue("RTC_DAYNIGHT") == "1") {
-            ui_->checkBoxDisableDayNightRTC->setChecked(false);
+            ui_->CheckBoxDisableDayNightRTC->setChecked(false);
         } else {
-            ui_->checkBoxDisableDayNightRTC->setChecked(true);
+            ui_->CheckBoxDisableDayNightRTC->setChecked(true);
         }
         QString theme = configuration_->getParamFromFile("/etc/plymouth/plymouthd.conf","Theme");
         if (theme == "csnganimation") {
-            ui_->radioButtonAnimatedCSNG->setChecked(true);
+            ui_->RadioAnimatedCSNG->setChecked(true);
         }
         else if (theme == "crankshaft") {
             ui_->radioButtonCSNG->setChecked(true);
         }
         else if (theme == "custom") {
-            ui_->radioButtonCustom->setChecked(true);
+            ui_->RadioCustom->setChecked(true);
         }
         // wifi country code
         ui_->comboBoxCountryCode->setCurrentIndex(ui_->comboBoxCountryCode->findText(configuration_->getCSValue("WIFI_COUNTRY"), Qt::MatchFlag::MatchStartsWith));
         // set screen blank instead off
         if (configuration_->getCSValue("SCREEN_POWEROFF_OVERRIDE") == "1") {
-            ui_->checkBoxBlankOnly->setChecked(true);
+            ui_->CheckBoxBlankOnly->setChecked(true);
         } else {
-            ui_->checkBoxBlankOnly->setChecked(false);
+            ui_->CheckBoxBlankOnly->setChecked(false);
         }
     }
     // update network info
@@ -1101,11 +1101,11 @@ void SettingsWindow::onStartHotspot()
     ui_->label_modeswitchprogress->setText("Wait ...");
     ui_->clientNetworkSelect->hide();
     ui_->label_notavailable->show();
-    ui_->radioButtonClient->setEnabled(0);
-    ui_->radioButtonHotspot->setEnabled(0);
+    ui_->RadioClient->setEnabled(0);
+    ui_->RadioHotspot->setEnabled(0);
     ui_->lineEdit_wlan0->setText("");
     ui_->lineEditWifiSSID->setText("");
-    ui_->pushButtonNetworkAuto->hide();
+    ui_->ButtonNetworkAuto->hide();
     qApp->processEvents();
     std::remove("/tmp/manual_hotspot_control");
     std::ofstream("/tmp/manual_hotspot_control");
@@ -1117,12 +1117,12 @@ void SettingsWindow::onStopHotspot()
     ui_->label_modeswitchprogress->setText("Wait ...");
     ui_->clientNetworkSelect->hide();
     ui_->label_notavailable->show();
-    ui_->radioButtonClient->setEnabled(0);
-    ui_->radioButtonHotspot->setEnabled(0);
+    ui_->RadioClient->setEnabled(0);
+    ui_->RadioHotspot->setEnabled(0);
     ui_->lineEdit_wlan0->setText("");
     ui_->lineEditWifiSSID->setText("");
     ui_->lineEditPassword->setText("");
-    ui_->pushButtonNetworkAuto->hide();
+    ui_->ButtonNetworkAuto->hide();
     qApp->processEvents();
     system("/opt/crankshaft/service_hotspot.sh stop &");
 }
@@ -1297,13 +1297,13 @@ void SettingsWindow::show_tab9()
 }
 }
 
-void f1x::openauto::autoapp::ui::SettingsWindow::on_pushButtonAudioTest_clicked()
+void f1x::openauto::autoapp::ui::SettingsWindow::on_ButtonAudioTest_clicked()
 {
     ui_->labelTestInProgress->show();
-    ui_->pushButtonAudioTest->hide();
+    ui_->ButtonAudioTest->hide();
     qApp->processEvents();
     system("/usr/local/bin/crankshaft audio test");
-    ui_->pushButtonAudioTest->show();
+    ui_->ButtonAudioTest->show();
     ui_->labelTestInProgress->hide();
 }
 
@@ -1311,15 +1311,15 @@ void f1x::openauto::autoapp::ui::SettingsWindow::updateNetworkInfo()
 {
     if (std::ifstream("/tmp/samba_running")) {
         ui_->labelSambaStatus->setText("running");
-        if (ui_->pushButtonSambaStart->isVisible() == true) {
-            ui_->pushButtonSambaStart->hide();
-            ui_->pushButtonSambaStop->show();
+        if (ui_->ButtonSambaStart->isVisible() == true) {
+            ui_->ButtonSambaStart->hide();
+            ui_->ButtonSambaStop->show();
         }
     } else {
         ui_->labelSambaStatus->setText("stopped");
-        if (ui_->pushButtonSambaStop->isVisible() == true) {
-            ui_->pushButtonSambaStop->hide();
-            ui_->pushButtonSambaStart->show();
+        if (ui_->ButtonSambaStop->isVisible() == true) {
+            ui_->ButtonSambaStop->hide();
+            ui_->ButtonSambaStart->show();
         }
     }
 
@@ -1351,23 +1351,23 @@ void f1x::openauto::autoapp::ui::SettingsWindow::updateNetworkInfo()
         }
 
         if (std::ifstream("/tmp/hotspot_active")) {
-            ui_->radioButtonClient->setEnabled(1);
-            ui_->radioButtonHotspot->setEnabled(1);
-            ui_->radioButtonHotspot->setChecked(1);
-            ui_->radioButtonClient->setChecked(0);
+            ui_->RadioClient->setEnabled(1);
+            ui_->RadioHotspot->setEnabled(1);
+            ui_->RadioHotspot->setChecked(1);
+            ui_->RadioClient->setChecked(0);
             ui_->label_modeswitchprogress->setText("Ok");
             ui_->lineEditWifiSSID->setText(configuration_->getParamFromFile("/etc/hostapd/hostapd.conf","ssid"));
             ui_->lineEditPassword->show();
             ui_->label_password->show();
             ui_->lineEditPassword->setText("1234567890");
             ui_->clientNetworkSelect->hide();
-            ui_->pushButtonNetworkAuto->hide();
+            ui_->ButtonNetworkAuto->hide();
             ui_->label_notavailable->show();
         } else {
-            ui_->radioButtonClient->setEnabled(1);
-            ui_->radioButtonHotspot->setEnabled(1);
-            ui_->radioButtonHotspot->setChecked(0);
-            ui_->radioButtonClient->setChecked(1);
+            ui_->RadioClient->setEnabled(1);
+            ui_->RadioHotspot->setEnabled(1);
+            ui_->RadioHotspot->setChecked(0);
+            ui_->RadioClient->setChecked(1);
             ui_->label_modeswitchprogress->setText("Ok");
             ui_->lineEditWifiSSID->setText(configuration_->readFileContent("/tmp/wifi_ssid"));
             ui_->lineEditPassword->hide();
@@ -1375,27 +1375,27 @@ void f1x::openauto::autoapp::ui::SettingsWindow::updateNetworkInfo()
             ui_->lineEditPassword->setText("");
             ui_->clientNetworkSelect->show();
             ui_->label_notavailable->hide();
-            ui_->pushButtonNetworkAuto->show();
+            ui_->ButtonNetworkAuto->show();
 
             if (!std::ifstream("/boot/crankshaft/network1.conf")) {
-                ui_->pushButtonNetwork1->hide();
-                ui_->pushButtonNetwork0->show();
+                ui_->ButtonNetwork1->hide();
+                ui_->ButtonNetwork0->show();
             }
             if (!std::ifstream("/boot/crankshaft/network0.conf")) {
-                ui_->pushButtonNetwork1->hide();
-                ui_->pushButtonNetwork0->setText(configuration_->getCSValue("WIFI2_SSID"));
+                ui_->ButtonNetwork1->hide();
+                ui_->ButtonNetwork0->setText(configuration_->getCSValue("WIFI2_SSID"));
             }
             if (!std::ifstream("/boot/crankshaft/network0.conf") && !std::ifstream("/boot/crankshaft/network1.conf")) {
-                ui_->pushButtonNetwork0->hide();
-                ui_->pushButtonNetwork1->hide();
-                ui_->pushButtonNetworkAuto->hide();
+                ui_->ButtonNetwork0->hide();
+                ui_->ButtonNetwork1->hide();
+                ui_->ButtonNetworkAuto->hide();
                 ui_->label_notavailable->show();
             }
         }
     }
 }
 
-void f1x::openauto::autoapp::ui::SettingsWindow::on_pushButtonNetwork0_clicked()
+void f1x::openauto::autoapp::ui::SettingsWindow::on_ButtonNetwork0_clicked()
 {
     ui_->lineEdit_wlan0->setText("");
     ui_->lineEditWifiSSID->setText("");
@@ -1405,7 +1405,7 @@ void f1x::openauto::autoapp::ui::SettingsWindow::on_pushButtonNetwork0_clicked()
 
 }
 
-void f1x::openauto::autoapp::ui::SettingsWindow::on_pushButtonNetwork1_clicked()
+void f1x::openauto::autoapp::ui::SettingsWindow::on_ButtonNetwork1_clicked()
 {
     ui_->lineEdit_wlan0->setText("");
     ui_->lineEditWifiSSID->setText("");

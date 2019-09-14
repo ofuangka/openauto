@@ -26,11 +26,11 @@ ConnectDialog::ConnectDialog(boost::asio::io_service& ioService, aasdk::tcp::ITC
     qRegisterMetaType<std::string>("std::string");
 
     ui_->setupUi(this);
-    connect(ui_->pushButtonCancel, &QPushButton::clicked, this, &ConnectDialog::close);
-    connect(ui_->pushButtonConnect, &QPushButton::clicked, this, &ConnectDialog::onConnectButtonClicked);
+    connect(ui_->ButtonCancel, &QPushButton::clicked, this, &ConnectDialog::close);
+    connect(ui_->ButtonConnect, &QPushButton::clicked, this, &ConnectDialog::onConnectButtonClicked);
     connect(this, &ConnectDialog::connectionSucceed, this, &ConnectDialog::onConnectionSucceed);
     connect(this, &ConnectDialog::connectionFailed, this, &ConnectDialog::onConnectionFailed);
-    connect(ui_->pushButtonUpdate, &QPushButton::clicked, this, &ConnectDialog::onUpdateButtonClicked);
+    connect(ui_->ButtonUpdate, &QPushButton::clicked, this, &ConnectDialog::onUpdateButtonClicked);
 
     this->loadRecentList();
 
@@ -103,8 +103,8 @@ void ConnectDialog::onRecentAddressClicked(const QModelIndex& index)
 
 void ConnectDialog::setControlsEnabledStatus(bool status)
 {
-    ui_->pushButtonConnect->setVisible(status);
-    ui_->pushButtonCancel->setEnabled(status);
+    ui_->ButtonConnect->setVisible(status);
+    ui_->ButtonCancel->setEnabled(status);
     ui_->lineEditIPAddress->setEnabled(status);
 }
 
@@ -131,7 +131,7 @@ void ConnectDialog::loadClientList()
 
     if (std::ifstream("/tmp/hotspot_active")) {
         ui_->listWidgetClients->show();
-        ui_->pushButtonUpdate->show();
+        ui_->ButtonUpdate->show();
         if (std::ifstream("/tmp/temp_recent_list")) {
             QFile versionFile(QString("/tmp/temp_recent_list"));
             versionFile.open(QIODevice::ReadOnly);
@@ -166,7 +166,7 @@ void ConnectDialog::loadClientList()
     } else {
         ui_->listWidgetClients->hide();
         if (std::ifstream("/tmp/gateway_wlan0")) {
-            ui_->pushButtonUpdate->hide();
+            ui_->ButtonUpdate->hide();
             QFile gatewayData(QString("/tmp/gateway_wlan0"));
             gatewayData.open(QIODevice::ReadOnly);
             QTextStream gateway_date(&gatewayData);
