@@ -109,7 +109,6 @@ class MainWindow : public QMainWindow {
   QString bdate;
 
   char nightModeFile[32] = "/tmp/night_mode_enabled";
-  char devModeFile[32] = "/tmp/dev_mode_enabled";
   char wifiButtonFile[32] = "/etc/button_wifi_visible";
   char brightnessButtonFile[32] = "/etc/button_brightness_visible";
   char debugModeFile[32] = "/tmp/usb_debug_mode";
@@ -123,8 +122,6 @@ class MainWindow : public QMainWindow {
 
   bool nightModeEnabled = false;
   bool DayNightModeState = false;
-
-  bool devModeEnabled = false;
 
   bool wallpaperDayFileExists = false;
   bool wallpaperNightFileExists = false;

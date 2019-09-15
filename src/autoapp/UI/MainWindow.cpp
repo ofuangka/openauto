@@ -63,7 +63,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
 
   // trigger files
   this->nightModeEnabled = check_file_exist(this->nightModeFile);
-  this->devModeEnabled = check_file_exist(this->devModeFile);
   this->wifiButtonForce = check_file_exist(this->wifiButtonFile);
   this->brightnessButtonForce = check_file_exist(this->brightnessButtonFile);
   this->systemDebugmode = check_file_exist(this->debugModeFile);
@@ -125,10 +124,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
 
   if (!configuration->showNetworkInfo()) {
     ui_->NetworkInfo->hide();
-  }
-
-  if (!this->devModeEnabled) {
-    ui_->Lock->hide();
   }
 
   if (std::ifstream("/etc/crankshaft.branch")) {
@@ -197,12 +192,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   } else {
     ui_->ButtonWifi->hide();
     ui_->ButtonNoWiFiDevice->show();
-  }
-
-  // show dev labels if dev mode activated
-  if (!this->devModeEnabled) {
-    ui_->DevModeEnabled->hide();
-    ui_->DevModeEnabledLeft->hide();
   }
 
   // set brightness slider attribs from cs config
