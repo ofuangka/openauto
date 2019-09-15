@@ -123,12 +123,12 @@ int main(int argc, char* argv[])
         qApplication.setOverrideCursor(Qt::ArrowCursor);
     }
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::TriggerScriptNight, [&qApplication]() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::TriggerScriptNight, []() {
         system("/opt/crankshaft/service_daynight.sh app night");
         OPENAUTO_LOG(info) << "[MainWindow] Night.";
     });
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::TriggerScriptDay, [&qApplication]() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::TriggerScriptDay, []() {
         system("/opt/crankshaft/service_daynight.sh app day");
         OPENAUTO_LOG(info) << "[MainWindow] Day.";
     });
