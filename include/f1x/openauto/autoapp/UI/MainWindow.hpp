@@ -68,37 +68,39 @@ class MainWindow : public QMainWindow {
   void closeAllDialogs();
 
  private slots:
+  void onClickButtonBrightness();
+  void onClickButtonVolume();
   void onChangeSliderBrightness(int value);
   void onChangeSliderVolume(int value);
+  void onChangeTmpDir();
   void updateAlpha();
 
  private slots:
-  void onClickButtonBrightness();
-  void onClickButtonVolume();
-  void switchGuiToDay();
-  void switchGuiToNight();
+  void showPowerMenu();
+  void hidePowerMenu();
   void showTime();
-  void toggleExit();
-  void createDebuglog();
-  void setPairable();
-  void toggleMuteButton();
-  void setMute();
-  void setUnMute();
-  void updateBG();
+  void createDebugLog();
+  void enablePairing();
+  void updateBg();
+  void nightMode();
+  void dayMode();
+  void mute();
+  void unmute();
 
-  void tmpChanged();
-  void setRetryUSBConnect();
-  void resetRetryUSBMessage();
-  void updateNetworkInfo();
-  bool doesFileExist(const char *filename);
-
-  void hostModeStateChanged(QBluetoothLocalDevice::HostMode);
+  void onChangeHostMode(QBluetoothLocalDevice::HostMode);
 
  private:
   void setAlpha(QString newAlpha, QWidget *widget);
+  bool doesFileExist(const char *filename);
+  void setRetryUsbConnect();
+  void resetRetryUsbMessage();
+  void updateNetworkInfo();
+  void setNightMode(bool enabled);
+  void setMuted(bool muted);
+  void setPowerMenuVisibility(bool visible);
 
-  Ui::MainWindow *ui_;
-  configuration::IConfiguration::Pointer configuration_;
+  Ui::MainWindow *ui;
+  configuration::IConfiguration::Pointer cfg;
 
   QString brightnessFilename = "/sys/class/backlight/rpi_backlight/brightness";
   QString brightnessFilenameAlt = "/tmp/custombrightness";
@@ -124,15 +126,12 @@ class MainWindow : public QMainWindow {
   bool wifiButtonForce = false;
   bool brightnessButtonForce = false;
 
-  bool nightModeEnabled = false;
-  bool dayNightModeState = false;
+  bool forceNightMode = false;
 
   bool wallpaperDayFileExists = false;
   bool wallpaperNightFileExists = false;
 
   bool bluetoothEnabled = false;
-
-  bool toggleMute = false;
 
   bool hotspotActive = false;
 
