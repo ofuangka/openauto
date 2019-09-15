@@ -125,15 +125,11 @@ class MainWindow : public QMainWindow {
   bool wallpaperDayFileExists = false;
   bool wallpaperNightFileExists = false;
 
-  bool exitMenuVisible = false;
-
   bool bluetoothEnabled = false;
 
   bool toggleMute = false;
-  bool noClock = false;
 
   bool hotspotActive = false;
-  bool backgroundSet = false;
 
   QBluetoothLocalDevice *localDevice;
 };

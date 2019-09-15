@@ -75,10 +75,8 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
           &MainWindow::openSettings);
   connect(ui_->ButtonExit, &QPushButton::clicked, this,
           &MainWindow::toggleExit);
-  connect(ui_->ButtonShutdown, &QPushButton::clicked, this,
-          &MainWindow::exit);
-  connect(ui_->ButtonReboot, &QPushButton::clicked, this,
-          &MainWindow::reboot);
+  connect(ui_->ButtonShutdown, &QPushButton::clicked, this, &MainWindow::exit);
+  connect(ui_->ButtonReboot, &QPushButton::clicked, this, &MainWindow::reboot);
   connect(ui_->ButtonCancel, &QPushButton::clicked, this,
           &MainWindow::toggleExit);
   connect(ui_->ButtonDay, &QPushButton::clicked, this,
@@ -97,8 +95,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
           &MainWindow::setPairable);
   connect(ui_->ButtonMute, &QPushButton::clicked, this,
           &MainWindow::toggleMuteButton);
-  connect(ui_->ButtonMute, &QPushButton::clicked, this,
-          &MainWindow::setMute);
+  connect(ui_->ButtonMute, &QPushButton::clicked, this, &MainWindow::setMute);
   connect(ui_->ButtonUnmute, &QPushButton::clicked, this,
           &MainWindow::toggleMuteButton);
   connect(ui_->ButtonUnmute, &QPushButton::clicked, this,
@@ -226,9 +223,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   // clock viibility by settings
   if (!configuration->showClock()) {
     ui_->Clock->hide();
-    this->noClock = true;
   } else {
-    this->noClock = false;
     ui_->Clock->show();
   }
 
@@ -359,8 +354,8 @@ void f1x::openauto::autoapp::ui::MainWindow::onClickButtonVolume() {
   ui_->BrightnessWidget->hide();
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::
-    onChangeSliderBrightness(int value) {
+void f1x::openauto::autoapp::ui::MainWindow::onChangeSliderBrightness(
+    int value) {
   int n = snprintf(this->brightnessStr, 5, "%d", value);
   this->brightnessFile = new QFile(this->brightnessFilename);
   this->brightnessFileAlt = new QFile(this->brightnessFilenameAlt);
@@ -384,8 +379,7 @@ void f1x::openauto::autoapp::ui::MainWindow::
   ui_->ValueBrightness->setText(bri);
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::
-    onChangeSliderVolume(int value) {
+void f1x::openauto::autoapp::ui::MainWindow::onChangeSliderVolume(int value) {
   QString vol = QString::number(value);
   ui_->ValueVolume->setText(vol + "%");
   system(
@@ -476,14 +470,12 @@ void f1x::openauto::autoapp::ui::MainWindow::switchGuiToDay() {
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::toggleExit() {
-  if (!this->exitMenuVisible) {
+  if (ui_->TilesFront->isVisible()) {
     ui_->TilesFront->hide();
     ui_->TilesBack->show();
-    this->exitMenuVisible = true;
   } else {
     ui_->TilesFront->show();
     ui_->TilesBack->hide();
-    this->exitMenuVisible = false;
   }
 }
 
@@ -673,13 +665,9 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
     if (ui_->MainWidget->isVisible() == true) {
       ui_->MainWidget->hide();
       this->setStyleSheet("QMainWindow {background-color: rgb(0,0,0);}");
-      this->backgroundSet = false;
     }
   } else {
-    if (this->backgroundSet == false) {
       f1x::openauto::autoapp::ui::MainWindow::updateBG();
-      this->backgroundSet = true;
-    }
   }
 
   // check if phone is conencted to usb
@@ -819,9 +807,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   // clock viibility by settings
   if (!this->configuration_->showClock()) {
     ui_->Clock->hide();
-    this->noClock = true;
   } else {
-    this->noClock = false;
     ui_->Clock->show();
   }
 
