@@ -34,7 +34,6 @@
 #include <f1x/openauto/autoapp/UI/MainWindow.hpp>
 #include <f1x/openauto/autoapp/UI/SettingsWindow.hpp>
 #include <f1x/openauto/autoapp/UI/ConnectDialog.hpp>
-#include <f1x/openauto/autoapp/UI/WarningDialog.hpp>
 #include <f1x/openauto/Common/Log.hpp>
 
 namespace aasdk = f1x::aasdk;
@@ -109,10 +108,6 @@ int main(int argc, char* argv[])
     autoapp::ui::ConnectDialog connectdialog(ioService, tcpWrapper, recentAddressesList);
     connectdialog.setWindowFlags(Qt::WindowStaysOnTopHint);
     connectdialog.move((width - 500)/2,(height-300)/2);
-
-    autoapp::ui::WarningDialog warningdialog;
-    warningdialog.setWindowFlags(Qt::WindowStaysOnTopHint);
-    warningdialog.move((width - 500)/2,(height-300)/2);
 
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::exit, []() { system("touch /tmp/shutdown"); std::exit(0); });
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::reboot, []() { system("touch /tmp/reboot"); std::exit(0); });
@@ -196,16 +191,11 @@ int main(int argc, char* argv[])
         }
     });
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::CloseAllDialogs, [&settingsWindow, &connectdialog, &warningdialog]() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::CloseAllDialogs, [&settingsWindow, &connectdialog]() {
         settingsWindow.close();
         connectdialog.close();
-        warningdialog.close();
         OPENAUTO_LOG(info) << "[Autoapp] Close all possible open dialogs.";
     });
-
-    if (configuration->hideWarning() == false) {
-        warningdialog.show();
-    }
 
     app->waitForUSBDevice();
 
