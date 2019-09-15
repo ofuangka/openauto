@@ -60,7 +60,6 @@ class MainWindow : public QMainWindow {
   void TriggerScriptNight();
   void openConnectDialog();
   void openWifiDialog();
-  void openUpdateDialog();
   void showSliderBrightness();
   void showVolumeSlider();
   void showAlphaSlider();
@@ -141,11 +140,6 @@ class MainWindow : public QMainWindow {
 
   bool hotspotActive = false;
   bool background_set = false;
-
-  bool csmtupdate = false;
-  bool udevupdate = false;
-  bool openautoupdate = false;
-  bool systemupdate = false;
 
   QBluetoothLocalDevice *localDevice;
 };

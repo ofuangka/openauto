@@ -75,8 +75,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   ui_->setupUi(this);
   connect(ui_->ButtonSettings, &QPushButton::clicked, this,
           &MainWindow::openSettings);
-  connect(ui_->UpdateButton, &QPushButton::clicked, this,
-          &MainWindow::openUpdateDialog);
   connect(ui_->ButtonExit, &QPushButton::clicked, this,
           &MainWindow::toggleExit);
   connect(ui_->ButtonShutdown, &QPushButton::clicked, this,
@@ -124,8 +122,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   ui_->ButtonAndroidAutoWidget->hide();
 
   ui_->SysinfoTopLeft2->hide();
-
-  ui_->UpdateButton->hide();
 
   if (!configuration->showNetworkInfo()) {
     ui_->NetworkInfo->hide();
@@ -881,32 +877,6 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   }
 
   MainWindow::updateAlpha();
-
-  // update notify
-  this->csmtupdate = check_file_exist("/tmp/csmt_update_available");
-  this->udevupdate = check_file_exist("/tmp/udev_update_available");
-  this->openautoupdate = check_file_exist("/tmp/openauto_update_available");
-  this->systemupdate = check_file_exist("/tmp/system_update_available");
-
-  if (this->csmtupdate || this->udevupdate || this->openautoupdate ||
-      this->systemupdate) {
-    if (ui_->UpdateButton->isVisible() == false) {
-      ui_->UpdateButton->show();
-      ui_->label_right->show();
-      if (this->devModeEnabled) {
-        ui_->DevModeEnabledLeft->hide();
-      } else {
-      }
-    }
-  } else {
-    if (ui_->UpdateButton->isVisible() == true) {
-      ui_->UpdateButton->hide();
-      ui_->label_right->hide();
-      if (this->devModeEnabled) {
-        ui_->DevModeEnabledLeft->show();
-      }
-    }
-  }
 
   if (std::ifstream("/tmp/btdevice") ||
       std::ifstream("/tmp/dev_mode_enabled") ||

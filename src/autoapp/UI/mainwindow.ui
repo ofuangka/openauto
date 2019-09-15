@@ -172,44 +172,6 @@ border-radius: 4px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="UpdateButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(115, 210, 22);
-color: rgb(0, 0, 0);
-outline: none;
-border-radius: 4px;
-</string>
-           </property>
-           <property name="text">
-            <string>Update available!</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="label_right">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
