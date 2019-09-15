@@ -62,14 +62,13 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   this->configuration_ = configuration;
 
   // trigger files
-  this->nightModeEnabled = check_file_exist(this->nightModeFile);
-  this->wifiButtonForce = check_file_exist(this->wifiButtonFile);
-  this->brightnessButtonForce = check_file_exist(this->brightnessButtonFile);
-  this->systemDebugmode = check_file_exist(this->debugModeFile);
+  this->nightModeEnabled = doesFileExist(this->nightModeFile);
+  this->wifiButtonForce = doesFileExist(this->wifiButtonFile);
+  this->brightnessButtonForce = doesFileExist(this->brightnessButtonFile);
 
   // wallpaper stuff
-  this->wallpaperDayFileExists = check_file_exist("wallpaper.png");
-  this->wallpaperNightFileExists = check_file_exist("wallpaper-night.png");
+  this->wallpaperDayFileExists = doesFileExist("wallpaper.png");
+  this->wallpaperNightFileExists = doesFileExist("wallpaper-night.png");
 
   ui_->setupUi(this);
   connect(ui_->ButtonSettings, &QPushButton::clicked, this,
@@ -83,19 +82,17 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   connect(ui_->ButtonCancel, &QPushButton::clicked, this,
           &MainWindow::toggleExit);
   connect(ui_->ButtonDay, &QPushButton::clicked, this,
-          &MainWindow::TriggerScriptDay);
+          &MainWindow::triggerScriptDay);
   connect(ui_->ButtonDay, &QPushButton::clicked, this,
           &MainWindow::switchGuiToDay);
   connect(ui_->ButtonNight, &QPushButton::clicked, this,
-          &MainWindow::TriggerScriptNight);
+          &MainWindow::triggerScriptNight);
   connect(ui_->ButtonNight, &QPushButton::clicked, this,
           &MainWindow::switchGuiToNight);
   connect(ui_->ButtonBrightness, &QPushButton::clicked, this,
           &MainWindow::showSliderBrightness);
   connect(ui_->ButtonVolume, &QPushButton::clicked, this,
           &MainWindow::showVolumeSlider);
-  connect(ui_->ButtonDebug, &QPushButton::clicked, this,
-          &MainWindow::createDebuglog);
   connect(ui_->ButtonBluetooth, &QPushButton::clicked, this,
           &MainWindow::setPairable);
   connect(ui_->ButtonMute, &QPushButton::clicked, this,
@@ -109,7 +106,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   connect(ui_->ButtonWifi, &QPushButton::clicked, this,
           &MainWindow::openConnectDialog);
   connect(ui_->ButtonAndroidAuto, &QPushButton::clicked, this,
-          &MainWindow::TriggerAppStart);
+          &MainWindow::triggerAppStart);
   connect(ui_->ButtonAndroidAuto, &QPushButton::clicked, this,
           &MainWindow::setRetryUSBConnect);
 
@@ -138,11 +135,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   QTimer *timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
   timer->start(1000);
-
-  // show debug button if enabled
-  if (!this->systemDebugmode) {
-    ui_->ButtonDebug->hide();
-  }
 
   ui_->ButtonLock->hide();
 
@@ -234,9 +226,9 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   // clock viibility by settings
   if (!configuration->showClock()) {
     ui_->Clock->hide();
-    this->NoClock = true;
+    this->noClock = true;
   } else {
-    this->NoClock = false;
+    this->noClock = false;
     ui_->Clock->show();
   }
 
@@ -256,9 +248,9 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
     }
   }
 
-  watcher_tmp = new QFileSystemWatcher(this);
-  watcher_tmp->addPath("/tmp");
-  connect(watcher_tmp, &QFileSystemWatcher::directoryChanged, this,
+  tmpDirWatcher = new QFileSystemWatcher(this);
+  tmpDirWatcher->addPath("/tmp");
+  connect(tmpDirWatcher, &QFileSystemWatcher::directoryChanged, this,
           &MainWindow::tmpChanged);
 
   // Experimental test code
@@ -369,22 +361,22 @@ void f1x::openauto::autoapp::ui::MainWindow::onClickButtonVolume() {
 
 void f1x::openauto::autoapp::ui::MainWindow::
     onChangeSliderBrightness(int value) {
-  int n = snprintf(this->brightness_str, 5, "%d", value);
+  int n = snprintf(this->brightnessStr, 5, "%d", value);
   this->brightnessFile = new QFile(this->brightnessFilename);
   this->brightnessFileAlt = new QFile(this->brightnessFilenameAlt);
 
   if (!this->customBrightnessControl) {
     if (this->brightnessFile->open(QIODevice::WriteOnly)) {
-      this->brightness_str[n] = '\n';
-      this->brightness_str[n + 1] = '\0';
-      this->brightnessFile->write(this->brightness_str);
+      this->brightnessStr[n] = '\n';
+      this->brightnessStr[n + 1] = '\0';
+      this->brightnessFile->write(this->brightnessStr);
       this->brightnessFile->close();
     }
   } else {
     if (this->brightnessFileAlt->open(QIODevice::WriteOnly)) {
-      this->brightness_str[n] = '\n';
-      this->brightness_str[n + 1] = '\0';
-      this->brightnessFileAlt->write(this->brightness_str);
+      this->brightnessStr[n] = '\n';
+      this->brightnessStr[n + 1] = '\0';
+      this->brightnessFileAlt->write(this->brightnessStr);
       this->brightnessFileAlt->close();
     }
   }
@@ -405,8 +397,8 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
   int value = configuration_->getAlphaTrans();
   // int n = snprintf(this->alpha_str, 5, "%d", value);
 
-  if (value != this->alpha_current_str) {
-    this->alpha_current_str = value;
+  if (value != this->alphaCurrentStr) {
+    this->alphaCurrentStr = value;
     double alpha = value / 100.0;
     QString alp = QString::number(alpha);
     ui_->ButtonExit->setStyleSheet(
@@ -441,9 +433,6 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
     ui_->ButtonWifi->setStyleSheet(
         "background-color: rgba(252, 175, 62, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonDebug->setStyleSheet(
-        "background-color: rgba(85, 87, 83, " + alp +
         " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
     ui_->ButtonAndroidAuto->setStyleSheet(
         "background-color: rgba(48, 140, 198, " + alp +
@@ -511,11 +500,11 @@ void f1x::openauto::autoapp::ui::MainWindow::toggleMuteButton() {
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::updateBG() {
-  if (this->date_text == "12/24") {
+  if (this->dateText == "12/24") {
     this->setStyleSheet(
         "QMainWindow { background: url(:/wallpaper-christmas.png); "
         "background-repeat: no-repeat; background-position: center; }");
-  } else if (this->date_text == "12/31") {
+  } else if (this->dateText == "12/31") {
     this->setStyleSheet(
         "QMainWindow { background: url(:/wallpaper-firework.png); "
         "background-repeat: no-repeat; background-position: center; }");
@@ -565,7 +554,7 @@ void f1x::openauto::autoapp::ui::MainWindow::showTime() {
   QTime time = QTime::currentTime();
   QDate date = QDate::currentDate();
   QString time_text = time.toString("hh : mm : ss");
-  this->date_text = date.toString("MM/dd");
+  this->dateText = date.toString("MM/dd");
 
   if ((time.second() % 2) == 0) {
     time_text[3] = ' ';
@@ -614,7 +603,7 @@ void f1x::openauto::autoapp::ui::MainWindow::resetRetryUSBMessage() {
   ui_->SysinfoTopLeft->hide();
 }
 
-bool f1x::openauto::autoapp::ui::MainWindow::check_file_exist(
+bool f1x::openauto::autoapp::ui::MainWindow::doesFileExist(
     const char *fileName) {
   std::ifstream ifile(fileName, std::ios::in);
   // file not ok - checking if symlink
@@ -634,7 +623,7 @@ bool f1x::openauto::autoapp::ui::MainWindow::check_file_exist(
 void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   try {
     if (std::ifstream("/tmp/entityexit")) {
-      MainWindow::TriggerAppStop();
+      MainWindow::triggerAppStop();
       std::remove("/tmp/entityexit");
     }
   } catch (...) {
@@ -644,7 +633,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   // check if system is in display off mode (tap2wake)
   if (std::ifstream("/tmp/blankscreen")) {
     if (ui_->MainWidget->isVisible() == true) {
-      CloseAllDialogs();
+      closeAllDialogs();
       ui_->MainWidget->hide();
     }
   } else {
@@ -661,7 +650,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
     if (ui_->Header->isVisible() == true) {
       ui_->Header->hide();
-      CloseAllDialogs();
+      closeAllDialogs();
     }
 
     if (ui_->VolumeWidget->isVisible() == true) {
@@ -684,12 +673,12 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
     if (ui_->MainWidget->isVisible() == true) {
       ui_->MainWidget->hide();
       this->setStyleSheet("QMainWindow {background-color: rgb(0,0,0);}");
-      this->background_set = false;
+      this->backgroundSet = false;
     }
   } else {
-    if (this->background_set == false) {
+    if (this->backgroundSet == false) {
       f1x::openauto::autoapp::ui::MainWindow::updateBG();
-      this->background_set = true;
+      this->backgroundSet = true;
     }
   }
 
@@ -757,13 +746,11 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       }
       if (std::ifstream("/tmp/debug_in_progress")) {
         ui_->ButtonSettings->hide();
-        ui_->ButtonDebug->hide();
         ui_->ButtonLock->show();
         ui_->SysinfoTopLeft2->setText("Creating debug.zip ...");
         ui_->SysinfoTopLeft2->show();
       }
       if (std::ifstream("/tmp/enable_pairing")) {
-        ui_->ButtonDebug->hide();
         ui_->SysinfoTopLeft2->setText("Pairing enabled for 120 seconds!");
         ui_->SysinfoTopLeft2->show();
       }
@@ -774,23 +761,20 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       ui_->SysinfoTopLeft2->hide();
       ui_->ButtonSettings->show();
       ui_->ButtonLock->hide();
-      if (this->systemDebugmode) {
-        ui_->ButtonDebug->show();
-      }
     }
   }
 
   // update day/night state
-  this->nightModeEnabled = check_file_exist("/tmp/night_mode_enabled");
+  this->nightModeEnabled = doesFileExist("/tmp/night_mode_enabled");
 
   if (this->nightModeEnabled) {
-    if (!this->DayNightModeState) {
-      this->DayNightModeState = true;
+    if (!this->dayNightModeState) {
+      this->dayNightModeState = true;
       f1x::openauto::autoapp::ui::MainWindow::switchGuiToNight();
     }
   } else {
-    if (this->DayNightModeState) {
-      this->DayNightModeState = false;
+    if (this->dayNightModeState) {
+      this->dayNightModeState = false;
       f1x::openauto::autoapp::ui::MainWindow::switchGuiToDay();
     }
   }
@@ -800,7 +784,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
     f1x::openauto::autoapp::ui::MainWindow::MainWindow::exit();
   }
 
-  this->hotspotActive = check_file_exist("/tmp/hotspot_active");
+  this->hotspotActive = doesFileExist("/tmp/hotspot_active");
 
   // hide wifi if hotspot disabled and force wifi unselected
   if (!this->hotspotActive && !std::ifstream("/tmp/mobile_hotspot_detected")) {
@@ -835,9 +819,9 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   // clock viibility by settings
   if (!this->configuration_->showClock()) {
     ui_->Clock->hide();
-    this->NoClock = true;
+    this->noClock = true;
   } else {
-    this->NoClock = false;
+    this->noClock = false;
     ui_->Clock->show();
   }
 

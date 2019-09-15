@@ -49,23 +49,23 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(configuration::IConfiguration::Pointer configuration,
                       QWidget *parent = nullptr);
   ~MainWindow() override;
-  QFileSystemWatcher *watcher_tmp;
+  QFileSystemWatcher *tmpDirWatcher;
 
  signals:
   void exit();
   void reboot();
   void openSettings();
   void toggleCursor();
-  void TriggerScriptDay();
-  void TriggerScriptNight();
+  void triggerScriptDay();
+  void triggerScriptNight();
   void openConnectDialog();
   void openWifiDialog();
   void showSliderBrightness();
   void showVolumeSlider();
   void showAlphaSlider();
-  void TriggerAppStart();
-  void TriggerAppStop();
-  void CloseAllDialogs();
+  void triggerAppStart();
+  void triggerAppStop();
+  void closeAllDialogs();
 
  private slots:
   void onChangeSliderBrightness(int value);
@@ -90,7 +90,7 @@ class MainWindow : public QMainWindow {
   void setRetryUSBConnect();
   void resetRetryUSBMessage();
   void updateNetworkInfo();
-  bool check_file_exist(const char *filename);
+  bool doesFileExist(const char *filename);
 
   void hostModeStateChanged(QBluetoothLocalDevice::HostMode);
 
@@ -102,18 +102,17 @@ class MainWindow : public QMainWindow {
   QString brightnessFilenameAlt = "/tmp/custombrightness";
   QFile *brightnessFile;
   QFile *brightnessFileAlt;
-  char brightness_str[6];
-  char volume_str[6];
-  int alpha_current_str;
+  char brightnessStr[6];
+  char volumeStr[6];
+  int alphaCurrentStr;
   QString bversion;
   QString bdate;
 
   char nightModeFile[32] = "/tmp/night_mode_enabled";
   char wifiButtonFile[32] = "/etc/button_wifi_visible";
   char brightnessButtonFile[32] = "/etc/button_brightness_visible";
-  char debugModeFile[32] = "/tmp/usb_debug_mode";
 
-  QString date_text;
+  QString dateText;
 
   bool customBrightnessControl = false;
 
@@ -121,22 +120,20 @@ class MainWindow : public QMainWindow {
   bool brightnessButtonForce = false;
 
   bool nightModeEnabled = false;
-  bool DayNightModeState = false;
+  bool dayNightModeState = false;
 
   bool wallpaperDayFileExists = false;
   bool wallpaperNightFileExists = false;
 
   bool exitMenuVisible = false;
 
-  bool systemDebugmode = false;
-
   bool bluetoothEnabled = false;
 
   bool toggleMute = false;
-  bool NoClock = false;
+  bool noClock = false;
 
   bool hotspotActive = false;
-  bool background_set = false;
+  bool backgroundSet = false;
 
   QBluetoothLocalDevice *localDevice;
 };

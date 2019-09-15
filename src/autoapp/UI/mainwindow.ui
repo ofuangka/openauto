@@ -1369,36 +1369,6 @@ outline: none;</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="ButtonDebug">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(85, 87, 83, 0.5);
-border-radius: 4px;
-border: 2px solid rgba(255,255,255,0.5);
-outline: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normalon>:/bug-hot.png</normalon>
-            </iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>64</width>
-             <height>64</height>
-            </size>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item row="1" column="0" colspan="2">
