@@ -110,11 +110,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
   ui_->ButtonBluetooth->hide();
   ui_->Pairable->hide();
 
-  ui_->SysinfoTopLeft->hide();
-
   ui_->ButtonAndroidAutoWidget->hide();
-
-  ui_->SysinfoTopLeft2->hide();
 
   if (!configuration->showNetworkInfo()) {
     ui_->NetworkInfo->hide();
@@ -261,13 +257,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
 
 MainWindow::~MainWindow() { delete ui_; }
 
-}  // namespace ui
-}  // namespace autoapp
-}  // namespace openauto
-}  // namespace f1x
-
-void f1x::openauto::autoapp::ui::MainWindow::hostModeStateChanged(
-    QBluetoothLocalDevice::HostMode mode) {
+void MainWindow::hostModeStateChanged(QBluetoothLocalDevice::HostMode mode) {
   if (mode != QBluetoothLocalDevice::HostPoweredOff) {
     this->bluetoothEnabled = true;
     ui_->ButtonBluetooth->show();
@@ -284,7 +274,7 @@ void f1x::openauto::autoapp::ui::MainWindow::hostModeStateChanged(
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::updateNetworkInfo() {
+void MainWindow::updateNetworkInfo() {
   QNetworkInterface wlan0if = QNetworkInterface::interfaceFromName("wlan0");
   if (wlan0if.flags().testFlag(QNetworkInterface::IsUp)) {
     QList<QNetworkAddressEntry> entrieswlan0 = wlan0if.addressEntries();
@@ -312,7 +302,7 @@ void f1x::openauto::autoapp::ui::MainWindow::updateNetworkInfo() {
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::onClickButtonBrightness() {
+void MainWindow::onClickButtonBrightness() {
   this->brightnessFile = new QFile(this->brightnessFilename);
   this->brightnessFileAlt = new QFile(this->brightnessFilenameAlt);
 
@@ -342,7 +332,7 @@ void f1x::openauto::autoapp::ui::MainWindow::onClickButtonBrightness() {
   ui_->VolumeWidget->hide();
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::onClickButtonVolume() {
+void MainWindow::onClickButtonVolume() {
   ui_->SliderVolume->show();
   ui_->ValueVolume->show();
   if (this->toggleMute) {
@@ -354,8 +344,7 @@ void f1x::openauto::autoapp::ui::MainWindow::onClickButtonVolume() {
   ui_->BrightnessWidget->hide();
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::onChangeSliderBrightness(
-    int value) {
+void MainWindow::onChangeSliderBrightness(int value) {
   int n = snprintf(this->brightnessStr, 5, "%d", value);
   this->brightnessFile = new QFile(this->brightnessFilename);
   this->brightnessFileAlt = new QFile(this->brightnessFilenameAlt);
@@ -379,7 +368,7 @@ void f1x::openauto::autoapp::ui::MainWindow::onChangeSliderBrightness(
   ui_->ValueBrightness->setText(bri);
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::onChangeSliderVolume(int value) {
+void MainWindow::onChangeSliderVolume(int value) {
   QString vol = QString::number(value);
   ui_->ValueVolume->setText(vol + "%");
   system(
@@ -387,7 +376,7 @@ void f1x::openauto::autoapp::ui::MainWindow::onChangeSliderVolume(int value) {
           .c_str());
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
+void MainWindow::updateAlpha() {
   int value = configuration_->getAlphaTrans();
   // int n = snprintf(this->alpha_str, 5, "%d", value);
 
@@ -395,7 +384,7 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
     this->alphaCurrentStr = value;
     double alpha = value / 100.0;
     QString alp = QString::number(alpha);
-    setAlpha(alp, ui_->ButtonExit);
+    this->setAlpha(alp, ui_->ButtonExit);
     setAlpha(alp, ui_->ButtonShutdown);
     setAlpha(alp, ui_->ButtonReboot);
     setAlpha(alp, ui_->ButtonCancel);
@@ -414,13 +403,12 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::setAlpha(QString newAlpha,
-                                                      QWidget *widget) {
+void MainWindow::setAlpha(QString newAlpha, QWidget *widget) {
   widget->setStyleSheet(
       widget->styleSheet().replace(backgroundColor, newAlpha));
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::switchGuiToNight() {
+void MainWindow::switchGuiToNight() {
   // MainWindow::on_ButtonVolume_clicked();
   f1x::openauto::autoapp::ui::MainWindow::updateBG();
   ui_->ButtonDay->show();
@@ -428,7 +416,7 @@ void f1x::openauto::autoapp::ui::MainWindow::switchGuiToNight() {
   ui_->BrightnessWidget->hide();
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::switchGuiToDay() {
+void MainWindow::switchGuiToDay() {
   // MainWindow::on_ButtonVolume_clicked();
   f1x::openauto::autoapp::ui::MainWindow::updateBG();
   ui_->ButtonNight->show();
@@ -436,7 +424,7 @@ void f1x::openauto::autoapp::ui::MainWindow::switchGuiToDay() {
   ui_->BrightnessWidget->hide();
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::toggleExit() {
+void MainWindow::toggleExit() {
   if (ui_->TilesFront->isVisible()) {
     ui_->TilesFront->hide();
     ui_->TilesBack->show();
@@ -446,7 +434,7 @@ void f1x::openauto::autoapp::ui::MainWindow::toggleExit() {
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::toggleMuteButton() {
+void MainWindow::toggleMuteButton() {
   if (!this->toggleMute) {
     ui_->ButtonMute->hide();
     ui_->ButtonUnmute->show();
@@ -458,7 +446,7 @@ void f1x::openauto::autoapp::ui::MainWindow::toggleMuteButton() {
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::updateBG() {
+void MainWindow::updateBG() {
   if (this->dateText == "12/24") {
     this->setStyleSheet(
         "QMainWindow { background: url(:/wallpaper-christmas.png); "
@@ -493,23 +481,23 @@ void f1x::openauto::autoapp::ui::MainWindow::updateBG() {
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::createDebuglog() {
+void MainWindow::createDebuglog() {
   system("/usr/local/bin/crankshaft debuglog &");
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::setPairable() {
+void MainWindow::setPairable() {
   system("/usr/local/bin/crankshaft bluetooth pairable &");
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::setMute() {
+void MainWindow::setMute() {
   system("/usr/local/bin/autoapp_helper setmute &");
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::setUnMute() {
+void MainWindow::setUnMute() {
   system("/usr/local/bin/autoapp_helper setunmute &");
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::showTime() {
+void MainWindow::showTime() {
   QTime time = QTime::currentTime();
   QDate date = QDate::currentDate();
   QString time_text = time.toString("hh : mm : ss");
@@ -550,20 +538,17 @@ void f1x::openauto::autoapp::ui::MainWindow::showTime() {
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::setRetryUSBConnect() {
-  ui_->SysinfoTopLeft->setText("Trying USB connect ...");
-  ui_->SysinfoTopLeft->show();
+void MainWindow::setRetryUSBConnect() {
+  ui_->SysInfoTop->setText("Trying USB connect ...");
 
   QTimer::singleShot(10000, this, SLOT(resetRetryUSBMessage()));
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::resetRetryUSBMessage() {
-  ui_->SysinfoTopLeft->setText("");
-  ui_->SysinfoTopLeft->hide();
+void MainWindow::resetRetryUSBMessage() {
+  ui_->SysInfoTop->clear();
 }
 
-bool f1x::openauto::autoapp::ui::MainWindow::doesFileExist(
-    const char *fileName) {
+bool MainWindow::doesFileExist(const char *fileName) {
   std::ifstream ifile(fileName, std::ios::in);
   // file not ok - checking if symlink
   if (!ifile.good()) {
@@ -579,7 +564,7 @@ bool f1x::openauto::autoapp::ui::MainWindow::doesFileExist(
   }
 }
 
-void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
+void MainWindow::tmpChanged() {
   try {
     if (std::ifstream("/tmp/entityexit")) {
       MainWindow::triggerAppStop();
@@ -634,7 +619,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       this->setStyleSheet("QMainWindow {background-color: rgb(0,0,0);}");
     }
   } else {
-    f1x::openauto::autoapp::ui::MainWindow::updateBG();
+    MainWindow::updateBG();
   }
 
   // check if phone is conencted to usb
@@ -691,32 +676,24 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   if (std::ifstream("/tmp/config_in_progress") ||
       std::ifstream("/tmp/debug_in_progress") ||
-      std::ifstream("/tmp/enable_pairing")) {
-    if (ui_->SysinfoTopLeft2->isHidden()) {
+      std::ifstream("/tmp/enable_pairing")) {\
       if (std::ifstream("/tmp/config_in_progress")) {
         ui_->ButtonSettings->hide();
         ui_->ButtonLock->show();
-        ui_->SysinfoTopLeft2->setText("Config in progress ...");
-        ui_->SysinfoTopLeft2->show();
+        ui_->SysInfoTop->setText("Config in progress ...");
       }
       if (std::ifstream("/tmp/debug_in_progress")) {
         ui_->ButtonSettings->hide();
         ui_->ButtonLock->show();
-        ui_->SysinfoTopLeft2->setText("Creating debug.zip ...");
-        ui_->SysinfoTopLeft2->show();
+        ui_->SysInfoTop->setText("Creating debug.zip ...");
       }
       if (std::ifstream("/tmp/enable_pairing")) {
-        ui_->SysinfoTopLeft2->setText("Pairing enabled for 120 seconds!");
-        ui_->SysinfoTopLeft2->show();
+        ui_->SysInfoTop->setText("Pairing enabled for 120 seconds!");
       }
-    }
   } else {
-    if (ui_->SysinfoTopLeft2->isVisible()) {
-      ui_->SysinfoTopLeft2->setText("");
-      ui_->SysinfoTopLeft2->hide();
+      ui_->SysInfoTop->clear();
       ui_->ButtonSettings->show();
       ui_->ButtonLock->hide();
-    }
   }
 
   // update day/night state
@@ -725,18 +702,18 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   if (this->nightModeEnabled) {
     if (!this->dayNightModeState) {
       this->dayNightModeState = true;
-      f1x::openauto::autoapp::ui::MainWindow::switchGuiToNight();
+      MainWindow::switchGuiToNight();
     }
   } else {
     if (this->dayNightModeState) {
       this->dayNightModeState = false;
-      f1x::openauto::autoapp::ui::MainWindow::switchGuiToDay();
+      MainWindow::switchGuiToDay();
     }
   }
 
   // check if shutdown is external triggered and init clean app exit
   if (std::ifstream("/tmp/external_exit")) {
-    f1x::openauto::autoapp::ui::MainWindow::MainWindow::exit();
+    MainWindow::exit();
   }
 
   this->hotspotActive = doesFileExist("/tmp/hotspot_active");
@@ -817,3 +794,8 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   }
   updateNetworkInfo();
 }
+
+}  // namespace ui
+}  // namespace autoapp
+}  // namespace openauto
+}  // namespace f1x
