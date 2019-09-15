@@ -395,62 +395,29 @@ void f1x::openauto::autoapp::ui::MainWindow::updateAlpha() {
     this->alphaCurrentStr = value;
     double alpha = value / 100.0;
     QString alp = QString::number(alpha);
-    ui_->ButtonExit->setStyleSheet(
-        "background-color: rgba(164, 0, 0, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonShutdown->setStyleSheet(
-        "background-color: rgba(239, 41, 41, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonReboot->setStyleSheet(
-        "background-color: rgba(252, 175, 62, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonCancel->setStyleSheet(
-        "background-color: rgba(32, 74, 135, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonBrightness->setStyleSheet(
-        "background-color: rgba(245, 121, 0, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonVolume->setStyleSheet(
-        "background-color: rgba(64, 191, 191, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonLock->setStyleSheet(
-        "background-color: rgba(15, 54, 5, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonSettings->setStyleSheet(
-        "background-color: rgba(138, 226, 52, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonDay->setStyleSheet(
-        "background: rgba(252, 233, 79, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonNight->setStyleSheet(
-        "background-color: rgba(114, 159, 207, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonWifi->setStyleSheet(
-        "background-color: rgba(252, 175, 62, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5);");
-    ui_->ButtonAndroidAuto->setStyleSheet(
-        "background-color: rgba(48, 140, 198, " + alp +
-        " ); border: 2px solid rgba(255,255,255,0.5); color: rgb(255,255,255); "
-        "border-bottom: 0px; border-top: 0px;");
-    ui_->LabelAndroidAutoBottom->setStyleSheet(
-        "background-color: rgba(48, 140, 198, " + alp +
-        " ); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; "
-        "border: 2px solid rgba(255,255,255,0.5); color: rgb(255,255,255); "
-        "border-top: 0px;");
-    ui_->LabelAndroidAutoTop->setStyleSheet(
-        "background-color: rgba(48, 140, 198, " + alp +
-        " ); border-top-left-radius: 4px; border-top-right-radius: 4px; "
-        "border: 2px solid rgba(255,255,255,0.5); color: rgb(255,255,255); "
-        "border-bottom: 0px;");
-    ui_->ButtonNoDevice->setStyleSheet(
-        "background-color: rgba(48, 140, 198, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5); "
-        "color: rgb(255,255,255);");
-    ui_->ButtonNoWiFiDevice->setStyleSheet(
-        "background-color: rgba(252, 175, 62, " + alp +
-        " ); border-radius: 4px; border: 2px solid rgba(255,255,255,0.5); "
-        "color: rgb(255,255,255);");
+    setAlpha(alp, ui_->ButtonExit);
+    setAlpha(alp, ui_->ButtonShutdown);
+    setAlpha(alp, ui_->ButtonReboot);
+    setAlpha(alp, ui_->ButtonCancel);
+    setAlpha(alp, ui_->ButtonBrightness);
+    setAlpha(alp, ui_->ButtonVolume);
+    setAlpha(alp, ui_->ButtonLock);
+    setAlpha(alp, ui_->ButtonSettings);
+    setAlpha(alp, ui_->ButtonDay);
+    setAlpha(alp, ui_->ButtonNight);
+    setAlpha(alp, ui_->ButtonWifi);
+    setAlpha(alp, ui_->ButtonAndroidAuto);
+    setAlpha(alp, ui_->LabelAndroidAutoTop);
+    setAlpha(alp, ui_->LabelAndroidAutoBottom);
+    setAlpha(alp, ui_->ButtonNoDevice);
+    setAlpha(alp, ui_->ButtonNoWiFiDevice);
   }
+}
+
+void f1x::openauto::autoapp::ui::MainWindow::setAlpha(QString newAlpha,
+                                                      QWidget *widget) {
+  widget->setStyleSheet(
+      widget->styleSheet().replace(backgroundColor, newAlpha));
 }
 
 void f1x::openauto::autoapp::ui::MainWindow::switchGuiToNight() {
@@ -667,7 +634,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       this->setStyleSheet("QMainWindow {background-color: rgb(0,0,0);}");
     }
   } else {
-      f1x::openauto::autoapp::ui::MainWindow::updateBG();
+    f1x::openauto::autoapp::ui::MainWindow::updateBG();
   }
 
   // check if phone is conencted to usb

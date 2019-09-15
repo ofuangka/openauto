@@ -95,6 +95,8 @@ class MainWindow : public QMainWindow {
   void hostModeStateChanged(QBluetoothLocalDevice::HostMode);
 
  private:
+  void setAlpha(QString newAlpha, QWidget *widget);
+
   Ui::MainWindow *ui_;
   configuration::IConfiguration::Pointer configuration_;
 
@@ -113,6 +115,9 @@ class MainWindow : public QMainWindow {
   char brightnessButtonFile[32] = "/etc/button_brightness_visible";
 
   QString dateText;
+  QRegExp backgroundColor = QRegExp(
+      "(?<=background-color)(\\s*:\\s*rgba\\s*\\((?:[0-9]{1,3}\\s*,\\s*){3})[0-"
+      "1]?(?:\\.[0-9]+)?(?=\\s*\\))");
 
   bool customBrightnessControl = false;
 
