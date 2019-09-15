@@ -139,14 +139,14 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer configuration,
 
   // check if a device is connected via bluetooth
   if (std::ifstream("/tmp/btdevice")) {
-    if (ui_->BluetoothDevice->isVisible() == false ||
+    if (ui_->BluetoothDevice->isHidden() ||
         ui_->BluetoothDevice->text().simplified() == "") {
       QString btdevicename = configuration_->readFileContent("/tmp/btdevice");
       ui_->BluetoothDevice->setText(btdevicename);
       ui_->BluetoothDevice->show();
     }
   } else {
-    if (ui_->BluetoothDevice->isVisible() == true) {
+    if (ui_->BluetoothDevice->isVisible()) {
       ui_->BluetoothDevice->hide();
     }
   }
@@ -567,7 +567,7 @@ void f1x::openauto::autoapp::ui::MainWindow::showTime() {
       // QBluetoothAddress btdevice = btdevices[0];
       // QString btmac = btdevice.toString();
       // ui_->BluetoothDeviceCount->setText(QString::number(count));
-      if (ui_->BluetoothDevice->isVisible() == false) {
+      if (ui_->BluetoothDevice->isHidden()) {
         ui_->BluetoothDevice->show();
       }
       if (std::ifstream("/tmp/btdevice")) {
@@ -575,7 +575,7 @@ void f1x::openauto::autoapp::ui::MainWindow::showTime() {
             configuration_->readFileContent("/tmp/btdevice"));
       }
     } else {
-      if (ui_->BluetoothDevice->isVisible() == true) {
+      if (ui_->BluetoothDevice->isVisible()) {
         ui_->BluetoothDevice->hide();
         ui_->BluetoothDevice->setText("BT-Device");
       }
@@ -624,45 +624,45 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   // check if system is in display off mode (tap2wake)
   if (std::ifstream("/tmp/blankscreen")) {
-    if (ui_->MainWidget->isVisible() == true) {
+    if (ui_->MainWidget->isVisible()) {
       closeAllDialogs();
       ui_->MainWidget->hide();
     }
   } else {
-    if (ui_->MainWidget->isVisible() == false) {
+    if (ui_->MainWidget->isHidden()) {
       ui_->MainWidget->show();
     }
   }
 
   // check if system is in display off mode (tap2wake/screensaver)
   if (std::ifstream("/tmp/screensaver")) {
-    if (ui_->Tiles->isVisible() == true) {
+    if (ui_->Tiles->isVisible()) {
       ui_->Tiles->hide();
     }
 
-    if (ui_->Header->isVisible() == true) {
+    if (ui_->Header->isVisible()) {
       ui_->Header->hide();
       closeAllDialogs();
     }
 
-    if (ui_->VolumeWidget->isVisible() == true) {
+    if (ui_->VolumeWidget->isVisible()) {
       ui_->VolumeWidget->hide();
     }
-    if (ui_->BrightnessWidget->isVisible() == true) {
+    if (ui_->BrightnessWidget->isVisible()) {
       ui_->BrightnessWidget->hide();
     }
   } else {
-    if (ui_->Header->isVisible() == false) {
+    if (ui_->Header->isHidden()) {
       ui_->Header->show();
     }
-    if (ui_->VolumeWidget->isVisible() == false) {
+    if (ui_->VolumeWidget->isHidden()) {
       ui_->VolumeWidget->show();
     }
   }
 
   // check if custom command needs black background
   if (std::ifstream("/tmp/blackscreen")) {
-    if (ui_->MainWidget->isVisible() == true) {
+    if (ui_->MainWidget->isVisible()) {
       ui_->MainWidget->hide();
       this->setStyleSheet("QMainWindow {background-color: rgb(0,0,0);}");
     }
@@ -672,7 +672,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   // check if phone is conencted to usb
   if (std::ifstream("/tmp/android_device")) {
-    if (ui_->ButtonAndroidAutoWidget->isVisible() == false) {
+    if (ui_->ButtonAndroidAutoWidget->isHidden()) {
       ui_->ButtonAndroidAutoWidget->show();
       ui_->ButtonNoDevice->hide();
     }
@@ -688,7 +688,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       ui_->LabelAndroidAutoBottom->setText("");
     }
   } else {
-    if (ui_->ButtonAndroidAutoWidget->isVisible() == true) {
+    if (ui_->ButtonAndroidAutoWidget->isVisible()) {
       ui_->ButtonNoDevice->show();
       ui_->ButtonAndroidAutoWidget->hide();
     }
@@ -699,25 +699,25 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   // check if bluetooth pairable
   if (this->bluetoothEnabled) {
     if (std::ifstream("/tmp/bluetooth_pairable")) {
-      if (ui_->Pairable->isVisible() == false) {
+      if (ui_->Pairable->isHidden()) {
         ui_->Pairable->show();
       }
-      if (ui_->ButtonBluetooth->isVisible() == true) {
+      if (ui_->ButtonBluetooth->isVisible()) {
         ui_->ButtonBluetooth->hide();
       }
     } else {
-      if (ui_->Pairable->isVisible() == true) {
+      if (ui_->Pairable->isVisible()) {
         ui_->Pairable->hide();
       }
-      if (ui_->ButtonBluetooth->isVisible() == false) {
+      if (ui_->ButtonBluetooth->isHidden()) {
         ui_->ButtonBluetooth->show();
       }
     }
   } else {
-    if (ui_->Pairable->isVisible() == true) {
+    if (ui_->Pairable->isVisible()) {
       ui_->Pairable->hide();
     }
-    if (ui_->ButtonBluetooth->isVisible() == true) {
+    if (ui_->ButtonBluetooth->isVisible()) {
       ui_->ButtonBluetooth->hide();
     }
   }
@@ -725,7 +725,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   if (std::ifstream("/tmp/config_in_progress") ||
       std::ifstream("/tmp/debug_in_progress") ||
       std::ifstream("/tmp/enable_pairing")) {
-    if (ui_->SysinfoTopLeft2->isVisible() == false) {
+    if (ui_->SysinfoTopLeft2->isHidden()) {
       if (std::ifstream("/tmp/config_in_progress")) {
         ui_->ButtonSettings->hide();
         ui_->ButtonLock->show();
@@ -744,7 +744,7 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
       }
     }
   } else {
-    if (ui_->SysinfoTopLeft2->isVisible() == true) {
+    if (ui_->SysinfoTopLeft2->isVisible()) {
       ui_->SysinfoTopLeft2->setText("");
       ui_->SysinfoTopLeft2->hide();
       ui_->ButtonSettings->show();
@@ -776,12 +776,12 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   // hide wifi if hotspot disabled and force wifi unselected
   if (!this->hotspotActive && !std::ifstream("/tmp/mobile_hotspot_detected")) {
-    if ((ui_->AAWIFIWidget->isVisible() == true)) {
+    if ((ui_->AAWIFIWidget->isVisible())) {
       ui_->AAWIFIWidget->hide();
       ui_->AAUSBWidget->show();
     }
   } else {
-    if ((ui_->AAWIFIWidget->isVisible() == false)) {
+    if ((ui_->AAWIFIWidget->isHidden())) {
       ui_->AAWIFIWidget->show();
       ui_->AAUSBWidget->hide();
     }
@@ -789,17 +789,17 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
 
   if (std::ifstream("/tmp/temp_recent_list") ||
       std::ifstream("/tmp/mobile_hotspot_detected")) {
-    if (ui_->ButtonWifi->isVisible() == false) {
+    if (ui_->ButtonWifi->isHidden()) {
       ui_->ButtonWifi->show();
     }
-    if (ui_->ButtonNoWiFiDevice->isVisible() == true) {
+    if (ui_->ButtonNoWiFiDevice->isVisible()) {
       ui_->ButtonNoWiFiDevice->hide();
     }
   } else {
-    if (ui_->ButtonWifi->isVisible() == true) {
+    if (ui_->ButtonWifi->isVisible()) {
       ui_->ButtonWifi->hide();
     }
-    if (ui_->ButtonNoWiFiDevice->isVisible() == false) {
+    if (ui_->ButtonNoWiFiDevice->isHidden()) {
       ui_->ButtonNoWiFiDevice->show();
     }
   }
@@ -812,20 +812,20 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   }
 
   if (!this->configuration_->showNetworkInfo()) {
-    if (ui_->NetworkInfo->isVisible() == true) {
+    if (ui_->NetworkInfo->isVisible()) {
       ui_->NetworkInfo->hide();
     }
   } else {
-    if (ui_->NetworkInfo->isVisible() == false) {
+    if (ui_->NetworkInfo->isHidden()) {
       ui_->NetworkInfo->show();
     }
   }
 
   // hide brightness button if eanbled in settings
   if (configuration_->hideBrightnessControl()) {
-    if ((ui_->ButtonBrightness->isVisible() == true) ||
-        (ui_->ButtonBrightness->isVisible() == true) ||
-        (ui_->BrightnessWidget->isVisible() == true)) {
+    if ((ui_->ButtonBrightness->isVisible()) ||
+        (ui_->ButtonBrightness->isVisible()) ||
+        (ui_->BrightnessWidget->isVisible())) {
       ui_->ButtonBrightness->hide();
       ui_->BrightnessWidget->hide();
       // also hide volume button if brightness hidden
@@ -840,11 +840,11 @@ void f1x::openauto::autoapp::ui::MainWindow::tmpChanged() {
   if (std::ifstream("/tmp/btdevice") ||
       std::ifstream("/tmp/dev_mode_enabled") ||
       std::ifstream("/tmp/android_device")) {
-    if (ui_->Lock->isVisible() == false) {
+    if (ui_->Lock->isHidden()) {
       ui_->Lock->show();
     }
   } else {
-    if (ui_->Lock->isVisible() == true) {
+    if (ui_->Lock->isVisible()) {
       ui_->Lock->hide();
     }
   }
