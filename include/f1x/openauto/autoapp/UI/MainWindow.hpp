@@ -55,17 +55,16 @@ class MainWindow : public QMainWindow {
   void exit();
   void reboot();
   void openSettings();
-  void toggleCursor();
-  void triggerScriptDay();
-  void triggerScriptNight();
   void openConnectDialog();
   void openWifiDialog();
-  void showSliderBrightness();
-  void showVolumeSlider();
-  void showAlphaSlider();
+  void closeAllDialogs();
+  void triggerScriptDay();
+  void triggerScriptNight();
   void triggerAppStart();
   void triggerAppStop();
-  void closeAllDialogs();
+  void showAlphaSlider();
+  void showBrightnessSlider();
+  void showVolumeSlider();
 
  private slots:
   void onClickButtonBrightness();
@@ -74,12 +73,8 @@ class MainWindow : public QMainWindow {
   void onChangeSliderVolume(int value);
   void onChangeTmpDir();
   void updateAlpha();
-
- private slots:
   void showPowerMenu();
   void hidePowerMenu();
-  void showTime();
-  void createDebugLog();
   void enablePairing();
   void updateBg();
   void nightMode();
@@ -90,6 +85,7 @@ class MainWindow : public QMainWindow {
   void onChangeHostMode(QBluetoothLocalDevice::HostMode);
 
  private:
+  void showTime();
   void setAlpha(QString newAlpha, QWidget *widget);
   bool doesFileExist(const char *filename);
   void setRetryUsbConnect();

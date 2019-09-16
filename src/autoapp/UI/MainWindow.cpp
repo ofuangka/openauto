@@ -79,7 +79,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
           &MainWindow::triggerScriptNight);
   connect(ui->ButtonNight, &QPushButton::clicked, this, &MainWindow::nightMode);
   connect(ui->ButtonBrightness, &QPushButton::clicked, this,
-          &MainWindow::showSliderBrightness);
+          &MainWindow::showBrightnessSlider);
   connect(ui->ButtonVolume, &QPushButton::clicked, this,
           &MainWindow::showVolumeSlider);
   connect(ui->ButtonBluetooth, &QPushButton::clicked, this,
@@ -399,10 +399,6 @@ void MainWindow::updateBg() {
           "repeat; background-position: center; }");
     }
   }
-}
-
-void MainWindow::createDebugLog() {
-  system("/usr/local/bin/crankshaft debuglog &");
 }
 
 void MainWindow::enablePairing() {
