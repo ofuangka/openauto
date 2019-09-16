@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
     connectdialog.setWindowFlags(Qt::WindowStaysOnTopHint);
     connectdialog.move((width - 500)/2,(height-300)/2);
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::exit, []() { system("touch /tmp/shutdown"); std::exit(0); });
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::shutdown, []() { system("touch /tmp/shutdown"); std::exit(0); });
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::reboot, []() { system("touch /tmp/reboot"); std::exit(0); });
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openSettings, &settingsWindow, &autoapp::ui::SettingsWindow::showFullScreen);
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openSettings, &settingsWindow, &autoapp::ui::SettingsWindow::show_tab1);
@@ -123,12 +123,12 @@ int main(int argc, char* argv[])
         qApplication.setOverrideCursor(Qt::ArrowCursor);
     }
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::triggerScriptNight, []() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::nightModeEvent, []() {
         system("/opt/crankshaft/service_daynight.sh app night");
         OPENAUTO_LOG(info) << "[MainWindow] Night.";
     });
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::triggerScriptDay, []() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::dayModeEvent, []() {
         system("/opt/crankshaft/service_daynight.sh app day");
         OPENAUTO_LOG(info) << "[MainWindow] Day.";
     });
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
         app->start(std::move(socket));
     });
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::triggerAppStart, [&app]() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::appStartEvent, [&app]() {
         OPENAUTO_LOG(info) << "[Autoapp] TriggerAppStart: Manual start android auto.";
         try {
             app->disableAutostartEntity = false;
@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
         }
     });
 
-    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::triggerAppStop, [&app]() {
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::appStopEvent, [&app]() {
         try {
             if (std::ifstream("/tmp/android_device")) {
                 OPENAUTO_LOG(info) << "[Autoapp] TriggerAppStop: Manual stop usb android auto.";

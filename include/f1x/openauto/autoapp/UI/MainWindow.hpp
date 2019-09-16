@@ -52,29 +52,27 @@ class MainWindow : public QMainWindow {
   QFileSystemWatcher *tmpDirWatcher;
 
  signals:
-  void exit();
+  void shutdown();
   void reboot();
   void openSettings();
   void openConnectDialog();
   void openWifiDialog();
   void closeAllDialogs();
-  void triggerScriptDay();
-  void triggerScriptNight();
-  void triggerAppStart();
-  void triggerAppStop();
-  void showAlphaSlider();
-  void showBrightnessSlider();
-  void showVolumeSlider();
+  void dayModeEvent();
+  void nightModeEvent();
+  void appStartEvent();
+  void appStopEvent();
 
  private slots:
-  void onClickButtonBrightness();
-  void onClickButtonVolume();
-  void onChangeSliderBrightness(int value);
-  void onChangeSliderVolume(int value);
+  void showTime();
+  void selectBrightness();
+  void selectVolume();
+  void onChangeBrightness(int value);
+  void onChangeVolume(int value);
   void onChangeTmpDir();
   void updateAlpha();
-  void showPowerMenu();
-  void hidePowerMenu();
+  void powerMenu();
+  void closePowerMenu();
   void enablePairing();
   void updateBg();
   void nightMode();
@@ -85,7 +83,6 @@ class MainWindow : public QMainWindow {
   void onChangeHostMode(QBluetoothLocalDevice::HostMode);
 
  private:
-  void showTime();
   void setAlpha(QString newAlpha, QWidget *widget);
   bool doesFileExist(const char *filename);
   void setRetryUsbConnect();
@@ -94,6 +91,8 @@ class MainWindow : public QMainWindow {
   void setNightMode(bool enabled);
   void setMuted(bool muted);
   void setPowerMenuVisibility(bool visible);
+  void lockSettings(bool lock);
+  void refreshBluetooth();
 
   Ui::MainWindow *ui;
   configuration::IConfiguration::Pointer cfg;
@@ -112,22 +111,18 @@ class MainWindow : public QMainWindow {
   char wifiButtonFile[32] = "/etc/button_wifi_visible";
   char brightnessButtonFile[32] = "/etc/button_brightness_visible";
 
-  QString dateText;
   QRegExp backgroundColor = QRegExp(
       "(?<=background-color)(\\s*:\\s*rgba\\s*\\((?:[0-9]{1,3}\\s*,\\s*){3})[0-"
       "1]?(?:\\.[0-9]+)?(?=\\s*\\))");
 
   bool customBrightnessControl = false;
 
-  bool wifiButtonForce = false;
-  bool brightnessButtonForce = false;
-
+  bool forceEnableWifi = false;
+  bool forceEnableBrightness = false;
   bool forceNightMode = false;
 
   bool wallpaperDayFileExists = false;
   bool wallpaperNightFileExists = false;
-
-  bool bluetoothEnabled = false;
 
   bool hotspotActive = false;
 

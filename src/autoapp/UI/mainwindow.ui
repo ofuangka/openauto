@@ -807,7 +807,7 @@ WiFi Clients</string>
           <item>
            <widget class="QPushButton" name="ButtonUnmute">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(164, 0, 0);</string>
+             <string notr="true">background-color: rgb(164, 0, 0); padding: 8px;</string>
             </property>
             <property name="text">
              <string>Muted</string>
@@ -817,7 +817,7 @@ WiFi Clients</string>
           <item>
            <widget class="QPushButton" name="ButtonMute">
             <property name="styleSheet">
-             <string notr="true">background-color: #6d6d6d;</string>
+             <string notr="true">background-color: #6d6d6d; padding: 8px;</string>
             </property>
             <property name="text">
              <string>Mute</string>
