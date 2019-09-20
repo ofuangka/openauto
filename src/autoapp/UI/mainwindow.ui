@@ -78,10 +78,10 @@
           <item>
            <widget class="QLabel" name="Clock">
             <property name="styleSheet">
-             <string notr="true">margin-right: 8px;</string>
+             <string notr="true">font-family: monospace; font-weight: bold; margin-right: 8px;</string>
             </property>
             <property name="text">
-             <string>12:00:00</string>
+             <string>00:00ap</string>
             </property>
            </widget>
           </item>
@@ -94,7 +94,7 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(78, 154, 6, 0.7); color: rgba(255, 255, 255, 0.7);</string>
+             <string notr="true">background-color: rgba(78, 154, 6, 1); color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
              <string>Locked</string>
@@ -110,7 +110,7 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(32, 74, 135, 0.7); color: rgba(255, 255, 255, 0.7);</string>
+             <string notr="true">background-color: rgba(32, 74, 135, 1); color: rgb(255, 255, 255); margin-right: 8px;</string>
             </property>
             <property name="text">
              <string>Pairable</string>
@@ -118,7 +118,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="SysInfoTop">
+           <widget class="QLabel" name="Status">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -134,12 +134,13 @@
            <widget class="QLabel" name="BluetoothDevice">
             <property name="font">
              <font>
+              <family>monospace</family>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color: rgba(0, 102, 255, 0.7); margin-right: 8px;</string>
+             <string notr="true">color: rgba(0, 102, 255, 0.7); font-family: monospace; margin-right: 8px;</string>
             </property>
             <property name="text">
              <string>Device name</string>
@@ -149,101 +150,10 @@
           <item>
            <widget class="QPushButton" name="ButtonBluetooth">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(32, 74, 135);
-padding: 8px;</string>
+             <string notr="true">background-color: rgba(32, 74, 135, 1); padding: 8px;</string>
             </property>
             <property name="text">
              <string>Bluetooth</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="NetworkInfo" native="true">
-         <property name="styleSheet">
-          <string notr="true">QLabel { padding: 4px; }</string>
-         </property>
-         <layout class="QHBoxLayout" name="_HeaderBottomLayout">
-          <property name="spacing">
-           <number>4</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="_LabelSsid">
-            <property name="text">
-             <string>SSID:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="ValueSsid">
-            <property name="text">
-             <string>--</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="_LabelMask">
-            <property name="text">
-             <string>Mask: </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="ValueMask">
-            <property name="text">
-             <string>--</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="_LabelIp">
-            <property name="text">
-             <string>Ip:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="ValueIp">
-            <property name="text">
-             <string>--</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="_LabelGw">
-            <property name="text">
-             <string>Gw:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="ValueGw">
-            <property name="text">
-             <string>--</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="SysInfoBottom">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
             </property>
            </widget>
           </item>
@@ -283,7 +193,7 @@ padding: 8px;</string>
           <widget class="QWidget" name="UsbWidget" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>2</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -351,7 +261,7 @@ USB Device</string>
           <widget class="QWidget" name="WifiWidget" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>2</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -422,7 +332,7 @@ WiFi Clients</string>
           <widget class="QPushButton" name="ButtonDay">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>1</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -449,7 +359,7 @@ WiFi Clients</string>
           <widget class="QPushButton" name="ButtonNight">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>1</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -473,98 +383,10 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="ButtonLock">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>2</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(15, 54, 5, 0.5);</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normalon>:/lock-hot.png</normalon>
-            </iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>64</width>
-             <height>64</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="ButtonSettings">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>2</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(138, 226, 52, 0.5);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normalon>:/settings-hot.png</normalon>
-            </iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>64</width>
-             <height>64</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <layout class="QHBoxLayout" name="_TilesBottom">
-         <property name="spacing">
-          <number>4</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QPushButton" name="ButtonVolume">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>1</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(64, 191, 191, 0.5);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normalon>:/volume-hot.png</normalon>
-            </iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>64</width>
-             <height>64</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="ButtonBrightness">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>1</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -588,10 +410,98 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="ButtonVolume">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(64, 191, 191, 0.5);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/volume-hot.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="_TilesBottom">
+         <property name="spacing">
+          <number>4</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="ButtonLock">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(15, 54, 5, 0.5);</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/lock-hot.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="ButtonSettings">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(138, 226, 52, 0.5);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>:/settings-hot.png</normalon>
+            </iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="ButtonPower">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>2</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -618,7 +528,7 @@ WiFi Clients</string>
           <widget class="QWidget" name="PowerMenu" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>2</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -729,12 +639,12 @@ WiFi Clients</string>
     </item>
     <item>
      <widget class="QWidget" name="_Sliders" native="true">
-      <layout class="QVBoxLayout" name="_SlidersLayout">
+      <layout class="QHBoxLayout" name="_SlidersLayout">
        <property name="spacing">
-        <number>0</number>
+        <number>4</number>
        </property>
        <property name="leftMargin">
-        <number>4</number>
+        <number>8</number>
        </property>
        <property name="topMargin">
         <number>4</number>
@@ -746,125 +656,83 @@ WiFi Clients</string>
         <number>4</number>
        </property>
        <item>
-        <widget class="QWidget" name="BrightnessWidget" native="true">
-         <layout class="QHBoxLayout" name="_BrightnessWidget">
-          <property name="spacing">
-           <number>4</number>
-          </property>
-          <property name="leftMargin">
-           <number>8</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QSlider" name="SliderBrightness">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QSlider::handle:horizontal { background: rgb(245, 121, 0); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
-            </property>
-            <property name="minimum">
-             <number>30</number>
-            </property>
-            <property name="maximum">
-             <number>255</number>
-            </property>
-            <property name="singleStep">
-             <number>25</number>
-            </property>
-            <property name="value">
-             <number>30</number>
-            </property>
-            <property name="sliderPosition">
-             <number>30</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ButtonLight">
-            <property name="styleSheet">
-             <string notr="true">background-color: #6d6d6d; padding: 8px;</string>
-            </property>
-            <property name="text">
-             <string>Light</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <widget class="QSlider" name="SliderVolume">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QSlider::handle:horizontal { background: rgb(64, 191, 191); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="VolumeWidget" native="true">
-         <layout class="QHBoxLayout" name="_VolumeWidgetLayout">
-          <property name="spacing">
-           <number>4</number>
-          </property>
-          <property name="leftMargin">
-           <number>8</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QSlider" name="SliderVolume">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QSlider::handle:horizontal { background: rgb(64, 191, 191); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
-            </property>
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ButtonUnmute">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(164, 0, 0); padding: 8px;</string>
-            </property>
-            <property name="text">
-             <string>Muted</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ButtonMute">
-            <property name="styleSheet">
-             <string notr="true">background-color: #6d6d6d; padding: 8px;</string>
-            </property>
-            <property name="text">
-             <string>Mute</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <widget class="QSlider" name="SliderBrightness">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QSlider::handle:horizontal { background: rgb(245, 121, 0); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
+         </property>
+         <property name="minimum">
+          <number>30</number>
+         </property>
+         <property name="maximum">
+          <number>255</number>
+         </property>
+         <property name="singleStep">
+          <number>25</number>
+         </property>
+         <property name="value">
+          <number>30</number>
+         </property>
+         <property name="sliderPosition">
+          <number>30</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ButtonUnmute">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(164, 0, 0); padding: 8px; margin-left: 8px;</string>
+         </property>
+         <property name="text">
+          <string>Muted</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ButtonMute">
+         <property name="styleSheet">
+          <string notr="true">background-color: #6d6d6d; padding: 8px;</string>
+         </property>
+         <property name="text">
+          <string>Mute</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ButtonMaxBrightness">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(115, 210, 22); padding: 8px;</string>
+         </property>
+         <property name="text">
+          <string>Bright</string>
+         </property>
         </widget>
        </item>
       </layout>

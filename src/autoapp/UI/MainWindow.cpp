@@ -22,8 +22,6 @@
 #include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
-#include <QFont>
-#include <QFontDatabase>
 #include <QMessageBox>
 #include <QNetworkInterface>
 #include <QRect>
@@ -62,8 +60,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
       ui(new Ui::MainWindow),
       localDevice(new QBluetoothLocalDevice) {
   this->cfg = cfg;
-
-  setStyleSheet("color: rgb(255, 255, 255);");
 
   // trigger files
   forceNightMode = doesFileExist(nightModeFile);
@@ -105,10 +101,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
           &MainWindow::setRetryUsbConnect);
 
   ui->ButtonAndroidAuto->hide();
-
-  if (!cfg->showNetworkInfo()) {
-    ui->NetworkInfo->hide();
-  }
+  ui->ButtonUnmute->hide();
 
   QTimer *timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
@@ -123,7 +116,8 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   }
 
   // as default hide brightness slider
-  ui->BrightnessWidget->hide();
+  ui->SliderBrightness->hide();
+  ui->ButtonMaxBrightness->hide();
 
   // as default hide power buttons
   ui->PowerMenu->hide();
@@ -186,14 +180,15 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   // hide brightness button if eanbled in settings
   if (cfg->hideBrightnessControl()) {
     ui->ButtonBrightness->hide();
-    ui->BrightnessWidget->hide();
+    ui->SliderBrightness->hide();
+    ui->ButtonMaxBrightness->hide();
 
     // also hide volume button cause not needed if brightness not visible
     ui->ButtonVolume->hide();
   }
 
   // init alpha values
-  updateAlpha();
+  updateTransparency();
 
   tmpDirWatcher = new QFileSystemWatcher(this);
   tmpDirWatcher->addPath("/tmp");
@@ -208,7 +203,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
           SLOT(onChangeHostMode(QBluetoothLocalDevice::HostMode)));
 
   onChangeHostMode(localDevice->hostMode());
-  updateNetworkInfo();
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -224,35 +218,8 @@ void MainWindow::onChangeHostMode(QBluetoothLocalDevice::HostMode mode) {
   }
 }
 
-void MainWindow::updateNetworkInfo() {
-  QNetworkInterface wlan0if = QNetworkInterface::interfaceFromName("wlan0");
-  if (wlan0if.flags().testFlag(QNetworkInterface::IsUp)) {
-    QList<QNetworkAddressEntry> entrieswlan0 = wlan0if.addressEntries();
-    if (!entrieswlan0.isEmpty()) {
-      QNetworkAddressEntry wlan0 = entrieswlan0.first();
-      // qDebug() << "wlan0: " << wlan0.ip();
-      ui->ValueIp->setText(wlan0.ip().toString().simplified());
-      ui->ValueMask->setText(wlan0.netmask().toString().simplified());
-      if (std::ifstream("/tmp/hotspot_active")) {
-        ui->ValueSsid->setText(
-            cfg->getParamFromFile("/etc/hostapd/hostapd.conf", "ssid"));
-      } else {
-        ui->ValueSsid->setText(cfg->readFileContent("/tmp/wifi_ssid"));
-      }
-      ui->ValueGw->setText(cfg->readFileContent("/tmp/gateway_wlan0"));
-    }
-  } else {
-    // qDebug() << "wlan0: down";
-    ui->ValueIp->setText("");
-    ui->ValueMask->setText("");
-    ui->ValueGw->setText("");
-    ui->ValueSsid->setText("wlan0: down");
-  }
-}
-
 void MainWindow::selectBrightness() {
   brightnessFile = new QFile(brightnessFilename);
-  brightnessFileAlt = new QFile(brightnessFilenameAlt);
 
   // Get the current brightness value
   if (!customBrightnessControl && brightnessFile->open(QIODevice::ReadOnly)) {
@@ -262,28 +229,25 @@ void MainWindow::selectBrightness() {
     ui->SliderBrightness->setValue(brightness_val);
     QString bri = QString::number(brightness_val);
     brightnessFile->close();
-
-  } else if (brightnessFileAlt->open(QIODevice::ReadOnly)) {
-    QByteArray data = brightnessFileAlt->readAll();
-    std::string::size_type sz;
-    int brightnessVal = std::stoi(data.toStdString(), &sz);
-    ui->SliderBrightness->setValue(brightnessVal);
-    QString bri = QString::number(brightnessVal);
-    brightnessFileAlt->close();
   }
-  ui->BrightnessWidget->setDisabled(false);
-  ui->VolumeWidget->setEnabled(true);
+  ui->SliderVolume->setVisible(false);
+  ui->ButtonMute->setVisible(false);
+  ui->ButtonUnmute->setVisible(false);
+  ui->SliderBrightness->setVisible(true);
+  ui->ButtonMaxBrightness->setVisible(true);
 }
 
 void MainWindow::selectVolume() {
-  ui->VolumeWidget->setDisabled(true);
-  ui->BrightnessWidget->setDisabled(false);
+  ui->SliderVolume->setVisible(true);
+  ui->ButtonMute->setVisible(ui->ButtonMute->isEnabled());
+  ui->ButtonUnmute->setVisible(ui->ButtonUnmute->isEnabled());
+  ui->SliderBrightness->setVisible(false);
+  ui->ButtonMaxBrightness->setVisible(false);
 }
 
 void MainWindow::onChangeBrightness(int value) {
   int n = snprintf(brightnessStr, 5, "%d", value);
   brightnessFile = new QFile(brightnessFilename);
-  brightnessFileAlt = new QFile(brightnessFilenameAlt);
 
   if (!customBrightnessControl) {
     if (brightnessFile->open(QIODevice::WriteOnly)) {
@@ -291,13 +255,6 @@ void MainWindow::onChangeBrightness(int value) {
       brightnessStr[n + 1] = '\0';
       brightnessFile->write(brightnessStr);
       brightnessFile->close();
-    }
-  } else {
-    if (brightnessFileAlt->open(QIODevice::WriteOnly)) {
-      brightnessStr[n] = '\n';
-      brightnessStr[n + 1] = '\0';
-      brightnessFileAlt->write(brightnessStr);
-      brightnessFileAlt->close();
     }
   }
   QString bri = QString::number(value);
@@ -310,7 +267,7 @@ void MainWindow::onChangeVolume(int value) {
           .c_str());
 }
 
-void MainWindow::updateAlpha() {
+void MainWindow::updateTransparency() {
   int value = cfg->getAlphaTrans();
   // int n = snprintf(alpha_str, 5, "%d", value);
 
@@ -341,8 +298,8 @@ void MainWindow::setAlpha(QString newAlpha, QWidget *widget) {
 }
 
 void MainWindow::setNightMode(bool enabled) {
-  ui->ButtonDay->setEnabled(enabled);
-  ui->ButtonNight->setEnabled(!enabled);
+  ui->ButtonDay->setVisible(enabled);
+  ui->ButtonNight->setVisible(!enabled);
   updateBg();
 }
 
@@ -358,28 +315,19 @@ void MainWindow::powerMenu() { setPowerMenuVisibility(true); }
 void MainWindow::closePowerMenu() { setPowerMenuVisibility(false); }
 
 void MainWindow::updateBg() {
-  if (!forceNightMode) {
-    if (wallpaperDayFileExists) {
-      setStyleSheet(
-          "QMainWindow { background: url(wallpaper.png); background-repeat: "
-          "no-repeat; background-position: center; }");
-    } else {
-      setStyleSheet(
-          "QMainWindow { background: url(:/black.png); background-repeat: "
-          "repeat; background-position: center; }");
-    }
-
+  if (wallpaperDayFileExists && ui->ButtonNight->isVisible()) {
+    setStyleSheet(
+        "QMainWindow { background: url(wallpaper.png);"
+        "background-repeat: no-repeat; background-position: center; }");
+  } else if (wallpaperNightFileExists) {
+    setStyleSheet(
+        "QMainWindow { background: url(wallpaper-night.png);"
+        "background-repeat: no-repeat; background-position: "
+        "center; }");
   } else {
-    if (wallpaperNightFileExists) {
-      setStyleSheet(
-          "QMainWindow { background: url(wallpaper-night.png) stretch "
-          "stretch; background-repeat: no-repeat; background-position: "
-          "center; }");
-    } else {
-      setStyleSheet(
-          "QMainWindow { background: url(:/black.png); background-repeat: "
-          "repeat; background-position: center; }");
-    }
+    setStyleSheet(
+        "QMainWindow { background: url(:/black.png); background-repeat: "
+        "repeat; background-position: center; }");
   }
 }
 
@@ -402,11 +350,10 @@ void MainWindow::unmute() { setMuted(false); }
 
 void MainWindow::showTime() {
   QTime time = QTime::currentTime();
-  QString formattedTime = time.toString("hh : mm : ss");
+  QString formattedTime = time.toString("hh:mmap");
 
   if ((time.second() % 2) == 0) {
-    formattedTime[3] = ' ';
-    formattedTime[8] = ' ';
+    formattedTime[2] = ' ';
   }
 
   ui->Clock->setText(formattedTime);
@@ -424,12 +371,12 @@ void MainWindow::showTime() {
 }
 
 void MainWindow::setRetryUsbConnect() {
-  ui->SysInfoBottom->setText("Trying USB connect...");
+  ui->Status->setText("Trying USB connect...");
 
   QTimer::singleShot(10000, this, SLOT(resetRetryUsbMessage()));
 }
 
-void MainWindow::resetRetryUsbMessage() { ui->SysInfoBottom->clear(); }
+void MainWindow::resetRetryUsbMessage() { ui->Status->clear(); }
 
 bool MainWindow::doesFileExist(const char *path) {
   std::ifstream file(path, std::ios::in);
@@ -487,13 +434,13 @@ void MainWindow::onChangeTmpDir() {
 
   if (doesFileExist("/tmp/config_in_progress")) {
     lockSettings(true);
-    ui->SysInfoBottom->setText("Config in progress...");
+    ui->Status->setText("Config in progress...");
   } else if (doesFileExist("/tmp/debug_in_progress")) {
     lockSettings(true);
-    ui->SysInfoBottom->setText("Creating debug.zip...");
+    ui->Status->setText("Creating debug.zip...");
   } else {
     lockSettings(false);
-    ui->SysInfoBottom->clear();
+    ui->Status->clear();
   }
 
   // update day/night state
@@ -528,21 +475,14 @@ void MainWindow::onChangeTmpDir() {
     ui->Clock->show();
   }
 
-  if (!cfg->showNetworkInfo() && ui->NetworkInfo->isVisible()) {
-    ui->NetworkInfo->hide();
-
-  } else if (ui->NetworkInfo->isHidden()) {
-    ui->NetworkInfo->show();
-  }
-
   // hide brightness button
   bool shouldHideBrightness = cfg->hideBrightnessControl();
   ui->ButtonBrightness->setVisible(!shouldHideBrightness);
-  ui->BrightnessWidget->setVisible(!shouldHideBrightness);
+  ui->SliderBrightness->setVisible(!shouldHideBrightness);
+  ui->ButtonMaxBrightness->setVisible(!shouldHideBrightness);
   ui->ButtonVolume->setVisible(shouldHideBrightness);
 
-  updateAlpha();
-  updateNetworkInfo();
+  updateTransparency();
 }  // namespace ui
 
 }  // namespace ui

@@ -70,7 +70,7 @@ class MainWindow : public QMainWindow {
   void onChangeBrightness(int value);
   void onChangeVolume(int value);
   void onChangeTmpDir();
-  void updateAlpha();
+  void updateTransparency();
   void powerMenu();
   void closePowerMenu();
   void enablePairing();
@@ -87,7 +87,6 @@ class MainWindow : public QMainWindow {
   bool doesFileExist(const char *filename);
   void setRetryUsbConnect();
   void resetRetryUsbMessage();
-  void updateNetworkInfo();
   void setNightMode(bool enabled);
   void setMuted(bool muted);
   void setPowerMenuVisibility(bool visible);
@@ -98,9 +97,7 @@ class MainWindow : public QMainWindow {
   configuration::IConfiguration::Pointer cfg;
 
   QString brightnessFilename = "/sys/class/backlight/rpi_backlight/brightness";
-  QString brightnessFilenameAlt = "/tmp/custombrightness";
   QFile *brightnessFile;
-  QFile *brightnessFileAlt;
   char brightnessStr[6];
   char volumeStr[6];
   int alphaCurrentStr;
