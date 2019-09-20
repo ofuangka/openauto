@@ -62,9 +62,9 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   this->cfg = cfg;
 
   // trigger files
-  forceNightMode = doesFileExist(nightModeFile);
-  forceEnableWifi = doesFileExist(wifiButtonFile);
-  forceEnableBrightness = doesFileExist(brightnessButtonFile);
+  forceNightMode = doesFileExist(PATH_FORCE_NIGHT_MODE.c_str());
+  forceEnableWifi = doesFileExist(PATH_FORCE_WIFI.c_str());
+  forceEnableBrightness = doesFileExist(PATH_FORCE_BRIGHTNESS.c_str());
 
   // wallpaper stuff
   wallpaperDayFileExists = doesFileExist("wallpaper.png");
@@ -88,20 +88,22 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
           &MainWindow::nightModeEvent);
   connect(ui->ButtonNight, &QPushButton::clicked, this, &MainWindow::nightMode);
   connect(ui->ButtonBrightness, &QPushButton::clicked, this,
-          &MainWindow::selectBrightness);
+          &MainWindow::rotateSlider);
   connect(ui->ButtonVolume, &QPushButton::clicked, this,
-          &MainWindow::selectVolume);
+          &MainWindow::rotateSlider);
+  connect(ui->ButtonTransparency, &QPushButton::clicked, this,
+          &MainWindow::rotateSlider);
+  connect(ui->ButtonBackground, &QPushButton::clicked, this,
+          &MainWindow::rotateSlider);
   connect(ui->ButtonBluetooth, &QPushButton::clicked, this,
           &MainWindow::enablePairing);
-  connect(ui->ButtonMute, &QPushButton::clicked, this, &MainWindow::mute);
-  connect(ui->ButtonUnmute, &QPushButton::clicked, this, &MainWindow::unmute);
+  connect(ui->ButtonMute, &QPushButton::clicked, this, &MainWindow::toggleMute);
   connect(ui->ButtonAndroidAuto, &QPushButton::clicked, this,
           &MainWindow::appStartEvent);
   connect(ui->ButtonAndroidAuto, &QPushButton::clicked, this,
           &MainWindow::setRetryUsbConnect);
 
   ui->ButtonAndroidAuto->hide();
-  ui->ButtonUnmute->hide();
 
   QTimer *timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
@@ -110,20 +112,13 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   lockSettings(false);
 
   // hide brightness slider if control file is not existing
-  QFileInfo brightnessFile(brightnessFilename);
+  QFileInfo brightnessFile(PATH_BRIGHTNESS.c_str());
   if (!brightnessFile.exists() && !forceEnableBrightness) {
     ui->ButtonBrightness->hide();
   }
 
-  // as default hide brightness slider
-  ui->SliderBrightness->hide();
-  ui->ButtonMaxBrightness->hide();
-
   // as default hide power buttons
   ui->PowerMenu->hide();
-
-  // as default hide muted button
-  ui->ButtonUnmute->hide();
 
   // hide wifi if not forced
   if (!forceEnableWifi && !std::ifstream("/tmp/mobile_hotspot_detected")) {
@@ -177,18 +172,10 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
     ui->Clock->show();
   }
 
-  // hide brightness button if eanbled in settings
-  if (cfg->hideBrightnessControl()) {
-    ui->ButtonBrightness->hide();
-    ui->SliderBrightness->hide();
-    ui->ButtonMaxBrightness->hide();
-
-    // also hide volume button cause not needed if brightness not visible
-    ui->ButtonVolume->hide();
-  }
-
   // init alpha values
   updateTransparency();
+
+  rotateSlider();
 
   tmpDirWatcher = new QFileSystemWatcher(this);
   tmpDirWatcher->addPath("/tmp");
@@ -218,7 +205,30 @@ void MainWindow::onChangeHostMode(QBluetoothLocalDevice::HostMode mode) {
   }
 }
 
-void MainWindow::selectBrightness() {
+void MainWindow::rotateSlider() {
+  if (ui->VolumeSlider->isVisible()) {
+    ui->VolumeSlider->setVisible(false);
+    ui->BrightnessSlider->setVisible(true);
+    ui->TransparencySlider->setVisible(false);
+    ui->BackgroundSlider->setVisible(false);
+  } else if (ui->BrightnessSlider->isVisible()) {
+    ui->VolumeSlider->setVisible(false);
+    ui->BrightnessSlider->setVisible(false);
+    ui->TransparencySlider->setVisible(true);
+    ui->BackgroundSlider->setVisible(false);
+  } else if (ui->TransparencySlider->isVisible()) {
+    ui->VolumeSlider->setVisible(false);
+    ui->BrightnessSlider->setVisible(false);
+    ui->TransparencySlider->setVisible(false);
+    ui->BackgroundSlider->setVisible(true);
+  } else {
+    ui->VolumeSlider->setVisible(true);
+    ui->BrightnessSlider->setVisible(false);
+    ui->TransparencySlider->setVisible(false);
+    ui->BackgroundSlider->setVisible(false);
+  }
+
+  /*
   brightnessFile = new QFile(brightnessFilename);
 
   // Get the current brightness value
@@ -231,23 +241,13 @@ void MainWindow::selectBrightness() {
     brightnessFile->close();
   }
   ui->SliderVolume->setVisible(false);
-  ui->ButtonMute->setVisible(false);
-  ui->ButtonUnmute->setVisible(false);
   ui->SliderBrightness->setVisible(true);
-  ui->ButtonMaxBrightness->setVisible(true);
-}
-
-void MainWindow::selectVolume() {
-  ui->SliderVolume->setVisible(true);
-  ui->ButtonMute->setVisible(ui->ButtonMute->isEnabled());
-  ui->ButtonUnmute->setVisible(ui->ButtonUnmute->isEnabled());
-  ui->SliderBrightness->setVisible(false);
-  ui->ButtonMaxBrightness->setVisible(false);
+  */
 }
 
 void MainWindow::onChangeBrightness(int value) {
   int n = snprintf(brightnessStr, 5, "%d", value);
-  brightnessFile = new QFile(brightnessFilename);
+  QFile *brightnessFile = new QFile(PATH_BRIGHTNESS.c_str());
 
   if (!customBrightnessControl) {
     if (brightnessFile->open(QIODevice::WriteOnly)) {
@@ -268,7 +268,7 @@ void MainWindow::onChangeVolume(int value) {
 }
 
 void MainWindow::updateTransparency() {
-  int value = cfg->getAlphaTrans();
+  int value = 50;
   // int n = snprintf(alpha_str, 5, "%d", value);
 
   if (value != alphaCurrentStr) {
@@ -341,12 +341,10 @@ void MainWindow::setMuted(bool muted) {
   } else {
     system("/usr/local/bin/autoapp_helper setunmute &");
   }
-  ui->ButtonUnmute->setVisible(muted);
-  ui->ButtonMute->setVisible(!muted);
+  ui->ButtonMute->setChecked(muted);
 }
 
-void MainWindow::mute() { setMuted(true); }
-void MainWindow::unmute() { setMuted(false); }
+void MainWindow::toggleMute() { setMuted(true); }
 
 void MainWindow::showTime() {
   QTime time = QTime::currentTime();
@@ -371,12 +369,12 @@ void MainWindow::showTime() {
 }
 
 void MainWindow::setRetryUsbConnect() {
-  ui->Status->setText("Trying USB connect...");
+  ui->StatusMessage->setText("Trying USB connect...");
 
   QTimer::singleShot(10000, this, SLOT(resetRetryUsbMessage()));
 }
 
-void MainWindow::resetRetryUsbMessage() { ui->Status->clear(); }
+void MainWindow::resetRetryUsbMessage() { ui->StatusMessage->clear(); }
 
 bool MainWindow::doesFileExist(const char *path) {
   std::ifstream file(path, std::ios::in);
@@ -434,13 +432,13 @@ void MainWindow::onChangeTmpDir() {
 
   if (doesFileExist("/tmp/config_in_progress")) {
     lockSettings(true);
-    ui->Status->setText("Config in progress...");
+    ui->StatusMessage->setText("Config in progress...");
   } else if (doesFileExist("/tmp/debug_in_progress")) {
     lockSettings(true);
-    ui->Status->setText("Creating debug.zip...");
+    ui->StatusMessage->setText("Creating debug.zip...");
   } else {
     lockSettings(false);
-    ui->Status->clear();
+    ui->StatusMessage->clear();
   }
 
   // update day/night state
@@ -479,7 +477,6 @@ void MainWindow::onChangeTmpDir() {
   bool shouldHideBrightness = cfg->hideBrightnessControl();
   ui->ButtonBrightness->setVisible(!shouldHideBrightness);
   ui->SliderBrightness->setVisible(!shouldHideBrightness);
-  ui->ButtonMaxBrightness->setVisible(!shouldHideBrightness);
   ui->ButtonVolume->setVisible(shouldHideBrightness);
 
   updateTransparency();

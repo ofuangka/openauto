@@ -65,8 +65,7 @@ class MainWindow : public QMainWindow {
 
  private slots:
   void showTime();
-  void selectBrightness();
-  void selectVolume();
+  void rotateSlider();
   void onChangeBrightness(int value);
   void onChangeVolume(int value);
   void onChangeTmpDir();
@@ -77,8 +76,7 @@ class MainWindow : public QMainWindow {
   void updateBg();
   void nightMode();
   void dayMode();
-  void mute();
-  void unmute();
+  void toggleMute();
 
   void onChangeHostMode(QBluetoothLocalDevice::HostMode);
 
@@ -96,17 +94,16 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow *ui;
   configuration::IConfiguration::Pointer cfg;
 
-  QString brightnessFilename = "/sys/class/backlight/rpi_backlight/brightness";
-  QFile *brightnessFile;
+  std::string PATH_BRIGHTNESS = "/sys/class/backlight/rpi_backlight/brightness";
+  std::string PATH_FORCE_NIGHT_MODE = "/tmp/force-night-mode";
+  std::string PATH_FORCE_WIFI = "/tmp/force-wifi";
+  std::string PATH_FORCE_BRIGHTNESS = "/tmp/force-brightness";
+
   char brightnessStr[6];
   char volumeStr[6];
   int alphaCurrentStr;
   QString bversion;
   QString bdate;
-
-  char nightModeFile[32] = "/tmp/night_mode_enabled";
-  char wifiButtonFile[32] = "/etc/button_wifi_visible";
-  char brightnessButtonFile[32] = "/etc/button_brightness_visible";
 
   QRegExp backgroundColor = QRegExp(
       "(?<=background-color)(\\s*:\\s*rgba\\s*\\((?:[0-9]{1,3}\\s*,\\s*){3})[0-"
