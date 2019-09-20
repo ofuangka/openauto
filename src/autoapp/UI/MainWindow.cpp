@@ -166,7 +166,6 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
     // init volume
     QString vol = QString::number(
         cfg->readFileContent("/boot/crankshaft/volume").toInt());
-    ui->ValueVolume->setText(vol + "%");
     ui->SliderVolume->setValue(vol.toInt());
   }
 
@@ -262,7 +261,6 @@ void MainWindow::selectBrightness() {
     int brightness_val = std::stoi(data.toStdString(), &sz);
     ui->SliderBrightness->setValue(brightness_val);
     QString bri = QString::number(brightness_val);
-    ui->ValueBrightness->setText(bri);
     brightnessFile->close();
 
   } else if (brightnessFileAlt->open(QIODevice::ReadOnly)) {
@@ -271,7 +269,6 @@ void MainWindow::selectBrightness() {
     int brightnessVal = std::stoi(data.toStdString(), &sz);
     ui->SliderBrightness->setValue(brightnessVal);
     QString bri = QString::number(brightnessVal);
-    ui->ValueBrightness->setText(bri);
     brightnessFileAlt->close();
   }
   ui->BrightnessWidget->setDisabled(false);
@@ -304,12 +301,10 @@ void MainWindow::onChangeBrightness(int value) {
     }
   }
   QString bri = QString::number(value);
-  ui->ValueBrightness->setText(bri);
 }
 
 void MainWindow::onChangeVolume(int value) {
   QString vol = QString::number(value);
-  ui->ValueVolume->setText(vol + "%");
   system(
       ("/usr/local/bin/autoapp_helper setvolume " + std::to_string(value) + "&")
           .c_str());
