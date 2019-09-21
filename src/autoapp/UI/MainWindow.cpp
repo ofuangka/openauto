@@ -44,12 +44,12 @@ namespace autoapp {
 namespace ui {
 
 void MainWindow::refreshBluetooth() {
-  if (doesFileExist("/tmp/btdevice")) {
-    ui->BluetoothDevice->setText(cfg->readFileContent("/tmp/btdevice"));
+  if (doesFileExist(PATH_BT_DEVICE.c_str())) {
+    ui->BluetoothDevice->setText(cfg->readFileContent(PATH_BT_DEVICE.c_str()));
   } else {
     ui->BluetoothDevice->clear();
   }
-  bool bluetoothPairable = doesFileExist("/tmp/bluetooth_pairable");
+  bool bluetoothPairable = doesFileExist(PATH_BT_PAIRABLE.c_str());
   ui->Pairable->setVisible(bluetoothPairable);
   ui->ButtonBluetooth->setDisabled(bluetoothPairable);
 }
@@ -67,8 +67,8 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   forceEnableBrightness = doesFileExist(PATH_FORCE_BRIGHTNESS.c_str());
 
   // wallpaper stuff
-  wallpaperDayFileExists = doesFileExist("wallpaper.png");
-  wallpaperNightFileExists = doesFileExist("wallpaper-night.png");
+  wallpaperDayFileExists = doesFileExist(PATH_WALLPAPER.c_str());
+  wallpaperNightFileExists = doesFileExist(PATH_WALLPAPER_NIGHT.c_str());
 
   ui->setupUi(this);
   connect(ui->ButtonSettings, &QPushButton::clicked, this,
@@ -121,14 +121,14 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   ui->PowerMenu->hide();
 
   // hide wifi if not forced
-  if (!forceEnableWifi && !std::ifstream("/tmp/mobile_hotspot_detected")) {
+  if (!forceEnableWifi && !std::ifstream(PATH_HOTSPOT_DETECTED.c_str())) {
     ui->WifiWidget->hide();
   } else {
     ui->UsbWidget->hide();
   }
 
   if (std::ifstream("/tmp/temp_recent_list") ||
-      std::ifstream("/tmp/mobile_hotspot_detected")) {
+      std::ifstream(PATH_HOTSPOT_DETECTED.c_str())) {
     ui->ButtonWifi->show();
     ui->ButtonNoWifiDevice->hide();
   } else {
@@ -143,7 +143,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   ui->SliderBrightness->setTickInterval(cfg->getCSValue("BR_STEP").toInt());
 
   // run monitor for custom brightness command if enabled in crankshaft_env.sh
-  if (std::ifstream("/tmp/custombrightness")) {
+  if (std::ifstream(PATH_CUSTOM_BRIGHTNESS.c_str())) {
     if (!cfg->hideBrightnessControl()) {
       ui->ButtonBrightness->show();
     }
@@ -293,8 +293,9 @@ void MainWindow::updateTransparency() {
 }
 
 void MainWindow::setAlpha(QString newAlpha, QWidget *widget) {
-  widget->setStyleSheet(
-      widget->styleSheet().replace(backgroundColor, newAlpha));
+  QString newValue = widget->styleSheet().replace(REGEX_BACKGROUND_COLOR,
+                                                  ": rgba(\\1" + newAlpha);
+  widget->setStyleSheet(newValue);
 }
 
 void MainWindow::setNightMode(bool enabled) {
@@ -362,7 +363,7 @@ void MainWindow::showTime() {
     QString localDeviceAddress = localDevice->address().toString();
     QList<QBluetoothAddress> devices;
     devices = localDevice->connectedDevices();
-    if (devices.count() > 0 && std::ifstream("/tmp/btdevice")) {
+    if (devices.count() > 0 && std::ifstream(PATH_BT_DEVICE.c_str())) {
       refreshBluetooth();
     }
   }
@@ -453,12 +454,12 @@ void MainWindow::onChangeTmpDir() {
 
   // hide wifi if hotspot disabled and force wifi unselected
   bool forceNoWifi =
-      !hotspotActive && !doesFileExist("/tmp/mobile_hotspot_detected");
+      !hotspotActive && !doesFileExist(PATH_HOTSPOT_DETECTED.c_str());
   ui->WifiWidget->setVisible(!forceNoWifi);
   ui->UsbWidget->setVisible(forceNoWifi);
 
   if (doesFileExist("/tmp/temp_recent_list") ||
-      doesFileExist("/tmp/mobile_hotspot_detected")) {
+      doesFileExist(PATH_HOTSPOT_DETECTED.c_str())) {
     ui->ButtonWifi->show();
     ui->ButtonNoWifiDevice->hide();
   } else {

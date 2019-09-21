@@ -98,16 +98,20 @@ class MainWindow : public QMainWindow {
   std::string PATH_FORCE_NIGHT_MODE = "/tmp/force-night-mode";
   std::string PATH_FORCE_WIFI = "/tmp/force-wifi";
   std::string PATH_FORCE_BRIGHTNESS = "/tmp/force-brightness";
+  std::string PATH_BT_DEVICE = "/tmp/bt-device";
+  std::string PATH_BT_PAIRABLE = "/tmp/bt-pairable";
+  std::string PATH_WALLPAPER = "wallpaper.png";
+  std::string PATH_WALLPAPER_NIGHT = "wallpaper-night.png";
+  std::string PATH_HOTSPOT_DETECTED = "/tmp/hotspot-detected";
+  std::string PATH_CUSTOM_BRIGHTNESS = "/tmp/custom-brightness";
 
   char brightnessStr[6];
   char volumeStr[6];
   int alphaCurrentStr;
-  QString bversion;
-  QString bdate;
 
-  QRegExp backgroundColor = QRegExp(
-      "(?<=background-color)(\\s*:\\s*rgba\\s*\\((?:[0-9]{1,3}\\s*,\\s*){3})[0-"
-      "1]?(?:\\.[0-9]+)?(?=\\s*\\))");
+  QRegExp REGEX_BACKGROUND_COLOR = QRegExp(
+      "(?<=background-color)(?:\\s*\\:\\s*rgba\\s*\\(((?:[0-9]{1,3}\\s*,\\s*){"
+      "3}))(?:(?:[0-1]\\.)?[0-9]+)");
 
   bool customBrightnessControl = false;
 
