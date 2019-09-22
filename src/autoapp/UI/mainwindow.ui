@@ -128,6 +128,22 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="Muted">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgba(191, 64, 64, 1);</string>
+              </property>
+              <property name="text">
+               <string>Muted</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -144,6 +160,41 @@
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="Ssid">
+            <property name="font">
+             <font>
+              <family>monospace</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 102, 255); font-family: monospace;</string>
+            </property>
+            <property name="text">
+             <string>SSID</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="Divider">
+            <property name="font">
+             <font>
+              <family>monospace</family>
+              <pointsize>8</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 102, 255); font-family: monospace;</string>
+            </property>
+            <property name="text">
+             <string>|</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="BluetoothDevice">
             <property name="font">
              <font>
@@ -153,17 +204,17 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color: rgb(0, 102, 255); font-family: monospace; margin-right: 8px;</string>
+             <string notr="true">color: rgb(0, 102, 255); font-family: monospace;</string>
             </property>
             <property name="text">
-             <string>Device name</string>
+             <string>Device</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="ButtonBluetooth">
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(32, 74, 135, 1);</string>
+             <string notr="true">background-color: rgba(32, 74, 135, 1); margin-left: 8px;</string>
             </property>
             <property name="text">
              <string>Bluetooth</string>
@@ -227,7 +278,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="ButtonAndroidAuto">
+             <widget class="QPushButton" name="TileAndroidAuto">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -251,7 +302,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="ButtonNoDevice">
+             <widget class="QPushButton" name="TileNoUsbDevice">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -295,7 +346,7 @@ USB Device</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="ButtonWifi">
+             <widget class="QPushButton" name="TileWifi">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -322,7 +373,7 @@ USB Device</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="ButtonNoWifiDevice">
+             <widget class="QPushButton" name="TileNoWifiDevice">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -342,7 +393,7 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="ButtonDay">
+          <widget class="QPushButton" name="TileDay">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -369,7 +420,7 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="ButtonNight">
+          <widget class="QPushButton" name="TileNight">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -396,7 +447,7 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="ButtonMute">
+          <widget class="QPushButton" name="TileMute">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -433,7 +484,7 @@ WiFi Clients</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="ButtonSettings">
+          <widget class="QPushButton" name="TileSettings">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -461,7 +512,7 @@ WiFi Clients</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="ButtonPower">
+          <widget class="QPushButton" name="TilePowerMenu">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -512,7 +563,7 @@ WiFi Clients</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="ButtonShutdown">
+             <widget class="QPushButton" name="TileShutdown">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -539,7 +590,7 @@ WiFi Clients</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="ButtonReboot">
+             <widget class="QPushButton" name="TileReboot">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -566,7 +617,7 @@ WiFi Clients</string>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="ButtonBack">
+             <widget class="QPushButton" name="TileBack">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>

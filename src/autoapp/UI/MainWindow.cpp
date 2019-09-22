@@ -43,41 +43,52 @@ namespace openauto {
 namespace autoapp {
 namespace ui {
 
-void MainWindow::refreshBluetooth() {
-  if (doesFileExist(PATH_BT_DEVICE.c_str())) {
-    ui->BluetoothDevice->setText(cfg->readFileContent(PATH_BT_DEVICE.c_str()));
-  } else {
-    ui->BluetoothDevice->clear();
-  }
-  bool bluetoothPairable = doesFileExist(PATH_BT_PAIRABLE.c_str());
-  ui->Pairable->setVisible(bluetoothPairable);
-  ui->ButtonBluetooth->setDisabled(bluetoothPairable);
-}
-
 MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
                        QWidget *parent)
-    : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      localDevice(new QBluetoothLocalDevice) {
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
   this->cfg = cfg;
-
   ui->setupUi(this);
-  connect(ui->ButtonSettings, &QPushButton::clicked, this,
+  initUi();
+  readHostCapabilities();
+  readConfig();
+
+  QTimer *timer = new QTimer(this);
+  connect(timer, SIGNAL(timeout()), this, SLOT(clockTick()));
+  timer->start(1000);
+
+  triggerWatch = new QFileSystemWatcher(this);
+  triggerWatch->addPath(PATH_TRIGGER_DIR.c_str());
+  connect(triggerWatch, &QFileSystemWatcher::directoryChanged, this,
+          &MainWindow::onTrigger);
+}
+
+MainWindow::~MainWindow() {
+  delete ui;
+  delete sliders;
+  delete triggerWatch;
+  delete timeFormat;
+}
+
+void MainWindow::initUi() {
+  connect(ui->TileSettings, &QPushButton::clicked, this,
           &MainWindow::openSettings);
-  connect(ui->ButtonWifi, &QPushButton::clicked, this,
+  connect(ui->TileWifi, &QPushButton::clicked, this,
           &MainWindow::openConnectDialog);
-  connect(ui->ButtonPower, &QPushButton::clicked, this, &MainWindow::powerMenu);
-  connect(ui->ButtonBack, &QPushButton::clicked, this,
+  connect(ui->TileAndroidAuto, &QPushButton::clicked, this,
+          &MainWindow::appStartEvent);
+  connect(ui->TileAndroidAuto, &QPushButton::clicked, this,
+          &MainWindow::showUsbConnectMessage);
+  connect(ui->TilePowerMenu, &QPushButton::clicked, this, &MainWindow::powerMenu);
+  connect(ui->TileBack, &QPushButton::clicked, this,
           &MainWindow::closePowerMenu);
-  connect(ui->ButtonShutdown, &QPushButton::clicked, this,
-          &MainWindow::shutdown);
-  connect(ui->ButtonReboot, &QPushButton::clicked, this, &MainWindow::reboot);
-  connect(ui->ButtonDay, &QPushButton::clicked, this,
-          &MainWindow::dayModeEvent);
-  connect(ui->ButtonDay, &QPushButton::clicked, this, &MainWindow::dayMode);
-  connect(ui->ButtonNight, &QPushButton::clicked, this,
+  connect(ui->TileShutdown, &QPushButton::clicked, this, &MainWindow::shutdown);
+  connect(ui->TileReboot, &QPushButton::clicked, this, &MainWindow::reboot);
+  connect(ui->TileDay, &QPushButton::clicked, this, &MainWindow::dayModeEvent);
+  connect(ui->TileDay, &QPushButton::clicked, this, &MainWindow::dayMode);
+  connect(ui->TileNight, &QPushButton::clicked, this,
           &MainWindow::nightModeEvent);
-  connect(ui->ButtonNight, &QPushButton::clicked, this, &MainWindow::nightMode);
+  connect(ui->TileNight, &QPushButton::clicked, this, &MainWindow::nightMode);
+  connect(ui->TileMute, &QPushButton::clicked, this, &MainWindow::toggleMute);
   connect(ui->ButtonBrightness, &QPushButton::clicked, this,
           &MainWindow::rotateSliders);
   connect(ui->ButtonVolume, &QPushButton::clicked, this,
@@ -88,61 +99,55 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
           &MainWindow::rotateSliders);
   connect(ui->ButtonBluetooth, &QPushButton::clicked, this,
           &MainWindow::enablePairing);
-  connect(ui->ButtonMute, &QPushButton::clicked, this, &MainWindow::toggleMute);
-  connect(ui->ButtonAndroidAuto, &QPushButton::clicked, this,
-          &MainWindow::appStartEvent);
-  connect(ui->ButtonAndroidAuto, &QPushButton::clicked, this,
-          &MainWindow::setRetryUsbConnect);
 
-  readHostCapabilities();
-  readConfig();
-
-  QTimer *timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(clockTick()));
-  timer->start(1000);
-
-  lockSettings(false);
-
+  /* hide conditional/transient UI elements */
+  ui->Locked->hide();
+  ui->Pairable->hide();
+  ui->Muted->hide();
+  ui->Clock->hide();
+  ui->TileDay->hide();
+  ui->TileNight->hide();
+  ui->TileAndroidAuto->hide();
+  ui->ButtonBluetooth->hide();
+  ui->WifiWidget->hide();
   setPowerMenuVisibility(false);
 
-  // init alpha values
-  setNightMode(forceNightMode);
-  updateTransparency();
-
-  sliders = new QList<QWidget *>();
-  initSliders();
-  initStatuses();
-
-  triggerWatch = new QFileSystemWatcher(this);
-  triggerWatch->addPath("/tmp");
-  connect(triggerWatch, &QFileSystemWatcher::directoryChanged, this,
-          &MainWindow::onTrigger);
-
-  // Experimental test code
-  localDevice = new QBluetoothLocalDevice(this);
-
-  connect(localDevice,
-          SIGNAL(hostModeStateChanged(QBluetoothLocalDevice::HostMode)), this,
-          SLOT(onChangeHostMode(QBluetoothLocalDevice::HostMode)));
-
-  onChangeHostMode(localDevice->hostMode());
-}
-
-MainWindow::~MainWindow() {
-  delete ui;
-  delete sliders;
-  delete triggerWatch;
+  ui->BluetoothDevice->hide();
+  ui->Divider->hide();
+  ui->Ssid->hide();
+  ui->StatusMessage->clear();
 }
 
 void MainWindow::readHostCapabilities() {
-  // trigger files
+  // force files
   forceNightMode = doesFileExist(PATH_FORCE_NIGHT_MODE.c_str());
   forceEnableWifi = doesFileExist(PATH_FORCE_WIFI.c_str());
   forceEnableBrightness = doesFileExist(PATH_FORCE_BRIGHTNESS.c_str());
 
-  // wallpaper stuff
+  // wallpaper
   wallpaperDayExists = doesFileExist(PATH_WALLPAPER.c_str());
   wallpaperNightExists = doesFileExist(PATH_WALLPAPER_NIGHT.c_str());
+
+  /* default to day mode */
+  if (wallpaperDayExists && wallpaperNightExists) {
+    ui->TileNight->show();
+    updateBg();
+  }
+
+  // sliders
+  sliders = new QList<QWidget *>();
+  sliders->append(ui->VolumeSlider);
+  if (!forceEnableBrightness && !doesFileExist(PATH_BRIGHTNESS.c_str())) {
+    ui->BrightnessSlider->hide();
+  } else {
+    sliders->append(ui->BrightnessSlider);
+  }
+  sliders->append(ui->TransparencySlider);
+  sliders->append(ui->BackgroundSlider);
+  for (int i = 0; i < sliders->length(); i++) {
+    sliders->at(i)->hide();
+  }
+  rotateSliders();
 }
 
 void MainWindow::readConfig() {
@@ -152,54 +157,26 @@ void MainWindow::readConfig() {
   ui->SliderBrightness->setSingleStep(cfg->getCSValue("BR_STEP").toInt());
   ui->SliderBrightness->setTickInterval(cfg->getCSValue("BR_STEP").toInt());
 
+  // TODO: set volume, transparency and background
+  ui->SliderTransparency->setMinimum(0);
+  ui->SliderTransparency->setMaximum(100);
+  ui->SliderTransparency->setValue(75);
+
+  ui->SliderBackground->setMinimum(0);
+  ui->SliderBackground->setMaximum(100);
+  ui->SliderBackground->setValue(25);
+
   // clock visibility
   ui->Clock->setVisible(!!cfg->showClock());
 
-  if (!forceEnableWifi) {
-    ui->WifiWidget->hide();
-  } else {
-    if (doesFileExist(PATH_RECENT_SSIDS.c_str()) ||
-        doesFileExist(PATH_HOTSPOT_DETECTED.c_str())) {
-      ui->ButtonWifi->show();
-      ui->ButtonNoWifiDevice->hide();
-    } else {
-      ui->ButtonWifi->hide();
-      ui->ButtonNoWifiDevice->show();
-    }
-  }
-}
+  timeFormat = new QString("hh:mmap");
 
-void MainWindow::initStatuses() {
-  ui->Locked->hide();
-  ui->Pairable->hide();
+  updateTransparency();
 }
 
 void MainWindow::lockSettings(bool lock) {
-  ui->ButtonSettings->setEnabled(!lock);
-}
-
-void MainWindow::onChangeHostMode(QBluetoothLocalDevice::HostMode mode) {
-  if (mode != QBluetoothLocalDevice::HostPoweredOff) {
-    refreshBluetooth();
-  }
-}
-
-void MainWindow::initSliders() {
-  sliders->append(ui->VolumeSlider);
-  sliders->append(ui->BrightnessSlider);
-  sliders->append(ui->TransparencySlider);
-
-  // hide brightness slider if control file is not existing
-  QFileInfo brightnessFile(PATH_BRIGHTNESS.c_str());
-  if (forceEnableBrightness || brightnessFile.exists()) {
-    sliders->append(ui->BackgroundSlider);
-  } else {
-    ui->BackgroundSlider->hide();
-  }
-  for (int i = 0; i < sliders->length(); i++) {
-    sliders->at(i)->hide();
-  }
-  rotateSliders();
+  ui->TileSettings->setEnabled(!lock);
+  ui->Locked->setVisible(lock);
 }
 
 void MainWindow::rotateSliders() {
@@ -231,26 +208,25 @@ void MainWindow::onChangeVolume(int value) { /* TODO: implement */
 }
 
 void MainWindow::updateTransparency() {
-  int value = 50;
-  // int n = snprintf(alpha_str, 5, "%d", value);
+  int value = ui->SliderTransparency->value();
 
   if (value != currentAlpha) {
     currentAlpha = value;
     double alpha = value / 100.0;
     QString alp = QString::number(alpha);
-    setAlpha(alp, ui->ButtonPower);
-    setAlpha(alp, ui->ButtonShutdown);
-    setAlpha(alp, ui->ButtonReboot);
-    setAlpha(alp, ui->ButtonBack);
+    setAlpha(alp, ui->TilePowerMenu);
+    setAlpha(alp, ui->TileShutdown);
+    setAlpha(alp, ui->TileReboot);
+    setAlpha(alp, ui->TileBack);
+    setAlpha(alp, ui->TileMute);
+    setAlpha(alp, ui->TileSettings);
+    setAlpha(alp, ui->TileDay);
+    setAlpha(alp, ui->TileNight);
+    setAlpha(alp, ui->TileWifi);
+    setAlpha(alp, ui->TileAndroidAuto);
+    setAlpha(alp, ui->TileNoUsbDevice);
+    setAlpha(alp, ui->TileNoWifiDevice);
     setAlpha(alp, ui->ButtonBrightness);
-    setAlpha(alp, ui->ButtonMute);
-    setAlpha(alp, ui->ButtonSettings);
-    setAlpha(alp, ui->ButtonDay);
-    setAlpha(alp, ui->ButtonNight);
-    setAlpha(alp, ui->ButtonWifi);
-    setAlpha(alp, ui->ButtonAndroidAuto);
-    setAlpha(alp, ui->ButtonNoDevice);
-    setAlpha(alp, ui->ButtonNoWifiDevice);
   }
 }
 
@@ -261,8 +237,8 @@ void MainWindow::setAlpha(QString newAlpha, QWidget *widget) {
 }
 
 void MainWindow::setNightMode(bool enabled) {
-  ui->ButtonDay->setVisible(enabled);
-  ui->ButtonNight->setVisible(!enabled);
+  ui->TileDay->setVisible(enabled);
+  ui->TileNight->setVisible(!enabled);
   updateBg();
 }
 
@@ -270,7 +246,7 @@ void MainWindow::dayMode() { setNightMode(false); }
 void MainWindow::nightMode() { setNightMode(true); }
 
 void MainWindow::setPowerMenuVisibility(bool visible) {
-  ui->ButtonPower->setVisible(!visible);
+  ui->TilePowerMenu->setVisible(!visible);
   ui->PowerMenu->setVisible(visible);
 }
 
@@ -282,7 +258,7 @@ void MainWindow::updateBg() {
   if (wallpaperDayExists) {
     wallpaper = PATH_WALLPAPER;
   }
-  if (ui->ButtonDay->isVisible() && wallpaperNightExists) {
+  if (ui->TileDay->isVisible() && wallpaperNightExists) {
     wallpaper = PATH_WALLPAPER_NIGHT;
   }
   setStyleSheet(
@@ -300,40 +276,23 @@ void MainWindow::setMuted(bool muted) {
   } else {
     system("/usr/local/bin/autoapp_helper setunmute &");
   }
-  ui->ButtonMute->setChecked(muted);
+  ui->TileMute->setChecked(muted);
+  ui->Muted->setVisible(muted);
 }
 
 void MainWindow::toggleMute() { setMuted(true); }
 
 void MainWindow::clockTick() {
   QTime time = QTime::currentTime();
-  QString formattedTime = time.toString("hh:mmap");
-
-  if ((time.second() % 2) == 0) {
-    formattedTime[2] = ' ';
-  }
-
-  ui->Clock->setText(formattedTime);
-
-  // check connected devices
-  if (localDevice->isValid()) {
-    QString localDeviceName = localDevice->name();
-    QString localDeviceAddress = localDevice->address().toString();
-    QList<QBluetoothAddress> devices;
-    devices = localDevice->connectedDevices();
-    if (devices.count() > 0 && std::ifstream(PATH_BT_DEVICE.c_str())) {
-      refreshBluetooth();
-    }
-  }
+  ui->Clock->setText(time.toString(*timeFormat));
 }
 
-void MainWindow::setRetryUsbConnect() {
+void MainWindow::showUsbConnectMessage() {
   ui->StatusMessage->setText("Trying USB connect...");
-
-  QTimer::singleShot(10000, this, SLOT(resetRetryUsbMessage()));
+  QTimer::singleShot(10000, this, SLOT(clearStatusMessage()));
 }
 
-void MainWindow::resetRetryUsbMessage() { ui->StatusMessage->clear(); }
+void MainWindow::clearStatusMessage() { ui->StatusMessage->clear(); }
 
 bool MainWindow::doesFileExist(const char *path) {
   std::ifstream file(path, std::ios::in);
@@ -350,93 +309,71 @@ bool MainWindow::doesFileExist(const char *path) {
 }
 
 void MainWindow::onTrigger() {
-  try {
-    if (doesFileExist(PATH_APP_STOP.c_str())) {
-      std::remove(PATH_APP_STOP.c_str());
-      MainWindow::appStopEvent();
+  bool shouldStopAndroidAuto = doesFileExist(PATH_APP_STOP.c_str());
+  bool androidDevice = doesFileExist(PATH_ANDROID_DEVICE.c_str());
+  bool shouldLockSettings = doesFileExist(PATH_CONFIG_IN_PROGRESS.c_str());
+  bool shouldExit = doesFileExist(PATH_EXTERNAL_EXIT.c_str());
+  bool hotspotActive = doesFileExist(PATH_HOTSPOT_ACTIVE.c_str());
+  bool hotspotDetected = doesFileExist(PATH_HOTSPOT_DETECTED.c_str());
+  bool bluetoothDevice = doesFileExist(PATH_BT_DEVICE.c_str());
+  bool bluetoothPairable = doesFileExist(PATH_BT_PAIRABLE.c_str());
+
+  if (shouldStopAndroidAuto) {
+    std::remove(PATH_APP_STOP.c_str());
+    try {
+      appStopEvent();
+    } catch (...) {
+      OPENAUTO_LOG(error) << "Error exiting Android Auto";
     }
-  } catch (...) {
-    OPENAUTO_LOG(error) << "[OpenAuto] Error in entityexit";
-  }
-
-  // check if system is in display off mode (tap2wake)
-  bool blankScreen = doesFileExist(PATH_BLANK_SCREEN.c_str()) ||
-                     doesFileExist(PATH_SCREENSAVER.c_str());
-  if (blankScreen) {
-    closeAllDialogs();
-  } else {
-    ui->MainWidget->setVisible(!blankScreen);
-  }
-
-  // check if custom command needs black background
-  if (doesFileExist(PATH_BLACK_SCREEN.c_str())) {
-    ui->MainWidget->hide();
-    setStyleSheet("QMainWindow { background-color: rgb(0,0,0); }");
-  } else {
-    MainWindow::updateBg();
   }
 
   // check android device
-  bool androidDevice = doesFileExist(PATH_ANDROID_DEVICE.c_str());
-  ui->ButtonAndroidAuto->setVisible(androidDevice);
-  ui->ButtonNoDevice->setVisible(!androidDevice);
-  try {
-    QFile deviceData(QString(PATH_ANDROID_DEVICE.c_str()));
-    deviceData.open(QIODevice::ReadOnly);
-    QTextStream data_date(&deviceData);
-    QString linedate = data_date.readAll().split("\n")[1];
-    deviceData.close();
-  } catch (...) {
+  ui->TileAndroidAuto->setVisible(androidDevice);
+  ui->TileNoUsbDevice->setVisible(!androidDevice);
+  if (androidDevice) {
+    ui->TileAndroidAuto->show();
+    ui->TileNoUsbDevice->hide();
+    try {
+      QFile deviceInfo(QString(PATH_ANDROID_DEVICE.c_str()));
+      deviceInfo.open(QIODevice::ReadOnly);
+      QTextStream deviceData(&deviceInfo);
+      QString deviceName = deviceData.readAll().split("\n")[1];
+      deviceInfo.close();
+    } catch (...) {
+      OPENAUTO_LOG(error) << "Error reading device name";
+    }
+  } else {
+    ui->TileAndroidAuto->hide();
+    ui->TileNoUsbDevice->show();
   }
 
-  if (doesFileExist(PATH_CONFIG_IN_PROGRESS.c_str())) {
+  if (shouldLockSettings) {
     lockSettings(true);
     ui->StatusMessage->setText("Config in progress...");
-  } else if (doesFileExist(PATH_DEBUG_IN_PROGRESS.c_str())) {
-    lockSettings(true);
-    ui->StatusMessage->setText("Creating debug.zip...");
   } else {
     lockSettings(false);
     ui->StatusMessage->clear();
   }
 
-  // check if shutdown is external triggered and init clean app exit
-  if (doesFileExist(PATH_EXTERNAL_EXIT.c_str())) {
-    MainWindow::shutdown();
+  if (shouldExit) {
+    std::remove(PATH_EXTERNAL_EXIT.c_str());
+    shutdown();
   }
 
-  hotspotActive = doesFileExist(PATH_HOTSPOT_ACTIVE.c_str());
-
-  // hide wifi if hotspot disabled and force wifi unselected
-  bool forceNoWifi =
-      !hotspotActive && !doesFileExist(PATH_HOTSPOT_DETECTED.c_str());
-  ui->WifiWidget->setVisible(!forceNoWifi);
-  ui->UsbWidget->setVisible(forceNoWifi);
-
-  if (doesFileExist(PATH_RECENT_SSIDS.c_str()) ||
-      doesFileExist(PATH_HOTSPOT_DETECTED.c_str())) {
-    ui->ButtonWifi->show();
-    ui->ButtonNoWifiDevice->hide();
+  if (!hotspotActive && !hotspotDetected) {
+    ui->WifiWidget->hide();
   } else {
-    ui->ButtonWifi->hide();
-    ui->ButtonNoWifiDevice->show();
+    ui->WifiWidget->show();
   }
 
-  // clock viibility by settings
-  if (!cfg->showClock()) {
-    ui->Clock->hide();
+  if (bluetoothDevice) {
+    ui->BluetoothDevice->setText(cfg->readFileContent(PATH_BT_DEVICE.c_str()));
   } else {
-    ui->Clock->show();
+    ui->BluetoothDevice->clear();
   }
-
-  // hide brightness button
-  bool shouldHideBrightness = cfg->hideBrightnessControl();
-  ui->ButtonBrightness->setVisible(!shouldHideBrightness);
-  ui->SliderBrightness->setVisible(!shouldHideBrightness);
-  ui->ButtonVolume->setVisible(shouldHideBrightness);
-
-  updateTransparency();
-}  // namespace ui
+  ui->Pairable->setVisible(bluetoothPairable);
+  ui->ButtonBluetooth->setDisabled(bluetoothPairable);
+}
 
 }  // namespace ui
 }  // namespace autoapp

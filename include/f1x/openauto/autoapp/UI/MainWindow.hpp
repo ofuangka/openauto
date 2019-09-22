@@ -19,7 +19,6 @@
 #pragma once
 
 #include <QAudioProbe>
-#include <QBluetoothLocalDevice>
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
@@ -32,7 +31,6 @@
 #include <QVideoProbe>
 #include <f1x/openauto/autoapp/Configuration/IConfiguration.hpp>
 #include <memory>
-//#include <QtBluetooth>
 
 namespace Ui {
 class MainWindow;
@@ -77,13 +75,11 @@ class MainWindow : public QMainWindow {
   void dayMode();
   void toggleMute();
 
-  void onChangeHostMode(QBluetoothLocalDevice::HostMode);
-
  private:
   void setAlpha(QString newAlpha, QWidget *widget);
   bool doesFileExist(const char *filename);
-  void setRetryUsbConnect();
-  void resetRetryUsbMessage();
+  void showUsbConnectMessage();
+  void clearStatusMessage();
   void setNightMode(bool enabled);
   void setMuted(bool muted);
   void setPowerMenuVisibility(bool visible);
@@ -92,7 +88,7 @@ class MainWindow : public QMainWindow {
   void refreshBluetooth();
   void readHostCapabilities();
   void readConfig();
-  void initStatuses();
+  void initUi();
 
   Ui::MainWindow *ui;
   configuration::IConfiguration::Pointer cfg;
@@ -113,11 +109,9 @@ class MainWindow : public QMainWindow {
   std::string PATH_EXTERNAL_EXIT = "/tmp/external-exit";
   std::string PATH_HOTSPOT_ACTIVE = "/tmp/hotspot_active";
   std::string PATH_RECENT_SSIDS = "/tmp/recent-ssids";
-  std::string PATH_BLACK_SCREEN = "/tmp/black-screen";
-  std::string PATH_BLANK_SCREEN = "/tmp/blank-screen";
-  std::string PATH_SCREENSAVER = "/tmp/screensaver";
   std::string PATH_ANDROID_DEVICE = "/tmp/android_device";
   std::string PATH_APP_STOP = "/tmp/app-stop";
+  std::string PATH_TRIGGER_DIR = "/tmp";
 
   int currentAlpha;
 
@@ -131,10 +125,7 @@ class MainWindow : public QMainWindow {
   bool wallpaperDayExists = false;
   bool wallpaperNightExists = false;
 
-  bool hotspotActive = false;
-
-  QBluetoothLocalDevice *localDevice;
-
+  QString *timeFormat;
   QList<QWidget *> *sliders;
   QFileSystemWatcher *triggerWatch;
 };
