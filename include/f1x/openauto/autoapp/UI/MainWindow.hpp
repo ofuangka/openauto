@@ -121,10 +121,8 @@ class MainWindow : public QMainWindow {
 
   int currentAlpha;
 
-  QRegExp REGEX_BACKGROUND_COLOR = QRegExp(
-      "(?<=background-color)(?:\\s*\\:\\s*rgba\\s*\\(((?:[0-9]{1,3}\\s*,\\s*){"
-      "3}))(?:(?:[0-1]\\.)?[0-9]+)",
-      Qt::CaseInsensitive, QRegExp::RegExp2);
+  QRegExp REGEX_BACKGROUND_COLOR = QRegExp("rgba\\(((?:[0-9]*,\\s*){3})");
+  QRegExp REGEX_BACKGROUND_IMAGE = QRegExp("url\\('[^']*'\\)");
 
   bool forceEnableWifi = false;
   bool forceEnableBrightness = false;

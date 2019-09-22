@@ -243,7 +243,7 @@ void MainWindow::updateTransparency() {
     setAlpha(alp, ui->ButtonReboot);
     setAlpha(alp, ui->ButtonBack);
     setAlpha(alp, ui->ButtonBrightness);
-    setAlpha(alp, ui->ButtonVolume);
+    setAlpha(alp, ui->ButtonMute);
     setAlpha(alp, ui->ButtonSettings);
     setAlpha(alp, ui->ButtonDay);
     setAlpha(alp, ui->ButtonNight);
@@ -256,7 +256,7 @@ void MainWindow::updateTransparency() {
 
 void MainWindow::setAlpha(QString newAlpha, QWidget *widget) {
   QString newValue = widget->styleSheet().replace(REGEX_BACKGROUND_COLOR,
-                                                  ": rgba(\\1" + newAlpha);
+                                                  "rgba(\\1" + newAlpha);
   widget->setStyleSheet(newValue);
 }
 
@@ -286,7 +286,7 @@ void MainWindow::updateBg() {
     wallpaper = PATH_WALLPAPER_NIGHT;
   }
   setStyleSheet(
-      styleSheet().replace(QRegExp("url\\('[^']*'\\)"),
+      styleSheet().replace(REGEX_BACKGROUND_IMAGE,
                            QString::fromStdString("url('" + wallpaper + "')")));
 }
 
