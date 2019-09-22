@@ -107,7 +107,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   ui->WifiWidget->hide();
   setPowerMenuVisibility(false);
 
-  if (std::ifstream("/tmp/temp_recent_list") ||
+  if (std::ifstream(PATH_RECENT_SSIDS.c_str()) ||
       std::ifstream(PATH_HOTSPOT_DETECTED.c_str())) {
     ui->ButtonWifi->show();
     ui->ButtonNoWifiDevice->hide();
@@ -132,7 +132,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
   localDevice = new QBluetoothLocalDevice(this);
 
   connect(localDevice,
-          SIGNAL(onChangeHostMode(QBluetoothLocalDevice::HostMode)), this,
+          SIGNAL(hostModeStateChanged(QBluetoothLocalDevice::HostMode)), this,
           SLOT(onChangeHostMode(QBluetoothLocalDevice::HostMode)));
 
   onChangeHostMode(localDevice->hostMode());
@@ -141,6 +141,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
 MainWindow::~MainWindow() {
   delete ui;
   delete sliders;
+  delete triggerWatch;
 }
 
 void MainWindow::readHostCapabilities() {
@@ -271,7 +272,7 @@ void MainWindow::powerMenu() { setPowerMenuVisibility(true); }
 void MainWindow::closePowerMenu() { setPowerMenuVisibility(false); }
 
 void MainWindow::updateBg() {
-  std::string wallpaper = ":/black.png";
+  std::string wallpaper = PATH_WALLPAPER_BLACK;
   if (wallpaperDayExists) {
     wallpaper = PATH_WALLPAPER;
   }
@@ -279,9 +280,8 @@ void MainWindow::updateBg() {
     wallpaper = PATH_WALLPAPER_NIGHT;
   }
   setStyleSheet(
-      "QMainWindow { background-image: url(" +
-      QString::fromStdString(wallpaper) +
-      "); background-repeat: no-repeat; background-position: center; }");
+      styleSheet().replace(QRegExp("url\\('[^']*'\\)"),
+                           QString::fromStdString("url('" + wallpaper + "')")));
 }
 
 void MainWindow::enablePairing() {
@@ -345,8 +345,8 @@ bool MainWindow::doesFileExist(const char *path) {
 
 void MainWindow::onTrigger() {
   try {
-    if (doesFileExist("/tmp/entityexit")) {
-      std::remove("/tmp/entityexit");
+    if (doesFileExist(PATH_APP_STOP.c_str())) {
+      std::remove(PATH_APP_STOP.c_str());
       MainWindow::appStopEvent();
     }
   } catch (...) {
@@ -354,8 +354,8 @@ void MainWindow::onTrigger() {
   }
 
   // check if system is in display off mode (tap2wake)
-  bool blankScreen =
-      doesFileExist("/tmp/blankscreen") || doesFileExist("/tmp/screensaver");
+  bool blankScreen = doesFileExist(PATH_BLANK_SCREEN.c_str()) ||
+                     doesFileExist(PATH_SCREENSAVER.c_str());
   if (blankScreen) {
     closeAllDialogs();
   } else {
@@ -363,7 +363,7 @@ void MainWindow::onTrigger() {
   }
 
   // check if custom command needs black background
-  if (doesFileExist("/tmp/blackscreen")) {
+  if (doesFileExist(PATH_BLACK_SCREEN.c_str())) {
     ui->MainWidget->hide();
     setStyleSheet("QMainWindow { background-color: rgb(0,0,0); }");
   } else {
@@ -371,11 +371,11 @@ void MainWindow::onTrigger() {
   }
 
   // check android device
-  bool androidDevice = doesFileExist("/tmp/android_device");
+  bool androidDevice = doesFileExist(PATH_ANDROID_DEVICE.c_str());
   ui->ButtonAndroidAuto->setVisible(androidDevice);
   ui->ButtonNoDevice->setVisible(!androidDevice);
   try {
-    QFile deviceData(QString("/tmp/android_device"));
+    QFile deviceData(QString(PATH_ANDROID_DEVICE.c_str()));
     deviceData.open(QIODevice::ReadOnly);
     QTextStream data_date(&deviceData);
     QString linedate = data_date.readAll().split("\n")[1];
@@ -383,10 +383,10 @@ void MainWindow::onTrigger() {
   } catch (...) {
   }
 
-  if (doesFileExist("/tmp/config_in_progress")) {
+  if (doesFileExist(PATH_CONFIG_IN_PROGRESS.c_str())) {
     lockSettings(true);
     ui->StatusMessage->setText("Config in progress...");
-  } else if (doesFileExist("/tmp/debug_in_progress")) {
+  } else if (doesFileExist(PATH_DEBUG_IN_PROGRESS.c_str())) {
     lockSettings(true);
     ui->StatusMessage->setText("Creating debug.zip...");
   } else {
@@ -394,15 +394,12 @@ void MainWindow::onTrigger() {
     ui->StatusMessage->clear();
   }
 
-  // update day/night state
-  setNightMode(doesFileExist("/tmp/night_mode_enabled"));
-
   // check if shutdown is external triggered and init clean app exit
-  if (doesFileExist("/tmp/external_exit")) {
+  if (doesFileExist(PATH_EXTERNAL_EXIT.c_str())) {
     MainWindow::shutdown();
   }
 
-  hotspotActive = doesFileExist("/tmp/hotspot_active");
+  hotspotActive = doesFileExist(PATH_HOTSPOT_ACTIVE.c_str());
 
   // hide wifi if hotspot disabled and force wifi unselected
   bool forceNoWifi =
@@ -410,7 +407,7 @@ void MainWindow::onTrigger() {
   ui->WifiWidget->setVisible(!forceNoWifi);
   ui->UsbWidget->setVisible(forceNoWifi);
 
-  if (doesFileExist("/tmp/temp_recent_list") ||
+  if (doesFileExist(PATH_RECENT_SSIDS.c_str()) ||
       doesFileExist(PATH_HOTSPOT_DETECTED.c_str())) {
     ui->ButtonWifi->show();
     ui->ButtonNoWifiDevice->hide();

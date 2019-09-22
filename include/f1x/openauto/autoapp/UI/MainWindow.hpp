@@ -107,12 +107,23 @@ class MainWindow : public QMainWindow {
   std::string PATH_HOTSPOT_DETECTED = "/tmp/hotspot-detected";
   std::string PATH_CUSTOM_BRIGHTNESS = "/tmp/custom-brightness";
   std::string PATH_WALLPAPER_BLACK = ":/black.png";
+  std::string PATH_CONFIG_IN_PROGRESS = "/tmp/config-in-progress";
+  std::string PATH_DEBUG_IN_PROGRESS = "/tmp/debug-in-progress";
+  std::string PATH_EXTERNAL_EXIT = "/tmp/external-exit";
+  std::string PATH_HOTSPOT_ACTIVE = "/tmp/hotspot_active";
+  std::string PATH_RECENT_SSIDS = "/tmp/recent-ssids";
+  std::string PATH_BLACK_SCREEN = "/tmp/black-screen";
+  std::string PATH_BLANK_SCREEN = "/tmp/blank-screen";
+  std::string PATH_SCREENSAVER = "/tmp/screensaver";
+  std::string PATH_ANDROID_DEVICE = "/tmp/android_device";
+  std::string PATH_APP_STOP = "/tmp/app-stop";
 
   int currentAlpha;
 
   QRegExp REGEX_BACKGROUND_COLOR = QRegExp(
       "(?<=background-color)(?:\\s*\\:\\s*rgba\\s*\\(((?:[0-9]{1,3}\\s*,\\s*){"
-      "3}))(?:(?:[0-1]\\.)?[0-9]+)");
+      "3}))(?:(?:[0-1]\\.)?[0-9]+)",
+      Qt::CaseInsensitive, QRegExp::RegExp2);
 
   bool forceEnableWifi = false;
   bool forceEnableBrightness = false;
