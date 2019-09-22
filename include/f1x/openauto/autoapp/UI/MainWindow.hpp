@@ -49,7 +49,6 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(configuration::IConfiguration::Pointer configuration,
                       QWidget *parent = nullptr);
   ~MainWindow() override;
-  QFileSystemWatcher *tmpDirWatcher;
 
  signals:
   void shutdown();
@@ -64,11 +63,11 @@ class MainWindow : public QMainWindow {
   void appStopEvent();
 
  private slots:
-  void showTime();
-  void rotateSlider();
+  void clockTick();
+  void rotateSliders();
   void onChangeBrightness(int value);
   void onChangeVolume(int value);
-  void onChangeTmpDir();
+  void onTrigger();
   void updateTransparency();
   void powerMenu();
   void closePowerMenu();
@@ -89,7 +88,10 @@ class MainWindow : public QMainWindow {
   void setMuted(bool muted);
   void setPowerMenuVisibility(bool visible);
   void lockSettings(bool lock);
+  void initSliders();
   void refreshBluetooth();
+  void readHostCapabilities();
+  void readConfig();
 
   Ui::MainWindow *ui;
   configuration::IConfiguration::Pointer cfg;
@@ -104,27 +106,27 @@ class MainWindow : public QMainWindow {
   std::string PATH_WALLPAPER_NIGHT = "wallpaper-night.png";
   std::string PATH_HOTSPOT_DETECTED = "/tmp/hotspot-detected";
   std::string PATH_CUSTOM_BRIGHTNESS = "/tmp/custom-brightness";
+  std::string PATH_WALLPAPER_BLACK = ":/black.png";
 
-  char brightnessStr[6];
-  char volumeStr[6];
-  int alphaCurrentStr;
+  int currentAlpha;
 
   QRegExp REGEX_BACKGROUND_COLOR = QRegExp(
       "(?<=background-color)(?:\\s*\\:\\s*rgba\\s*\\(((?:[0-9]{1,3}\\s*,\\s*){"
       "3}))(?:(?:[0-1]\\.)?[0-9]+)");
 
-  bool customBrightnessControl = false;
-
   bool forceEnableWifi = false;
   bool forceEnableBrightness = false;
   bool forceNightMode = false;
 
-  bool wallpaperDayFileExists = false;
-  bool wallpaperNightFileExists = false;
+  bool wallpaperDayExists = false;
+  bool wallpaperNightExists = false;
 
   bool hotspotActive = false;
 
   QBluetoothLocalDevice *localDevice;
+
+  QList<QWidget *> *sliders;
+  QFileSystemWatcher *triggerWatch;
 };
 
 }  // namespace ui
