@@ -17,12 +17,9 @@
    </size>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow { background-image: url(':/black.png'); }</string>
+   <string notr="true">QMainWindow { background-image: url(':/black.png'); } QMainWindow &gt; QWidget { background-color: rgba(0, 0, 0, 0.2); }</string>
   </property>
   <widget class="QWidget" name="MainWidget">
-   <property name="styleSheet">
-    <string notr="true">background-color: rgba(0, 0, 0, 0.5);</string>
-   </property>
    <layout class="QVBoxLayout" name="_MainWidgetLayout">
     <property name="spacing">
      <number>0</number>
@@ -182,7 +179,7 @@
     <item>
      <widget class="QWidget" name="_Tiles" native="true">
       <property name="styleSheet">
-       <string notr="true">.QPushButton { border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 4px; }</string>
+       <string notr="true">.QPushButton { border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 4px; color: rgb(255, 255, 255, 1); }</string>
       </property>
       <layout class="QGridLayout" name="_TilesLayout">
        <property name="leftMargin">
@@ -436,30 +433,6 @@ WiFi Clients</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="ButtonLock">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgba(15, 54, 5, 1);</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normalon>:/lock-hot.png</normalon>
-            </iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>64</width>
-             <height>64</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="ButtonSettings">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -468,7 +441,7 @@ WiFi Clients</string>
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgba(138, 226, 52, 1);</string>
+            <string notr="true">QPushButton { background-color: rgba(138, 226, 52, 1); } QPushButton::disabled { background-color: rgba(15, 54, 5, 1); }</string>
            </property>
            <property name="text">
             <string/>
@@ -476,6 +449,7 @@ WiFi Clients</string>
            <property name="icon">
             <iconset>
              <normalon>:/settings-hot.png</normalon>
+             <disabledon>:/lock-hot.png</disabledon>
             </iconset>
            </property>
            <property name="iconSize">

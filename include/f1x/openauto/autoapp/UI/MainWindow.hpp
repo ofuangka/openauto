@@ -92,6 +92,7 @@ class MainWindow : public QMainWindow {
   void refreshBluetooth();
   void readHostCapabilities();
   void readConfig();
+  void initStatuses();
 
   Ui::MainWindow *ui;
   configuration::IConfiguration::Pointer cfg;

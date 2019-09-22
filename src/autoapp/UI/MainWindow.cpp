@@ -103,18 +103,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
 
   lockSettings(false);
 
-  ui->ButtonAndroidAuto->hide();
-  ui->WifiWidget->hide();
   setPowerMenuVisibility(false);
-
-  if (std::ifstream(PATH_RECENT_SSIDS.c_str()) ||
-      std::ifstream(PATH_HOTSPOT_DETECTED.c_str())) {
-    ui->ButtonWifi->show();
-    ui->ButtonNoWifiDevice->hide();
-  } else {
-    ui->ButtonWifi->hide();
-    ui->ButtonNoWifiDevice->show();
-  }
 
   // init alpha values
   setNightMode(forceNightMode);
@@ -122,6 +111,7 @@ MainWindow::MainWindow(configuration::IConfiguration::Pointer cfg,
 
   sliders = new QList<QWidget *>();
   initSliders();
+  initStatuses();
 
   triggerWatch = new QFileSystemWatcher(this);
   triggerWatch->addPath("/tmp");
@@ -164,11 +154,28 @@ void MainWindow::readConfig() {
 
   // clock visibility
   ui->Clock->setVisible(!!cfg->showClock());
+
+  if (!forceEnableWifi) {
+    ui->WifiWidget->hide();
+  } else {
+    if (doesFileExist(PATH_RECENT_SSIDS.c_str()) ||
+        doesFileExist(PATH_HOTSPOT_DETECTED.c_str())) {
+      ui->ButtonWifi->show();
+      ui->ButtonNoWifiDevice->hide();
+    } else {
+      ui->ButtonWifi->hide();
+      ui->ButtonNoWifiDevice->show();
+    }
+  }
+}
+
+void MainWindow::initStatuses() {
+  ui->Locked->hide();
+  ui->Pairable->hide();
 }
 
 void MainWindow::lockSettings(bool lock) {
-  ui->ButtonSettings->setVisible(!lock);
-  ui->ButtonLock->setVisible(lock);
+  ui->ButtonSettings->setEnabled(!lock);
 }
 
 void MainWindow::onChangeHostMode(QBluetoothLocalDevice::HostMode mode) {
@@ -237,7 +244,6 @@ void MainWindow::updateTransparency() {
     setAlpha(alp, ui->ButtonBack);
     setAlpha(alp, ui->ButtonBrightness);
     setAlpha(alp, ui->ButtonVolume);
-    setAlpha(alp, ui->ButtonLock);
     setAlpha(alp, ui->ButtonSettings);
     setAlpha(alp, ui->ButtonDay);
     setAlpha(alp, ui->ButtonNight);
