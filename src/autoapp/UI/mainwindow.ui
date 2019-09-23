@@ -698,9 +698,6 @@ WiFi Clients</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="styleSheet">
-             <string notr="true">QSlider::handle:horizontal { background-color: rgba(164, 0, 0, 1); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
-            </property>
             <property name="maximum">
              <number>100</number>
             </property>
@@ -747,9 +744,6 @@ WiFi Clients</string>
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QSlider::handle:horizontal { background-color: rgba(245, 121, 0, 1); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
             </property>
             <property name="minimum">
              <number>30</number>
@@ -810,9 +804,6 @@ WiFi Clients</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="styleSheet">
-             <string notr="true">QSlider::handle:horizontal { background-color: rgba(115, 210, 22, 1); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
-            </property>
             <property name="minimum">
              <number>30</number>
             </property>
@@ -871,9 +862,6 @@ WiFi Clients</string>
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QSlider::handle:horizontal { background-color: rgba(64, 191, 191, 1); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 4px; }</string>
             </property>
             <property name="minimum">
              <number>30</number>

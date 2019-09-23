@@ -18,92 +18,70 @@
 
 #pragma once
 
-#include <memory>
+#include <sys/sysinfo.h>
+
+#include <QFileDialog>
 #include <QWidget>
 #include <f1x/openauto/autoapp/Configuration/IConfiguration.hpp>
-#include <QFileDialog>
-#include <sys/sysinfo.h>
+#include <memory>
 
 class QCheckBox;
 class QTimer;
 
-namespace Ui
-{
+namespace Ui {
 class SettingsWindow;
 }
 
-namespace f1x
-{
-namespace openauto
-{
-namespace autoapp
-{
-namespace ui
-{
+namespace f1x {
+namespace openauto {
+namespace autoapp {
+namespace ui {
 
-class SettingsWindow : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit SettingsWindow(configuration::IConfiguration::Pointer configuration, QWidget *parent = nullptr);
-    ~SettingsWindow() override;
-    void loadSystemValues();
+class SettingsWindow : public QWidget {
+  Q_OBJECT
+ public:
+  explicit SettingsWindow(configuration::IConfiguration::Pointer configuration,
+                          QWidget* parent = nullptr);
+  ~SettingsWindow() override;
+  void loadSystemValues();
 
-private slots:
-    void unpairAll();
-    void onSave();
-    void onResetToDefaults();
-    void onUpdateScreenDPI(int value);
-    void onUpdateAlphaTrans(int value);
-    void onUpdateBrightnessDay(int value);
-    void onUpdateBrightnessNight(int value);
-    void onUpdateSystemVolume(int value);
-    void onUpdateSystemCapture(int value);
-    void setTime();
-    void onStartHotspot();
-    void onStopHotspot();
-    void syncNTPTime();
-    void on_ButtonAudioTest_clicked();
-    void updateNetworkInfo();
-    void onUpdateLux1(int value);
-    void onUpdateLux2(int value);
-    void onUpdateLux3(int value);
-    void onUpdateLux4(int value);
-    void onUpdateLux5(int value);
-    void onUpdateBrightness1(int value);
-    void onUpdateBrightness2(int value);
-    void onUpdateBrightness3(int value);
-    void onUpdateBrightness4(int value);
-    void onUpdateBrightness5(int value);
-    void on_ButtonNetwork0_clicked();
-    void on_ButtonNetwork1_clicked();
-    void updateSystemInfo();
-    void updateInfo();
+ private slots:
+  void unpairAll();
+  void onSave();
+  void onResetToDefaults();
+  void onUpdateScreenDPI(int value);
+  void onUpdateAlphaTrans(int value);
+  void onUpdateBrightnessDay(int value);
+  void onUpdateBrightnessNight(int value);
+  void onUpdateSystemVolume(int value);
+  void onUpdateSystemCapture(int value);
+  void setTime();
+  void onStartHotspot();
+  void onStopHotspot();
+  void syncNTPTime();
+  void on_ButtonAudioTest_clicked();
+  void updateNetworkInfo();
+  void on_ButtonNetwork0_clicked();
+  void on_ButtonNetwork1_clicked();
+  void updateSystemInfo();
+  void updateInfo();
 
-public slots:
-    void show_tab1();
-    void show_tab2();
-    void show_tab3();
-    void show_tab4();
-    void show_tab5();
-    void show_tab6();
-    void show_tab7();
-    void show_tab8();
-    void show_tab9();
+ private:
+  void showEvent(QShowEvent* event);
+  void load();
+  void loadButtonCheckBoxes();
+  void saveButtonCheckBoxes();
+  void saveButtonCheckBox(
+      const QCheckBox* checkBox,
+      configuration::IConfiguration::ButtonCodes& buttonCodes,
+      aasdk::proto::enums::ButtonCode::Enum buttonCode);
+  void setButtonCheckBoxes(bool value);
 
-private:
-    void showEvent(QShowEvent* event);
-    void load();
-    void loadButtonCheckBoxes();
-    void saveButtonCheckBoxes();
-    void saveButtonCheckBox(const QCheckBox* checkBox, configuration::IConfiguration::ButtonCodes& buttonCodes, aasdk::proto::enums::ButtonCode::Enum buttonCode);
-    void setButtonCheckBoxes(bool value);
-
-    Ui::SettingsWindow* ui_;
-    configuration::IConfiguration::Pointer configuration_;
+  Ui::SettingsWindow* ui_;
+  configuration::IConfiguration::Pointer configuration_;
 };
 
-}
-}
-}
-}
+}  // namespace ui
+}  // namespace autoapp
+}  // namespace openauto
+}  // namespace f1x

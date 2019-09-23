@@ -119,8 +119,6 @@ int main(int argc, char* argv[]) {
                    &settingsWindow,
                    &autoapp::ui::SettingsWindow::showFullScreen);
   QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openSettings,
-                   &settingsWindow, &autoapp::ui::SettingsWindow::show_tab1);
-  QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openSettings,
                    &settingsWindow,
                    &autoapp::ui::SettingsWindow::loadSystemValues);
   QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openConnectDialog,
