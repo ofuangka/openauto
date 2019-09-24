@@ -174,7 +174,7 @@ int main(int argc, char* argv[]) {
         try {
           app->disableAutostartEntity = false;
           app->resume();
-          app->waitForUSBDevice();
+          app->listen();
         } catch (...) {
           OPENAUTO_LOG(error)
               << "[Autoapp] TriggerAppStart: app->waitForUSBDevice();";
@@ -221,7 +221,7 @@ int main(int argc, char* argv[]) {
                          << "[Autoapp] Close all possible open dialogs.";
                    });
 
-  app->waitForUSBDevice();
+  app->listen();
 
   auto result = qApplication.exec();
 

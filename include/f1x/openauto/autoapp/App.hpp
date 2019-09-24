@@ -41,7 +41,7 @@ public:
     App(boost::asio::io_service& ioService, aasdk::usb::USBWrapper& usbWrapper, aasdk::tcp::ITCPWrapper& tcpWrapper, service::IAndroidAutoEntityFactory& androidAutoEntityFactory,
         aasdk::usb::IUSBHub::Pointer usbHub, aasdk::usb::IConnectedAccessoriesEnumerator::Pointer connectedAccessoriesEnumerator);
 
-    void waitForUSBDevice();
+    void listen();
     void start(aasdk::tcp::ITCPEndpoint::SocketPointer socket);
     void stop();
     void pause();
@@ -58,13 +58,13 @@ private:
 
     boost::asio::io_service& ioService_;
     aasdk::usb::USBWrapper& usbWrapper_;
-    aasdk::tcp::ITCPWrapper& tcpWrapper_;
-    boost::asio::io_service::strand strand_;
-    service::IAndroidAutoEntityFactory& androidAutoEntityFactory_;
-    aasdk::usb::IUSBHub::Pointer usbHub_;
-    aasdk::usb::IConnectedAccessoriesEnumerator::Pointer connectedAccessoriesEnumerator_;
-    service::IAndroidAutoEntity::Pointer androidAutoEntity_;
-    bool isStopped_;
+    aasdk::tcp::ITCPWrapper& tcpWrapper;
+    boost::asio::io_service::strand strand;
+    service::IAndroidAutoEntityFactory& androidAutoEntityFactory;
+    aasdk::usb::IUSBHub::Pointer usbHub;
+    aasdk::usb::IConnectedAccessoriesEnumerator::Pointer connectedAccessoriesEnumerator;
+    service::IAndroidAutoEntity::Pointer androidAutoEntity;
+    bool isStopped;
 };
 
 }
